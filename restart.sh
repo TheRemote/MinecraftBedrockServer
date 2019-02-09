@@ -2,6 +2,12 @@
 # James Chambers - February 8th 2019
 # Minecraft Bedrock Server restart script
 
+# Check if server is started
+if screen -list | grep -q "minecraft"; then
+    echo "Server is not currently running!"
+    exit 0
+fi
+
 screen -Rd minecraft -X stuff "say Server is restarting in 30 seconds! $(printf '\r')"
 sleep 23s
 screen -Rd minecraft -X stuff "say Server is restarting in 7 seconds! $(printf '\r')"
@@ -19,20 +25,18 @@ sleep 1s
 screen -Rd minecraft -X stuff "say Server is restarting in 1 second! $(printf '\r')"
 sleep 1s
 screen -Rd minecraft -X stuff "say Closing server...$(printf '\r')"
-screen -Rd minecraft -X stuff "save $(printf '\r')"
-sleep 5s
 screen -Rd minecraft -X stuff "stop $(printf '\r')"
-sleep 15s
+sleep 10s
   
 if screen -list | grep -q "minecraft"; then
-    # Server still hasn't stopped after 20s, tell Screen to close it
-    echo "Minecraft server still hasn't closed after 20 seconds, closing screen manually"
+    # Server still hasn't stopped after 10s, tell Screen to close it
+    echo "Minecraft server still hasn't closed after 10 seconds, closing screen manually"
     screen -S minecraft -X quit
 fi
 
 # Start server
 cd /home/replace/minecraft/
-cp -r worlds backup$(date +%Y.%m.%d.%H.%M.%S)
+cp -r worlds backups/$(date +%Y.%m.%d.%H.%M.%S)
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."

@@ -20,6 +20,7 @@ echo "Creating minecraft server directory..."
 mkdir minecraft
 cd minecraft
 mkdir downloads
+mkdir backups
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."

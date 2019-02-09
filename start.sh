@@ -1,10 +1,16 @@
 #!/bin/bash
-# James Chambers - February 3rd 2019
+# James Chambers - February 8th 2019
 # Minecraft Bedrock server startup script using screen
+
+# Check if server is already started
+if screen -list | grep -q "minecraft"; then
+    echo "Server is already started!  Press screen -r minecraft to open it"
+    exit 1
+fi
 
 # Start server
 cd /home/replace/minecraft/
-cp -r worlds backup$(date +%Y.%m.%d.%H.%M.%S)
+cp -r worlds backups/$(date +%Y.%m.%d.%H.%M.%S)
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."
