@@ -1,7 +1,7 @@
 #!/bin/bash
 # Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
-echo "Minecraft Bedrock Server installation script by James Chambers - V1.0 - February 8th 2019"
+echo "Minecraft Bedrock Server installation script by James Chambers - February 8th 2019"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
@@ -31,6 +31,7 @@ echo "$DownloadFile"
 
 # Download latest version of Minecraft Bedrock dedicated server
 echo "Downloading the latest version of Minecraft Bedrock server..."
+UserName=$(whoami)
 wget -O "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 
@@ -53,7 +54,6 @@ chmod +x restart.sh
 sed -i "s/replace/$UserName/g" restart.sh
 
 # Server configuration
-UserName=$(whoami)
 echo "Enter a name for your server..."
 read -p 'Server Name: ' ServerName
 sudo sed -i "s/server-name=Dedicated Server/server-name=$ServerName/g" server.properties
@@ -83,7 +83,7 @@ fi
 echo "Setup is complete.  Starting Minecraft server..."
 sudo systemctl start minecraft.service
 
-# Sleep for 5 seconds to give the server time to start
-sleep 5
+# Sleep for 2 seconds to give the server time to start
+sleep 2
 
 screen -r minecraft
