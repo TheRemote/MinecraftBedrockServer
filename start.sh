@@ -13,13 +13,13 @@ DownloadURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' download
 DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
 
 # Download latest version of Minecraft Bedrock dedicated server
-if [ -f "$DownloadFile" ]
+if [ -f "downloads/$DownloadFile" ]
 then
 	echo "Minecraft Bedrock server is up to date..."
 else
 	echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server..."
     wget -O "downloads/$DownloadFile" "$DownloadURL"
-    unzip -o "downloads/$DownloadFile" -x "server.properties" -x "permissions.json" -x "whitelist.json"
+    unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*"
 fi
 
 echo "Starting Minecraft server.  To view window type screen -r minecraft."
