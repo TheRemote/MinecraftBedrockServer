@@ -12,8 +12,8 @@ if [ -d "minecraft" ]; then
 fi
 
 # Install screen to run minecraft in the background
-echo "Installing screen..."
-sudo apt-get install screen -y
+echo "Installing screen and unzip..."
+sudo apt-get install screen unzip -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
