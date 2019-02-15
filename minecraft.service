@@ -1,6 +1,6 @@
 [Unit]
 Description=minecraft server service
-After=network.target
+After=network-online.target
 
 [Service]
 User=replace
