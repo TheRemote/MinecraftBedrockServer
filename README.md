@@ -9,8 +9,9 @@ chmod +x SetupMinecraft.sh<br>
 <b>Version History</b><br>
 <br>
 February 15th 2019<br>
-Backups now compress into .tar.gz format (saved in backups folder)<br>
-Startup service waits up to 20 seconds for an internet connection to allow time for DHCP to retrieve an IP address<br>
+-Backups now compress into .tar.gz format (saved in backups folder)<br>
+-Startup service waits up to 20 seconds for an internet connection to allow time for DHCP to retrieve an IP address<br>
+-Removed unnecessary sleep time on stop.sh script so it returns as soon as the minecraft server closes<br>
 <br>
 February 8th 2019<br>
-Initial release<br>
+-Initial release<br>
