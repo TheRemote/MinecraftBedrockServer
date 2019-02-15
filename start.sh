@@ -26,6 +26,7 @@ done
 cd /home/replace/minecraft/
 
 # Create backup
+echo "Backing up server (to minecraft/backups folder)"
 tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
