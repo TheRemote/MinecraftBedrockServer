@@ -36,4 +36,4 @@ if screen -list | grep -q "minecraftbe"; then
 fi
 
 # Start server
-/bin/bash /home/replace/minecraftbe/start.sh
+/bin/bash ~/minecraftbe/start.sh

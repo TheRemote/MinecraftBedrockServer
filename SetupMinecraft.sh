@@ -12,8 +12,8 @@ if [ -d "minecraftbe" ]; then
 fi
 
 # Install screen to run minecraft in the background
-echo "Installing screen and unzip..."
-sudo apt-get install screen unzip -y
+echo "Installing screen, unzip, sudo..."
+sudo apt-get install screen unzip sudo -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
@@ -34,9 +34,9 @@ if [[ "$CPUArch" == *"aarch"* ]]; then
   # Retrieve depends.zip from GitHub repository
   wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
   unzip depends.zip
-  mkdir /lib64
+  sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.28.so
-  ln -s /lib64/ld-linux-x86-64.so.2 ~/minecraftbe/ld-2.28.so
+  sudo ln -s ~/minecraftbe/ld-2.28.so /lib64/ld-linux-x86-64.so.2 
 fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
