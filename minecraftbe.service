@@ -4,10 +4,10 @@ After=network-online.target
 
 [Service]
 User=replace
-WorkingDirectory=dirname/minecraft
+WorkingDirectory=dirname/minecraftbe
 Type=forking
-ExecStart=/bin/bash dirname/minecraft/start.sh
-ExecStop=/bin/bash dirname/minecraft/stop.sh
+ExecStart=/bin/bash dirname/minecraftbe/start.sh
+ExecStop=/bin/bash dirname/minecraftbe/stop.sh
 GuessMainPID=no
 
 [Install]

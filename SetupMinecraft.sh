@@ -58,22 +58,19 @@ unzip -o "downloads/$DownloadFile"
 echo "Grabbing start.sh from repository..."
 wget -O start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
 chmod +x start.sh
-sed -i "s/replace/$UserName/g" start.sh
-sed -i "s/dirname/$DirName/g" start.sh
+sed -i "s:dirname:$DirName:g" start.sh
 
 # Download stop.sh from repository
 echo "Grabbing stop.sh from repository..."
 wget -O stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
 chmod +x stop.sh
-sed -i "s/replace/$UserName/g" stop.sh
-sed -i "s/dirname/$DirName/g" stop.sh
+sed -i "s:dirname:$DirName:g" stop.sh
 
 # Download restart.sh from repository
 echo "Grabbing restart.sh from repository..."
 wget -O restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
 chmod +x restart.sh
-sed -i "s/replace/$UserName/g" restart.sh
-sed -i "s/dirname/$DirName/g" restart.sh
+sed -i "s:dirname:$DirName:g" restart.sh
 
 # Server configuration
 echo "Enter a name for your server..."
@@ -84,7 +81,7 @@ sudo sed -i "s/server-name=Dedicated Server/server-name=$ServerName/g" server.pr
 sudo wget -O /etc/systemd/system/minecraftbe.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
 sudo chmod +x /etc/systemd/system/minecraftbe.service
 sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/minecraftbe.service
-sudo sed -i "s/dirname/$DirName/g" /etc/systemd/system/minecraftbe.service
+sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/minecraftbe.service
 sudo systemctl daemon-reload
 echo -n "Start Minecraft server at startup automatically (y/n)?"
 read answer
@@ -95,7 +92,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   echo -n "Automatically restart and update server at 4am daily (y/n)?"
   read answer
   if [ "$answer" != "${answer#[Yy]}" ]; then
-    croncmd="/home/$UserName/minecraftbe/restart.sh"
+    croncmd="$DirName/minecraftbe/restart.sh"
     cronjob="0 4 * * * $croncmd"
     ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
     echo "Daily restart scheduled.  To change time or remove automatic restart type crontab -e"
