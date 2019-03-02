@@ -50,7 +50,7 @@ echo "$DownloadFile"
 # Download latest version of Minecraft Bedrock dedicated server
 echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
-DirName=$(dirname ~)
+DirName=$(readlink -e ~)
 wget -O "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 
