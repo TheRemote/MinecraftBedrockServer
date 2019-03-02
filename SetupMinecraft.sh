@@ -6,8 +6,8 @@ echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServ
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
 # Check to see if Minecraft directory already exists, if it does then exit
-if [ -d "minecraft" ]; then
-  echo "Directory minecraft already exists!  Exiting..."
+if [ -d "minecraftbe" ]; then
+  echo "Directory minecraftbe already exists!  Exiting..."
   exit 1
 fi
 
@@ -17,10 +17,27 @@ sudo apt-get install screen unzip -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
-mkdir minecraft
-cd minecraft
+cd ~
+mkdir minecraftbe
+cd minecraftbe
 mkdir downloads
 mkdir backups
+
+# Check CPU archtecture to see if we need to do anything for the platform the server is running on
+echo "Getting system CPU architecture..."
+CPUArch=$(uname -m)
+echo "System Architecture: $CPUArch"
+if [[ "$CPUArch" == *"aarch"* ]]; then
+  # ARM architecture detected -- download QEMU and dependency libraries
+  echo "ARM platform detected -- installing dependencies..."
+  sudo apt-get install qemu-user-static -y
+  # Retrieve depends.zip from GitHub repository
+  wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
+  unzip depends.zip
+  mkdir /lib64
+  # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.28.so
+  ln -s /lib64/ld-linux-x86-64.so.2 ~/minecraftbe/ld-2.28.so
+fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."
@@ -60,20 +77,20 @@ read -p 'Server Name: ' ServerName
 sudo sed -i "s/server-name=Dedicated Server/server-name=$ServerName/g" server.properties
 
 # Service configuration
-sudo wget -O /etc/systemd/system/minecraft.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraft.service
-sudo chmod +x /etc/systemd/system/minecraft.service
-sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/minecraft.service
+sudo wget -O /etc/systemd/system/minecraftbe.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
+sudo chmod +x /etc/systemd/system/minecraftbe.service
+sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/minecraftbe.service
 sudo systemctl daemon-reload
 echo -n "Start Minecraft server at startup automatically (y/n)?"
 read answer
 if [ "$answer" != "${answer#[Yy]}" ]; then
-  sudo systemctl enable minecraft.service
+  sudo systemctl enable minecraftbe.service
 
   # Automatic reboot at 4am configuration
   echo -n "Automatically restart and update server at 4am daily (y/n)?"
   read answer
   if [ "$answer" != "${answer#[Yy]}" ]; then
-    croncmd="/home/$UserName/minecraft/restart.sh"
+    croncmd="/home/$UserName/minecraftbe/restart.sh"
     cronjob="0 4 * * * $croncmd"
     ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
     echo "Daily restart scheduled.  To change time or remove automatic restart type crontab -e"
@@ -82,9 +99,9 @@ fi
 
 # Finished!
 echo "Setup is complete.  Starting Minecraft server..."
-sudo systemctl start minecraft.service
+sudo systemctl start minecraftbe.service
 
 # Sleep for 2 seconds to give the server time to start
 sleep 2
 
-screen -r minecraft
+screen -r minecraftbe

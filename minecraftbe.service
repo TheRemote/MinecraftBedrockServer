@@ -1,0 +1,14 @@
+[Unit]
+Description=minecraft server service
+After=network-online.target
+
+[Service]
+User=replace
+WorkingDirectory=/home/replace/minecraft
+Type=forking
+ExecStart=/bin/bash /home/replace/minecraft/start.sh
+ExecStop=/bin/bash /home/replace/minecraft/stop.sh
+GuessMainPID=no
+
+[Install]
+WantedBy=multi-user.target

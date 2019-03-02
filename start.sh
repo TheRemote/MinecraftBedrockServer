@@ -3,8 +3,8 @@
 # Minecraft Bedrock server startup script using screen
 
 # Check if server is already started
-if screen -list | grep -q "minecraft"; then
-    echo "Server is already started!  Press screen -r minecraft to open it"
+if screen -list | grep -q "minecraftbe"; then
+    echo "Server is already started!  Press screen -r minecraftbe to open it"
     exit 1
 fi
 
@@ -23,10 +23,10 @@ while [ -z "$DefaultRoute" ]; do
 done
 
 # Change directory to server directory
-cd /home/replace/minecraft/
+cd /home/replace/minecraftbe/
 
 # Create backup
-echo "Backing up server (to minecraft/backups folder)"
+echo "Backing up server (to minecraftbe/backups folder)"
 tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
@@ -54,4 +54,4 @@ fi
 
 echo "Starting Minecraft server.  To view window type screen -r minecraft."
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
-/usr/bin/screen -dmS minecraft /bin/bash -c "LD_LIBRARY_PATH=/home/replace/minecraft /home/replace/minecraft/bedrock_server"
+/usr/bin/screen -dmS minecraftbe /bin/bash -c "LD_LIBRARY_PATH=/home/replace/minecraftbe /home/replace/minecraftbe/bedrock_server"
