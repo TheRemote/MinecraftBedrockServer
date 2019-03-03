@@ -1,7 +1,7 @@
 #!/bin/bash
 # Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
-echo "Minecraft Bedrock Server installation script by James Chambers - February 8th 2019"
+echo "Minecraft Bedrock Server installation script by James Chambers - March 2nd 2019"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
@@ -11,9 +11,9 @@ if [ -d "minecraftbe" ]; then
   exit 1
 fi
 
-# Install screen to run minecraft in the background
-echo "Installing screen, unzip, sudo..."
-sudo apt-get install screen unzip sudo -y
+# Install dependencies required to run Minecraft server in the background
+echo "Installing screen, unzip, sudo, net-tools..."
+sudo apt-get install screen unzip sudo net-tools -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
@@ -36,7 +36,7 @@ if [[ "$CPUArch" == *"aarch"* ]]; then
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.28.so
-  sudo ln -s ~/minecraftbe/ld-2.28.so /lib64/ld-linux-x86-64.so.2 
+  sudo ln -s ~/minecraftbe/ld-2.28.so /lib64/ld-linux-x86-64.so.2
 fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server

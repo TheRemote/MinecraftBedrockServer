@@ -1,5 +1,5 @@
 #!/bin/bash
-# James Chambers - February 15th 2019
+# James Chambers - March 2nd 2019
 # Minecraft Bedrock server startup script using screen
 
 # Check if server is already started
