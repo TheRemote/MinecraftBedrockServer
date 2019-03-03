@@ -62,6 +62,7 @@ fi
 
 # Install dependencies required to run Minecraft server in the background
 echo "Installing screen, unzip, sudo, net-tools, wget..."
+apt-get install sudo
 sudo apt-get install screen unzip sudo net-tools wget -y
 
 # Create server directory
@@ -102,7 +103,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
     echo "QEMU-x86_64-static installed successfully"
   else
     echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
-    rm -rf minecraftbe
+    rm -rf ~/minecraftbe
     exit 1
   fi
   

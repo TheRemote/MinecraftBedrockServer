@@ -1,10 +1,15 @@
 # Minecraft Bedrock Server
-Sets up a Minecraft Bedrock dedicated server on Ubuntu with options for automatic updates and running at startup<br>
+Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian / Raspbian with options for automatic updates, backups and running automatically at startup<br>
 <br>
 To get started type:<br>
 wget -O SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh<br>
 chmod +x SetupMinecraft.sh<br>
 ./SetupMinecraft.sh<br>
+<br>
+<b>Tested Platforms</b><br>
+-Ubuntu / Ubuntu Server 18.04<br>
+-Debian Stretch / Buster<br>
+-Raspbian Stretch<br>
 <br>
 <b>Version History</b><br>
 <br>
