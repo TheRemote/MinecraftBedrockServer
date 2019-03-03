@@ -9,7 +9,8 @@ chmod +x SetupMinecraft.sh<br>
 <b>Version History</b><br>
 <br>
 March 2nd 2019<br>
--Script now works on any Debian based distribution (Ubuntu, Debian, Raspbian, etc.)
+-Running the SetupMinecraft.sh script after already installing now updates all scripts and reconfigures the minecraftbe service<br>
+-Script now works on any Debian based distribution (Ubuntu, Debian, Raspbian, etc.)<br>
 -Added *very slow* support for ARM platforms such as Raspberry Pi with QEMU emulation of x86_64<br>
 -Renamed service to minecraftbe to avoid confusion with Java version<br>
 <br>

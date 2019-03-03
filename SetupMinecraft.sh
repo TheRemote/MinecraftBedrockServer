@@ -7,13 +7,62 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 
 # Check to see if Minecraft directory already exists, if it does then exit
 if [ -d "minecraftbe" ]; then
-  echo "Directory minecraftbe already exists!  Exiting..."
-  exit 1
+  echo "Directory minecraft already exists!  Updating scripts and configuring service ..."
+
+  # Remove existing scripts
+  rm minecraft/start.sh minecraft/stop.sh minecraft/restart.sh
+
+  # Get Home directory path and username
+  DirName=$(readlink -e ~)
+  UserName=$(whoami)
+
+  # Download start.sh from repository
+  echo "Grabbing start.sh from repository..."
+  wget -O start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
+  chmod +x start.sh
+  sed -i "s:dirname:$DirName:g" start.sh
+
+  # Download stop.sh from repository
+  echo "Grabbing stop.sh from repository..."
+  wget -O stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
+  chmod +x stop.sh
+  sed -i "s:dirname:$DirName:g" stop.sh
+
+  # Download restart.sh from repository
+  echo "Grabbing restart.sh from repository..."
+  wget -O restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
+  chmod +x restart.sh
+  sed -i "s:dirname:$DirName:g" restart.sh
+
+  # Update minecraftbe service
+  echo "Configuring minecraftbe service..."
+  sudo wget -O /etc/systemd/system/minecraftbe.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
+  sudo chmod +x /etc/systemd/system/minecraftbe.service
+  sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/minecraftbe.service
+  sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/minecraftbe.service
+  sudo systemctl daemon-reload
+  echo -n "Start Minecraft server at startup automatically (y/n)?"
+  read answer
+  if [ "$answer" != "${answer#[Yy]}" ]; then
+    sudo systemctl enable minecraftbe.service
+
+    # Automatic reboot at 4am configuration
+    echo -n "Automatically restart and backup server at 4am daily (y/n)?"
+    read answer
+    if [ "$answer" != "${answer#[Yy]}" ]; then
+      croncmd="$DirName/minecraftbe/restart.sh"
+      cronjob="0 4 * * * $croncmd"
+      ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
+      echo "Daily restart scheduled.  To change time or remove automatic restart type crontab -e"
+    fi
+  fi
+
+  exit 0
 fi
 
 # Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools..."
-sudo apt-get install screen unzip sudo net-tools -y
+echo "Installing screen, unzip, sudo, net-tools, wget..."
+sudo apt-get install screen unzip sudo net-tools wget -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
@@ -34,7 +83,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
   if [[ "$QEMUVer" -lt "3" ]]; then
     echo "Available QEMU version is not high enough to emulate x86_64.  Downloading alternative..."
-    if [[ "$CPUArch" == *"armv71"* || "$CPUArch" == *"armhf"* ]]; then
+    if [[ "$CPUArch" == *"armv7"* || "$CPUArch" == *"armhf"* ]]; then
       wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-4_armhf.deb
       wget http://ftp.us.debian.org/debian/pool/main/b/binfmt-support/binfmt-support_2.2.0-2_armhf.deb
       sudo dpkg --install binfmt*.deb
@@ -53,6 +102,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
     echo "QEMU-x86_64-static installed successfully"
   else
     echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
+    rm -rf minecraftbe
     exit 1
   fi
   
@@ -103,6 +153,7 @@ read -p 'Server Name: ' ServerName
 sudo sed -i "s/server-name=Dedicated Server/server-name=$ServerName/g" server.properties
 
 # Service configuration
+echo "Configuring minecraftbe service..."
 sudo wget -O /etc/systemd/system/minecraftbe.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
 sudo chmod +x /etc/systemd/system/minecraftbe.service
 sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/minecraftbe.service
@@ -114,7 +165,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   sudo systemctl enable minecraftbe.service
 
   # Automatic reboot at 4am configuration
-  echo -n "Automatically restart and update server at 4am daily (y/n)?"
+  echo -n "Automatically restart and backup server at 4am daily (y/n)?"
   read answer
   if [ "$answer" != "${answer#[Yy]}" ]; then
     croncmd="$DirName/minecraftbe/restart.sh"
