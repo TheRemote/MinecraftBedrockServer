@@ -31,7 +31,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   # ARM architecture detected -- download QEMU and dependency libraries
   echo "ARM platform detected -- installing dependencies..."
   # Check if latest available QEMU version is at least 3.0 or higher
-  $QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
+  QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
   if [[ "$QEMUVer" -lt "3" ]]; then
     echo "Available QEMU version is not high enough to emulate x86_64.  Downloading alternative..."
     if [[ "$CPUArch" == *"armv71"* || "$CPUArch" == *"armhf"* ]]; then
