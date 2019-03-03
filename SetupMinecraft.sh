@@ -27,7 +27,7 @@ mkdir backups
 echo "Getting system CPU architecture..."
 CPUArch=$(uname -m)
 echo "System Architecture: $CPUArch"
-if [[ "$CPUArch" == *"aarch"* ]]; then
+if [[ "$CPUArch" == *"aarch"* ]] || [[ "$CPUArch" == *"arm"* ]]; then
   # ARM architecture detected -- download QEMU and dependency libraries
   echo "ARM platform detected -- installing dependencies..."
   sudo apt-get install qemu-user-static -y
