@@ -62,8 +62,9 @@ fi
 
 # Install dependencies required to run Minecraft server in the background
 echo "Installing screen, unzip, sudo, net-tools, wget..."
-apt-get install sudo
-sudo apt-get install screen unzip sudo net-tools wget -y
+apt-get update && apt-get install sudo -y
+sudo apt-get update
+sudo apt-get install screen unzip net-tools wget -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
