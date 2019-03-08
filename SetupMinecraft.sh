@@ -5,6 +5,14 @@ echo "Minecraft Bedrock Server installation script by James Chambers - March 2nd
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
+# Install dependencies required to run Minecraft server in the background
+echo "Installing screen, unzip, sudo, net-tools, wget, bc..."
+if [ ! -n "`which sudo`" ]; then
+  apt-get update && apt-get install sudo -y
+fi
+sudo apt-get update
+sudo apt-get install screen unzip net-tools wget bc -y
+
 # Check to see if Minecraft directory already exists, if it does then exit
 if [ -d "minecraftbe" ]; then
   echo "Directory minecraft already exists!  Updating scripts and configuring service ..."
@@ -59,12 +67,6 @@ if [ -d "minecraftbe" ]; then
 
   exit 0
 fi
-
-# Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools, wget..."
-apt-get update && apt-get install sudo -y
-sudo apt-get update
-sudo apt-get install screen unzip net-tools wget -y
 
 # Create server directory
 echo "Creating minecraft server directory..."
@@ -167,6 +169,10 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   sudo systemctl enable minecraftbe.service
 
   # Automatic reboot at 4am configuration
+  TimeZone=$(cat /etc/timezone)
+  CurrentTime=$(date)
+  echo "Your time zone is currently set to $TimeZone.  Current system time: $CurrentTime"
+  echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
   echo -n "Automatically restart and backup server at 4am daily (y/n)?"
   read answer
   if [ "$answer" != "${answer#[Yy]}" ]; then

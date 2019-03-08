@@ -32,7 +32,7 @@ tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."
 # Test internet connectivity first
-/usr/bin/wget --spider --quiet https://minecraft.net/en-us/download/server/bedrock/
+wget --spider --quiet https://minecraft.net/en-us/download/server/bedrock/
 if [ "$?" != 0 ]; then
     echo "Unable to connect to update website (internet connection may be down).  Skipping update ..."
 else
@@ -54,4 +54,4 @@ fi
 
 echo "Starting Minecraft server.  To view window type screen -r minecraft."
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
-/usr/bin/screen -dmS minecraftbe /bin/bash -c "LD_LIBRARY_PATH=dirname/minecraftbe dirname/minecraftbe/bedrock_server"
+screen -dmS minecraftbe /bin/bash -c "LD_LIBRARY_PATH=dirname/minecraftbe dirname/minecraftbe/bedrock_server"
