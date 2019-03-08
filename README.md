@@ -1,5 +1,5 @@
 # Minecraft Bedrock Server
-Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian / Raspbian with options for automatic updates, backups and running automatically at startup<br>
+Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian / Raspbian / Armbian with options for automatic updates, backups and running automatically at startup<br>
 <br>
 To get started type:<br>
 wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh<br>
@@ -21,6 +21,11 @@ chmod +x SetupMinecraft.sh<br>
 --Tinkerboard<br>
 <br>
 <b>Update History</b><br>
+<br>
+March 7th 2019<br>
+-Added Armbian support<br>
+-Tested with Tinkerboard<br>
+-Fixed portability issue with route vs /sbin/route<br>
 <br>
 March 2nd 2019<br>
 -Running the SetupMinecraft.sh script after already installing now updates all scripts and reconfigures the minecraftbe service<br>

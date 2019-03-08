@@ -1,7 +1,7 @@
 #!/bin/bash
 # Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
-echo "Minecraft Bedrock Server installation script by James Chambers - March 2nd 2019"
+echo "Minecraft Bedrock Server installation script by James Chambers - March 7th 2019"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 

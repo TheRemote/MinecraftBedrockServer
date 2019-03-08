@@ -1,5 +1,5 @@
 #!/bin/bash
-# James Chambers - March 2nd 2019
+# James Chambers - March 7th 2019
 # Minecraft Bedrock server startup script using screen
 
 # Check if server is already started
@@ -10,11 +10,11 @@ fi
 
 # Check if network interfaces are up
 NetworkChecks=0
-DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
+DefaultRoute=$(/sbin/route -n | awk '$4 == "UG" {print $2}')
 while [ -z "$DefaultRoute" ]; do
     echo "Network interface not up, will try again in 1 second";
     sleep 1;
-    DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
+    DefaultRoute=$(/sbin/route -n | awk '$4 == "UG" {print $2}')
     ((NetworkChecks++))
     if [ $NetworkChecks -gt 20 ]; then
         echo "Waiting for network interface to come up timed out - starting server without network connection ..."
@@ -26,11 +26,14 @@ done
 cd dirname/minecraftbe/
 
 # Create backup
-echo "Backing up server (to minecraftbe/backups folder)"
-tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
+if [ -d "worlds" ]; then
+    echo "Backing up server (to minecraftbe/backups folder)"
+    tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
+fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
-echo "Checking for the latest version of Minecraft Bedrock server..."
+echo "Checking for the latest version of Minecraft Bedrock server ..."
+
 # Test internet connectivity first
 wget --spider --quiet https://minecraft.net/en-us/download/server/bedrock/
 if [ "$?" != 0 ]; then
@@ -46,7 +49,7 @@ else
     then
         echo "Minecraft Bedrock server is up to date..."
     else
-        echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server..."
+        echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server ..."
         wget -O "downloads/$DownloadFile" "$DownloadURL"
         unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*"
     fi
