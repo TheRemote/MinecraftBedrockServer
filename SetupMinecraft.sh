@@ -14,7 +14,7 @@ sudo apt-get update
 sudo apt-get install screen unzip net-tools wget bc -y
 
 # Check to see if Minecraft directory already exists, if it does then exit
-if [ -d "minecraftbe" ]; then
+if [ -d "~/minecraftbe" ]; then
   echo "Directory minecraft already exists!  Updating scripts and configuring service ..."
 
   # Remove existing scripts
@@ -23,6 +23,7 @@ if [ -d "minecraftbe" ]; then
   # Get Home directory path and username
   DirName=$(readlink -e ~)
   UserName=$(whoami)
+  cd ~/minecraftbe
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
