@@ -1,7 +1,7 @@
 #!/bin/bash
 # Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
-echo "Minecraft Bedrock Server installation script by James Chambers - March 7th 2019"
+echo "Minecraft Bedrock Server installation script by James Chambers - March 30th 2019"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
@@ -50,13 +50,13 @@ if [ -d "minecraftbe" ]; then
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/minecraftbe.service
   sudo systemctl daemon-reload
   echo -n "Start Minecraft server at startup automatically (y/n)?"
-  read answer
+  read answer < /dev/tty
   if [ "$answer" != "${answer#[Yy]}" ]; then
     sudo systemctl enable minecraftbe.service
 
     # Automatic reboot at 4am configuration
     echo -n "Automatically restart and backup server at 4am daily (y/n)?"
-    read answer
+    read answer < /dev/tty
     if [ "$answer" != "${answer#[Yy]}" ]; then
       croncmd="$DirName/minecraftbe/restart.sh"
       cronjob="0 4 * * * $croncmd"
@@ -153,7 +153,7 @@ sed -i "s:dirname:$DirName:g" restart.sh
 
 # Server configuration
 echo "Enter a name for your server..."
-read -p 'Server Name: ' ServerName
+read -p 'Server Name: ' ServerName < /dev/tty
 sudo sed -i "s/server-name=Dedicated Server/server-name=$ServerName/g" server.properties
 
 # Service configuration
@@ -164,7 +164,7 @@ sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/minecraftbe.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/minecraftbe.service
 sudo systemctl daemon-reload
 echo -n "Start Minecraft server at startup automatically (y/n)?"
-read answer
+read answer < /dev/tty
 if [ "$answer" != "${answer#[Yy]}" ]; then
   sudo systemctl enable minecraftbe.service
 
@@ -174,7 +174,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   echo "Your time zone is currently set to $TimeZone.  Current system time: $CurrentTime"
   echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
   echo -n "Automatically restart and backup server at 4am daily (y/n)?"
-  read answer
+  read answer < /dev/tty
   if [ "$answer" != "${answer#[Yy]}" ]; then
     croncmd="$DirName/minecraftbe/restart.sh"
     cronjob="0 4 * * * $croncmd"
