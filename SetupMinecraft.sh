@@ -68,6 +68,15 @@ if [ -d "minecraftbe" ]; then
     fi
   fi
 
+  # Setup completed
+  echo "Setup is complete.  Starting Minecraft server..."
+  sudo systemctl start minecraftbe.service
+
+  # Sleep for 4 seconds to give the server time to start
+  sleep 4s
+
+  screen -r minecraftbe
+
   exit 0
 fi
 
@@ -190,7 +199,7 @@ fi
 echo "Setup is complete.  Starting Minecraft server..."
 sudo systemctl start minecraftbe.service
 
-# Sleep for 2 seconds to give the server time to start
-sleep 2
+# Sleep for 4 seconds to give the server time to start
+sleep 4s
 
 screen -r minecraftbe
