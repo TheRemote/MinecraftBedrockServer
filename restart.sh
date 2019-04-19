@@ -38,7 +38,7 @@ while [ $StopChecks -lt 30 ]; do
     break
   fi
   /bin/sleep 1;
-  ((StopChecks++))
+  StopChecks=$((StopChecks+1))
 done
 
 if screen -list | grep -q "minecraftbe"; then

@@ -20,7 +20,7 @@ while [ $StopChecks -lt 20 ]; do
     break
   fi
   sleep 1;
-  ((StopChecks++))
+  StopChecks=$((StopChecks+1))
 done
 
 # Force quit if server is still open
