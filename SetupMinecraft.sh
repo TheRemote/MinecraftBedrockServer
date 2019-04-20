@@ -100,12 +100,12 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   if [[ "$QEMUVer" -lt "3" ]]; then
     echo "Available QEMU version is not high enough to emulate x86_64.  Downloading alternative..."
     if [[ "$CPUArch" == *"armv7"* || "$CPUArch" == *"armhf"* ]]; then
-      wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-4_armhf.deb
+      wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-7_armhf.deb
       wget http://ftp.us.debian.org/debian/pool/main/b/binfmt-support/binfmt-support_2.2.0-2_armhf.deb
       sudo dpkg --install binfmt*.deb
       sudo dpkg --install qemu-user*.deb
     elif [[ "$CPUArch" == *"aarch64"* || "$CPUArch" == *"arm64"* ]]; then
-      wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-4_arm64.deb
+      wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-7_arm64.deb
       wget http://ftp.us.debian.org/debian/pool/main/b/binfmt-support/binfmt-support_2.2.0-2_arm64.deb
       sudo dpkg --install binfmt*.deb
       sudo dpkg --install qemu-user*.deb
