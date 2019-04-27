@@ -221,8 +221,4 @@ if ! screen -list | grep -q "minecraftbe"; then
   echo "Minecraft server failed to start after 20 seconds."
 fi
 
-# Take ownership of the script
-script /dev/null
-
-# Connect to minecraft server screen instance
-screen -r minecraftbe
+screen -r minecraftbe | bash
