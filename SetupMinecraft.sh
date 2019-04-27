@@ -14,6 +14,7 @@ sudo apt-get update
 sudo apt-get install screen unzip net-tools wget bc -y
 
 # Check to see if Minecraft directory already exists, if it does then exit
+cd ~
 if [ -d "minecraftbe" ]; then
   echo "Directory minecraftbe already exists!  Updating scripts and configuring service ..."
 
@@ -111,7 +112,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
       sudo dpkg --install qemu-user*.deb
     fi
   else
-    sudo apt-get install qemu-user-static -y
+    sudo apt-get install qemu-user-static binfmt-support -y
   fi
 
   if [ -n "`which qemu-x86_64-static`" ]; then
