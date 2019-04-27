@@ -1,6 +1,12 @@
 #!/bin/bash
 # Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com
+#
+# Instructions: https://jamesachambers.com/2019/03/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+# To run the setup script use:
+# curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
+#
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
+
 echo "Minecraft Bedrock Server installation script by James Chambers - March 30th 2019"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
@@ -215,4 +221,8 @@ if ! screen -list | grep -q "minecraftbe"; then
   echo "Minecraft server failed to start after 20 seconds."
 fi
 
+# Take ownership of the script
+script /dev/null
+
+# Connect to minecraft server screen instance
 screen -r minecraftbe
