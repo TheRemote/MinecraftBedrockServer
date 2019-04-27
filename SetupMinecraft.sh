@@ -3,7 +3,9 @@
 #
 # Instructions: https://jamesachambers.com/2019/03/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # To run the setup script use:
-# curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
+# wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
+# chmod +x SetupMinecraft.sh
+# ./SetupMinecraft.sh
 #
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
 
@@ -219,6 +221,9 @@ done
 # Force quit if server is still open
 if ! screen -list | grep -q "minecraftbe"; then
   echo "Minecraft server failed to start after 20 seconds."
+else
+  echo "Minecraft server has started.  Type screen -r minecraftbe to view the running server!"
 fi
 
-screen -r minecraftbe | bash
+# Attach to screen
+screen -r minecraftbe
