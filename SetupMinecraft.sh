@@ -200,7 +200,19 @@ fi
 echo "Setup is complete.  Starting Minecraft server..."
 sudo systemctl start minecraftbe.service
 
-# Sleep for 4 seconds to give the server time to start
-sleep 4s
+# Wait up to 20 seconds for server to start
+StartChecks=0
+while [ $StartChecks -lt 20 ]; do
+  if screen -list | grep -q "minecraftbe"; then
+    break
+  fi
+  sleep 1;
+  StartChecks=$((StartChecks+1))
+done
+
+# Force quit if server is still open
+if ! screen -list | grep -q "minecraftbe"; then
+  echo "Minecraft server failed to start after 20 seconds."
+fi
 
 screen -r minecraftbe
