@@ -21,6 +21,12 @@ chmod +x SetupMinecraft.sh<br>
 <br>
 <b>Update History</b><br>
 <br>
+May 23rd 2019<br>
+-Fixed typo in restart.sh where there was a space after stop command preventing the server from closing cleanly<br>
+-Added 10 second sleep after a force close to give the server time to fully close before calling start.sh<br>
+-Fixed server not restarting after scheduled nightly reboot (related to restart.sh bug)<br>
+-Removed some direct (for example paths like /bin/sleep) that were harming cross platform compatibility<br>
+<br>
 April 26th 2019<br>
 -Tested new Bedrock dedicated server 1.11.1.2<br>
 -Added startup counter to server instead of waiting a flat 4s to reduce unnecessary waiting<br>

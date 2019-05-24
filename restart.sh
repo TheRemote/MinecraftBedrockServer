@@ -28,16 +28,16 @@ sleep 1s
 screen -Rd minecraftbe -X stuff "say Server is restarting in 1 second! $(printf '\r')"
 sleep 1s
 screen -Rd minecraftbe -X stuff "say Closing server...$(printf '\r')"
-screen -Rd minecraftbe -X stuff "stop $(printf '\r')"
+screen -Rd minecraftbe -X stuff "stop$(printf '\r')"
 
 echo "Closing server..."
 # Wait up to 30 seconds for server to close
 StopChecks=0
 while [ $StopChecks -lt 30 ]; do
-  if ! /usr/bin/screen -list | /bin/grep -q "minecraftbe"; then
+  if ! screen -list | grep -q "minecraftbe"; then
     break
   fi
-  /bin/sleep 1;
+  sleep 1;
   StopChecks=$((StopChecks+1))
 done
 
@@ -45,6 +45,7 @@ if screen -list | grep -q "minecraftbe"; then
     # Server still hasn't stopped after 30s, tell Screen to close it
     echo "Minecraft server still hasn't closed after 30 seconds, closing screen manually"
     screen -S minecraftbe -X quit
+    sleep 10
 fi
 
 # Start server
