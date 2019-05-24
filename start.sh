@@ -55,6 +55,6 @@ else
     fi
 fi
 
-echo "Starting Minecraft server.  To view window type screen -r minecraft."
+echo "Starting Minecraft server.  To view window type screen -r minecraftbe"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
 screen -dmS minecraftbe /bin/bash -c "LD_LIBRARY_PATH=dirname/minecraftbe dirname/minecraftbe/bedrock_server"
