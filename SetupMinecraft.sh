@@ -13,6 +13,22 @@ echo "Minecraft Bedrock Server installation script by James Chambers - March 30t
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
+# check for supplied path argument
+if [ $# -gt 0 ] &&  [ -d $1 ]
+  then
+    INSTALL_DIR=$1
+  else
+    echo -n "Directory $1 doesn't exist.  Use $(readlink -e ~) instead? [y/n]"
+    read answer < /dev/tty
+    if [ "$answer" != "${answer#[Yy]}" ]; then
+        echo "Ok ... "
+        INSTALL_DIR=~
+    else
+        echo "Exiting - try again with new choice."
+        exit 0
+    fi
+fi
+
 # Install dependencies required to run Minecraft server in the background
 echo "Installing screen, unzip, sudo, net-tools, wget, bc..."
 if [ ! -n "`which sudo`" ]; then
@@ -22,14 +38,14 @@ sudo apt-get update
 sudo apt-get install screen unzip net-tools wget bc -y
 
 # Check to see if Minecraft directory already exists, if it does then exit
-cd ~
+cd $INSTALL_DIR
 if [ -d "minecraftbe" ]; then
   echo "Directory minecraftbe already exists!  Updating scripts and configuring service ..."
 
   # Get Home directory path and username
-  DirName=$(readlink -e ~)
+  DirName=$(readlink -e $INSTALL_DIR)
   UserName=$(whoami)
-  cd ~
+  cd $INSTALL_DIR
   cd minecraftbe
   echo "Home directory is: $DirName"
 
@@ -91,7 +107,7 @@ fi
 
 # Create server directory
 echo "Creating minecraft server directory..."
-cd ~
+cd $INSTALL_DIR
 mkdir minecraftbe
 cd minecraftbe
 mkdir downloads
@@ -127,16 +143,16 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
     echo "QEMU-x86_64-static installed successfully"
   else
     echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
-    rm -rf ~/minecraftbe
+    rm -rf $INSTALL_DIR/minecraftbe
     exit 1
   fi
-  
+
   # Retrieve depends.zip from GitHub repository
   wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.28.so
-  sudo ln -s ~/minecraftbe/ld-2.28.so /lib64/ld-linux-x86-64.so.2
+  sudo ln -s $INSTALL_DIR/minecraftbe/ld-2.28.so /lib64/ld-linux-x86-64.so.2
 fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
@@ -150,7 +166,7 @@ echo "$DownloadFile"
 # Download latest version of Minecraft Bedrock dedicated server
 echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
-DirName=$(readlink -e ~)
+DirName=$(readlink -e $INSTALL_DIR)
 wget -O "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 
