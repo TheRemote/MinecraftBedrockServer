@@ -1,5 +1,5 @@
 #!/bin/bash
-# Minecraft Server Installation Script - James A. Chambers - https://www.jamesachambers.com
+# Minecraft Server Installation Script - James A. Chambers - https://jamesachambers.com
 #
 # Instructions: https://jamesachambers.com/2019/03/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # To run the setup script use:

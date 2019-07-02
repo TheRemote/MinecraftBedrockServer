@@ -1,5 +1,5 @@
 [Unit]
-Description=mc_servername minecraft server service
+Description=servername minecraft server
 After=network-online.target
 
 [Service]
