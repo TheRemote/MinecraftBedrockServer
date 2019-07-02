@@ -34,6 +34,7 @@ else
     mv minecraftbe mc_old
     mkdir minecraftbe
     mv mc_old minecraftbe/mc_old
+    cd minecraftbe
     echo "Migration complete to minecraftbe/mc_old"
   fi
 fi

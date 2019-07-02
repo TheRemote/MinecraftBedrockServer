@@ -23,7 +23,7 @@ chmod +x SetupMinecraft.sh<br>
 <br>
 July 1st 2019<br>
 -Added support for multiple servers<br>
---Choose the port for the server in SetupMinecraft.sh (nust be unique per server instance)<br>
+--Choose the folder name and port for the server in SetupMinecraft.sh (must be unique per server instance)<br>
 --
 <br>
 May 23rd 2019<br>
