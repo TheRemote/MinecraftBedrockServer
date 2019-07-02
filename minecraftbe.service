@@ -1,13 +1,13 @@
 [Unit]
-Description=minecraftbe server service
+Description=mc_servername minecraft server service
 After=network-online.target
 
 [Service]
 User=replace
-WorkingDirectory=dirname/minecraftbe
+WorkingDirectory=dirname/minecraftbe/servername
 Type=forking
-ExecStart=/bin/bash dirname/minecraftbe/start.sh
-ExecStop=/bin/bash dirname/minecraftbe/stop.sh
+ExecStart=/bin/bash dirname/minecraftbe/servername/start.sh
+ExecStop=/bin/bash dirname/minecraftbe/servername/stop.sh
 GuessMainPID=no
 TimeoutStartSec=600
 
