@@ -76,7 +76,7 @@ while [[ ! -n $PortIPV4 ]]; do
   fi
 done
 
-unset PortIPV4
+unset PortIPV6
 while [[ ! -n $PortIPV6 ]]; do
   echo "Enter server IPV6 port (default 19133): "
   read -p 'Server IPV6 Port: ' PortIPV6 < /dev/tty
@@ -84,7 +84,7 @@ while [[ ! -n $PortIPV6 ]]; do
     PortIPV6=$(echo "$PortIPV6" | xargs)
   fi
   PortIPV6=$(echo "$PortIPV6" | head -n1 | awk '{print $1;}')
-  echo -n "Port $PortIPV6 selected -- accept (y/n)?"
+  echo -n "Server IPV6 Port $PortIPV6 selected -- accept (y/n)?"
   read answer < /dev/tty
   if [ "$answer" == "${answer#[Yy]}" ]; then
     unset PortIPV6
@@ -135,10 +135,8 @@ if [ -d "$ServerName" ]; then
   sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
-  sed -i '/server-port=/d' server.properties
-  sed -i '/server-portv6=/d' server.properties
-  echo "server-port=$PortIPV4" >> server.properties
-  echo "server-portv6=$PortIPV6" >> server.properties
+  sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
+  sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
   sudo systemctl daemon-reload
   echo -n "Start Minecraft server at startup automatically (y/n)?"
   read answer < /dev/tty
@@ -263,9 +261,12 @@ sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
 sed -i '/server-port=/d' server.properties
 sed -i '/server-portv6=/d' server.properties
+echo "" >> server.properties
 echo "server-port=$PortIPV4" >> server.properties
+echo "" >> server.properties
 echo "server-portv6=$PortIPV6" >> server.properties
 sudo systemctl daemon-reload
+
 echo -n "Start Minecraft server at startup automatically (y/n)?"
 read answer < /dev/tty
 if [ "$answer" != "${answer#[Yy]}" ]; then
