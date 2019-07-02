@@ -259,12 +259,8 @@ sudo chmod +x /etc/systemd/system/$ServerName.service
 sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
-sed -i '/server-port=/d' server.properties
-sed -i '/server-portv6=/d' server.properties
-echo "" >> server.properties
-echo "server-port=$PortIPV4" >> server.properties
-echo "" >> server.properties
-echo "server-portv6=$PortIPV6" >> server.properties
+sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
+sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
 sudo systemctl daemon-reload
 
 echo -n "Start Minecraft server at startup automatically (y/n)?"
