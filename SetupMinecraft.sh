@@ -29,33 +29,67 @@ if [ ! -d "minecraftbe" ]; then
 else
   cd minecraftbe
   if [ -f "bedrock_server" ]; then
-    echo "Migrating old Bedrock server to minecraftbe/mc_old"
+    echo "Migrating old Bedrock server to minecraftbe/old"
     cd ~
-    mv minecraftbe mc_old
+    mv minecraftbe old
     mkdir minecraftbe
-    mv mc_old minecraftbe/mc_old
+    mv old minecraftbe/old
     cd minecraftbe
-    echo "Migration complete to minecraftbe/mc_old"
+    echo "Migration complete to minecraftbe/old"
   fi
 fi
 
 
 # Server name configuration
-ServerName="null"
-while [[ $ServerName == "null" ]]; do
+unset ServerName
+while [[ ! -n $ServerName ]]; do
   echo "Enter a short one word label for a new or existing server..."
   echo "It will be used in the folder name and service name..."
   read -p 'Server Label: ' ServerName < /dev/tty
   if [ ! -n "`which xargs`" ]; then
     ServerName=$(echo "$ServerName" | xargs)
   fi
-  ServerName=$(echo "mc_$ServerName" | head -n1 | awk '{print $1;}')
-  echo -n "Server $ServerName selected -- accept (y/n)?"
+  ServerName=$(echo "$ServerName" | head -n1 | awk '{print $1;}')
+  echo -n "Server Label: $ServerName -- accept (y/n)?"
   read answer < /dev/tty
   if [ "$answer" == "${answer#[Yy]}" ]; then
-    ServerName="null"
+    unset ServerName
   else
     echo "Server Label: $ServerName"
+  fi
+done
+
+unset PortIPV4
+while [[ ! -n $PortIPV4 ]]; do
+  echo "Enter server IPV4 port (default 19132): "
+  read -p 'Server IPV4 Port: ' PortIPV4 < /dev/tty
+  if [ ! -n "`which xargs`" ]; then
+    PortIPV4=$(echo "$PortIPV4" | xargs)
+  fi
+  PortIPV4=$(echo "$PortIPV4" | head -n1 | awk '{print $1;}')
+  echo -n "Port $PortIPV4 selected -- accept (y/n)?"
+  read answer < /dev/tty
+  if [ "$answer" == "${answer#[Yy]}" ]; then
+    unset PortIPV4
+  else
+    echo "Server IPV4 Port: $PortIPV4"
+  fi
+done
+
+unset PortIPV4
+while [[ ! -n $PortIPV6 ]]; do
+  echo "Enter server IPV6 port (default 19133): "
+  read -p 'Server IPV6 Port: ' PortIPV6 < /dev/tty
+  if [ ! -n "`which xargs`" ]; then
+    PortIPV6=$(echo "$PortIPV6" | xargs)
+  fi
+  PortIPV6=$(echo "$PortIPV6" | head -n1 | awk '{print $1;}')
+  echo -n "Port $PortIPV6 selected -- accept (y/n)?"
+  read answer < /dev/tty
+  if [ "$answer" == "${answer#[Yy]}" ]; then
+    unset PortIPV6
+  else
+    echo "Server IPV6 Port: $PortIPV6"
   fi
 done
 
@@ -101,6 +135,10 @@ if [ -d "$ServerName" ]; then
   sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
+  sed -i '/server-port=/d' server.properties
+  sed -i '/server-portv6=/d' server.properties
+  echo "server-port=$PortIPV4" >> server.properties
+  echo "server-portv6=$PortIPV6" >> server.properties
   sudo systemctl daemon-reload
   echo -n "Start Minecraft server at startup automatically (y/n)?"
   read answer < /dev/tty
@@ -223,6 +261,10 @@ sudo chmod +x /etc/systemd/system/$ServerName.service
 sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
+sed -i '/server-port=/d' server.properties
+sed -i '/server-portv6=/d' server.properties
+echo "server-port=$PortIPV4" >> server.properties
+echo "server-portv6=$PortIPV6" >> server.properties
 sudo systemctl daemon-reload
 echo -n "Start Minecraft server at startup automatically (y/n)?"
 read answer < /dev/tty
