@@ -47,7 +47,7 @@ while [[ $ServerName == "null" ]]; do
   echo "It will be used in the folder name and service name..."
   read -p 'Server Label: ' ServerName < /dev/tty
   if [ ! -n "`which xargs`" ]; then
-    ServerName=$(echo "ServerName" | xargs)
+    ServerName=$(echo "$ServerName" | xargs)
   fi
   ServerName=$(echo "mc_$ServerName" | head -n1 | awk '{print $1;}')
   echo -n "Server $ServerName selected -- accept (y/n)?"
