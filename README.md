@@ -20,6 +20,8 @@ chmod +x SetupMinecraft.sh<br>
 --Tinkerboard<br>
 <br>
 <b>Update History</b><br>
+July 2nd 2019<br>
+-Added libcurl4 Bedrock server dependency to installer script to prevent server startup from failing<br>
 <br>
 July 1st 2019<br>
 -Added support for multiple servers<br>

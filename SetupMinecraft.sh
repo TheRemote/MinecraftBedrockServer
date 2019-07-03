@@ -14,12 +14,13 @@ echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServ
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
 # Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools, wget, bc..."
+echo "Installing screen, unzip, sudo, net-tools, wget, bc, libcurl4..."
 if [ ! -n "`which sudo`" ]; then
   apt-get update && apt-get install sudo -y
 fi
 sudo apt-get update
 sudo apt-get install screen unzip net-tools wget bc -y
+sudo apt-get install libcurl4 -y
 
 # Check to see if Minecraft server main directory already exists
 cd ~
