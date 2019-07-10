@@ -40,12 +40,12 @@ else
   fi
 fi
 
-
 # Server name configuration
+echo "Enter a short one word label for a new or existing server..."
+echo "It will be used in the folder name and service name..."
+
 unset ServerName
 while [[ ! -n $ServerName ]]; do
-  echo "Enter a short one word label for a new or existing server..."
-  echo "It will be used in the folder name and service name..."
   read -p 'Server Label: ' ServerName < /dev/tty
   if [ ! -n "`which xargs`" ]; then
     ServerName=$(echo "$ServerName" | xargs)
@@ -60,9 +60,9 @@ while [[ ! -n $ServerName ]]; do
   fi
 done
 
+echo "Enter server IPV4 port (default 19132): "
 unset PortIPV4
 while [[ ! -n $PortIPV4 ]]; do
-  echo "Enter server IPV4 port (default 19132): "
   read -p 'Server IPV4 Port: ' PortIPV4 < /dev/tty
   if [ ! -n "`which xargs`" ]; then
     PortIPV4=$(echo "$PortIPV4" | xargs)
@@ -77,9 +77,9 @@ while [[ ! -n $PortIPV4 ]]; do
   fi
 done
 
+echo "Enter server IPV6 port (default 19133): "
 unset PortIPV6
 while [[ ! -n $PortIPV6 ]]; do
-  echo "Enter server IPV6 port (default 19133): "
   read -p 'Server IPV6 Port: ' PortIPV6 < /dev/tty
   if [ ! -n "`which xargs`" ]; then
     PortIPV6=$(echo "$PortIPV6" | xargs)
