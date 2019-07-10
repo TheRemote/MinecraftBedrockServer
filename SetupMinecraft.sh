@@ -44,25 +44,27 @@ fi
 echo "Enter a short one word label for a new or existing server..."
 echo "It will be used in the folder name and service name..."
 
-function get_server_name {
-  unset ServerName
-  while [[ ! -n $ServerName ]]; do
-    read -p 'Server Label: ' ServerName < /dev/tty
+function read_with_prompt {
+  variable_name="$1"
+  prompt="$2"
+  unset $variable_name
+  while [[ ! -n ${!variable_name} ]]; do
+    read -p "$prompt: " $variable_name < /dev/tty
     if [ ! -n "`which xargs`" ]; then
-      ServerName=$(echo "$ServerName" | xargs)
+      declare -g $variable_name=$(echo "${!variable_name}" | xargs)
     fi
-    ServerName=$(echo "$ServerName" | head -n1 | awk '{print $1;}')
-    echo -n "Server Label: $ServerName -- accept (y/n)?"
+    declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}')
+    echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
     read answer < /dev/tty
     if [ "$answer" == "${answer#[Yy]}" ]; then
-      unset ServerName
+      unset $variable_name
     else
-      echo "Server Label: $ServerName"
+      echo "$prompt: ${!variable_name}"
     fi
   done
 }
 
-get_server_name
+read_with_prompt ServerName "Server Label"
 
 echo "Enter server IPV4 port (default 19132): "
 unset PortIPV4
