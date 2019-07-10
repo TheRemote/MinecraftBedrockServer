@@ -43,6 +43,7 @@ fi
 function read_with_prompt {
   variable_name="$1"
   prompt="$2"
+  default="${3-}"
   unset $variable_name
   while [[ ! -n ${!variable_name} ]]; do
     read -p "$prompt: " $variable_name < /dev/tty
@@ -50,6 +51,9 @@ function read_with_prompt {
       declare -g $variable_name=$(echo "${!variable_name}" | xargs)
     fi
     declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}')
+    if [[ -z ${!variable_name} ]] && [[ -n "$default" ]] ; then
+      declare -g $variable_name=$default
+    fi
     echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
     read answer < /dev/tty
     if [ "$answer" == "${answer#[Yy]}" ]; then
@@ -67,10 +71,10 @@ echo "It will be used in the folder name and service name..."
 read_with_prompt ServerName "Server Label"
 
 echo "Enter server IPV4 port (default 19132): "
-read_with_prompt PortIPV4 "Server IPV4 Port"
+read_with_prompt PortIPV4 "Server IPV4 Port" 19132
 
 echo "Enter server IPV6 port (default 19133): "
-read_with_prompt PortIPV6 "Server IPV6 Port"
+read_with_prompt PortIPV6 "Server IPV6 Port" 19133
 
 if [ -d "$ServerName" ]; then
   echo "Directory minecraftbe/$ServerName already exists!  Updating scripts and configuring service ..."
