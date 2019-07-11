@@ -40,59 +40,41 @@ else
   fi
 fi
 
+function read_with_prompt {
+  variable_name="$1"
+  prompt="$2"
+  default="${3-}"
+  unset $variable_name
+  while [[ ! -n ${!variable_name} ]]; do
+    read -p "$prompt: " $variable_name < /dev/tty
+    if [ ! -n "`which xargs`" ]; then
+      declare -g $variable_name=$(echo "${!variable_name}" | xargs)
+    fi
+    declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}')
+    if [[ -z ${!variable_name} ]] && [[ -n "$default" ]] ; then
+      declare -g $variable_name=$default
+    fi
+    echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
+    read answer < /dev/tty
+    if [ "$answer" == "${answer#[Yy]}" ]; then
+      unset $variable_name
+    else
+      echo "$prompt: ${!variable_name}"
+    fi
+  done
+}
 
 # Server name configuration
-unset ServerName
-while [[ ! -n $ServerName ]]; do
-  echo "Enter a short one word label for a new or existing server..."
-  echo "It will be used in the folder name and service name..."
-  read -p 'Server Label: ' ServerName < /dev/tty
-  if [ ! -n "`which xargs`" ]; then
-    ServerName=$(echo "$ServerName" | xargs)
-  fi
-  ServerName=$(echo "$ServerName" | head -n1 | awk '{print $1;}')
-  echo -n "Server Label: $ServerName -- accept (y/n)?"
-  read answer < /dev/tty
-  if [ "$answer" == "${answer#[Yy]}" ]; then
-    unset ServerName
-  else
-    echo "Server Label: $ServerName"
-  fi
-done
+echo "Enter a short one word label for a new or existing server..."
+echo "It will be used in the folder name and service name..."
 
-unset PortIPV4
-while [[ ! -n $PortIPV4 ]]; do
-  echo "Enter server IPV4 port (default 19132): "
-  read -p 'Server IPV4 Port: ' PortIPV4 < /dev/tty
-  if [ ! -n "`which xargs`" ]; then
-    PortIPV4=$(echo "$PortIPV4" | xargs)
-  fi
-  PortIPV4=$(echo "$PortIPV4" | head -n1 | awk '{print $1;}')
-  echo -n "Port $PortIPV4 selected -- accept (y/n)?"
-  read answer < /dev/tty
-  if [ "$answer" == "${answer#[Yy]}" ]; then
-    unset PortIPV4
-  else
-    echo "Server IPV4 Port: $PortIPV4"
-  fi
-done
+read_with_prompt ServerName "Server Label"
 
-unset PortIPV6
-while [[ ! -n $PortIPV6 ]]; do
-  echo "Enter server IPV6 port (default 19133): "
-  read -p 'Server IPV6 Port: ' PortIPV6 < /dev/tty
-  if [ ! -n "`which xargs`" ]; then
-    PortIPV6=$(echo "$PortIPV6" | xargs)
-  fi
-  PortIPV6=$(echo "$PortIPV6" | head -n1 | awk '{print $1;}')
-  echo -n "Server IPV6 Port $PortIPV6 selected -- accept (y/n)?"
-  read answer < /dev/tty
-  if [ "$answer" == "${answer#[Yy]}" ]; then
-    unset PortIPV6
-  else
-    echo "Server IPV6 Port: $PortIPV6"
-  fi
-done
+echo "Enter server IPV4 port (default 19132): "
+read_with_prompt PortIPV4 "Server IPV4 Port" 19132
+
+echo "Enter server IPV6 port (default 19133): "
+read_with_prompt PortIPV6 "Server IPV6 Port" 19133
 
 if [ -d "$ServerName" ]; then
   echo "Directory minecraftbe/$ServerName already exists!  Updating scripts and configuring service ..."
