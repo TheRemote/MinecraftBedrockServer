@@ -20,16 +20,17 @@ chmod +x SetupMinecraft.sh<br>
 --Tinkerboard<br>
 <br>
 <b>Update History</b><br>
+<br>
+July 10th 2019<br>
+-Fixed OpenSSL error in 1.12 (thanks obviator!)<br>
+-Fixed ports not choosing defaultS if nothing is entered (thanks sweavo!)<br>
+<br>
 July 2nd 2019<br>
 -Added libcurl4 Bedrock server dependency to installer script to prevent server startup from failing<br>
 <br>
 July 1st 2019<br>
 -Added support for multiple servers<br>
 -Choose the folder name and port for the server in SetupMinecraft.sh (must be unique per server instance)<br>
-<br>
-July 10th 2019<br>
--Removed bc dependency<br>
-
 <br>
 May 23rd 2019<br>
 -Fixed typo in restart.sh where there was a space after stop command preventing the server from closing cleanly<br>
