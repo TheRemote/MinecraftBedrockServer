@@ -21,6 +21,9 @@ chmod +x SetupMinecraft.sh<br>
 <br>
 <b>Update History</b><br>
 <br>
+July 24th 2019<br>
+-Fixed Raspberry Pi support<br>
+<br>
 July 10th 2019<br>
 -Fixed OpenSSL error in 1.12 (thanks obviator!)<br>
 -Fixed ports not choosing defaultS if nothing is entered (thanks sweavo!)<br>
