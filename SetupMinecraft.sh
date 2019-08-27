@@ -1,7 +1,7 @@
 #!/bin/bash
 # Minecraft Server Installation Script - James A. Chambers - https://jamesachambers.com
 #
-# Instructions: https://jamesachambers.com/2019/03/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+# Instructions: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # To run the setup script use:
 # wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
 # chmod +x SetupMinecraft.sh
@@ -9,7 +9,7 @@
 #
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
 
-echo "Minecraft Bedrock Server installation script by James Chambers - July 1st 2019"
+echo "Minecraft Bedrock Server installation script by James Chambers - July 24th 2019"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
