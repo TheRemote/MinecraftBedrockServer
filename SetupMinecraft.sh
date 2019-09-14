@@ -39,12 +39,12 @@ function read_with_prompt {
 }
 
 # Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools, wget.."
+echo "Installing screen, zip, unzip, sudo, net-tools, wget.."
 if [ ! -n "`which sudo`" ]; then
   apt-get update && apt-get install sudo -y
 fi
 sudo apt-get update
-sudo apt-get install screen unzip wget -y
+sudo apt-get install screen zip unzip wget -y
 sudo apt-get install net-tools -y
 sudo apt-get install libcurl4 -y
 sudo apt-get install openssl -y
