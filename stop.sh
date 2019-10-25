@@ -30,7 +30,7 @@ while getopts ":t" opt; do
 done
 
 # Stop the server
-while [ $CountdownTime -gt 0 ] do
+while [ $CountdownTime -gt 0 ]; do
   screen -Rd servername -X stuff "say Closing server in $CountdownTime minutes...$(printf '\r')"
   echo "Waiting for $CountdownTime more minutes ..."
   sleep 60;
