@@ -31,9 +31,18 @@ done
 
 # Stop the server
 while [ $CountdownTime -gt 0 ]; do
-  screen -Rd servername -X stuff "say Closing server in $CountdownTime minutes...$(printf '\r')"
-  echo "Waiting for $CountdownTime more minutes ..."
-  sleep 60;
+  if [ $CountdownTime -eq 1 ]; then
+    screen -Rd servername -X stuff "say Closing server in 60 seconds...$(printf '\r')"
+    sleep 30;
+    screen -Rd servername -X stuff "say Closing server in 30 seconds...$(printf '\r')"
+    sleep 20;
+    screen -Rd servername -X stuff "say Closing server in 10 seconds...$(printf '\r')"
+    sleep 10;
+  else
+    screen -Rd servername -X stuff "say Closing server in $CountdownTime minutes...$(printf '\r')"
+    echo "Waiting for $CountdownTime more minutes ..."
+    sleep 60;
+  fi
 done
 echo "Stopping Minecraft server ..."
 screen -Rd servername -X stuff "say Closing server (stop.sh called)...$(printf '\r')"
