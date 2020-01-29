@@ -40,9 +40,9 @@ while [ $CountdownTime -gt 0 ]; do
     sleep 10;
   else
     screen -Rd servername -X stuff "say Stopping server in $CountdownTime minutes...$(printf '\r')"
-    echo "Waiting for $CountdownTime more minutes ..."
     sleep 60;
   fi
+  echo "Waiting for $CountdownTime more minutes ..."
 done
 echo "Stopping Minecraft server ..."
 screen -Rd servername -X stuff "say Stopping server (stop.sh called)...$(printf '\r')"
