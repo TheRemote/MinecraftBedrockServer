@@ -160,6 +160,7 @@ mkdir $ServerName
 cd $ServerName
 mkdir downloads
 mkdir backups
+mkdir logs
 
 # Check CPU archtecture to see if we need to do anything special for the platform the server is running on
 echo "Getting system CPU architecture..."
