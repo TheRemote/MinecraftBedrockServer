@@ -57,4 +57,9 @@ fi
 
 echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
-screen -L -Logfile logs/$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
+# screen command to spawn log files in logs/ directory never checked to see if a directory named logs/ exists. Now we check and create one if it doesn't
+if [ ! -d "logs/" ]
+then
+	mkdir logs
+fi
+screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
