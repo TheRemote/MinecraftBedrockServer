@@ -1,12 +1,13 @@
 # Minecraft Bedrock Server
 Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian / Raspbian / Armbian with options for automatic updates, backups and running automatically at startup<br>
-View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/<br>
+View installation instructions [here](https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/)<br>
 <br>
 To run the installation type:<br>
+```
 wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh<br>
 chmod +x SetupMinecraft.sh<br>
 ./SetupMinecraft.sh<br>
-<br>
+```
 <b>Tested Distributions</b><br>
 -Ubuntu / Ubuntu Server 18.04.2<br>
 -Debian Stretch / Buster<br>
