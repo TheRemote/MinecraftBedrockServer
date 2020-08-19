@@ -22,6 +22,13 @@ while [ -z "$DefaultRoute" ]; do
     fi
 done
 
+# Change directory to server directory backup folder
+cd dirname/minecraftbe/servername/backups
+
+# Cleanup backups older than 5 days
+echo "Cleaning up backups older than 5 days."
+rm $(ls -t | awk "NR>5")
+
 # Change directory to server directory
 cd dirname/minecraftbe/servername
 
