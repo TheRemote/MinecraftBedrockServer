@@ -14,7 +14,8 @@ chmod +x SetupMinecraft.sh<br>
 <b>Tested Platforms</b><br>
 -PC X86_64 (WORKING)<br>
 -Udoo X86 (WORKING)<br>
--Intel Compute Stick<br>
+-Intel Compute Stick (WORKING)<br>
+-Other X86_64 platforms (WORKING)<br>
 -ARM 64bit (BROKEN -- needs linker and other binaries used for emulation to be updated)<br>
 --Raspberry Pi (BROKEN)<br>
 --Tinkerboard (BROKEN)<br>
