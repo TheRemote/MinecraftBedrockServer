@@ -1,5 +1,5 @@
 # Minecraft Bedrock Server
-Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian / Raspbian / Armbian with options for automatic updates, backups and running automatically at startup<br>
+Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup<br>
 View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/<br>
 <br>
 To run the installation type:<br>
@@ -12,12 +12,12 @@ chmod +x SetupMinecraft.sh<br>
 -Debian Stretch / Buster<br>
 <br>
 <b>Tested Platforms</b><br>
--PC X86_64<br>
--Udoo X86<br>
+-PC X86_64 (WORKING)<br>
+-Udoo X86 (WORKING)<br>
 -Intel Compute Stick<br>
--ARM 64bit (warning: proof of concept, extremely slow)<br>
---Raspberry Pi<br>
---Tinkerboard<br>
+-ARM 64bit (BROKEN -- needs linker and other binaries used for emulation to be updated)<br>
+--Raspberry Pi (BROKEN)<br>
+--Tinkerboard (BROKEN)<br>
 <br>
 <b>Update History</b><br>
 <br>
