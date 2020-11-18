@@ -8,7 +8,8 @@ chmod +x SetupMinecraft.sh<br>
 ./SetupMinecraft.sh<br>
 <br>
 <b>Tested Distributions</b><br>
--Ubuntu / Ubuntu Server 18.04.2<br>
+-Ubuntu / Ubuntu Server 20.04<br>
+-Ubuntu / Ubuntu Server 18.04<br>
 -Debian Stretch / Buster<br>
 <br>
 <b>Tested Platforms</b><br>
@@ -21,6 +22,11 @@ chmod +x SetupMinecraft.sh<br>
 --Tinkerboard (BROKEN)<br>
 <br>
 <b>Update History</b><br>
+<br>
+November 17th 2020<br>
+-Fixed server autoupdating in start.sh<br>
+-Minecraft.net had made a change where the "--spider" parameter would return a 503 -- removed this to fix automatic updates<br>
+<br>
 <br>
 July 24th 2019<br>
 -Fixed Raspberry Pi support<br>
