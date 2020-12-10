@@ -1,77 +1,120 @@
 # Minecraft Bedrock Server
+
 Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup<br>
-View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/<br>
-<br>
+View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+
+<h3>Features</h3>
+<ul>
+  <li>Sets up the official Minecraft Bedrock Server (currently in alpha testing)</li>
+  <li>Fully operational Minecraft Bedrock edition server in a couple of minutes</li>
+  <li>Ubuntu / Debian distributions supported</li>
+  <li>Sets up Minecraft as a system service with option to autostart at boot</li>
+  <li>Automatic backups when server restarts</li>
+  <li>Supports multiple instances -- you can run multiple Bedrock servers on the same system</li>
+  <li>Updates automatically to the latest version when server is started</li>
+  <li>Easy control of server with start.sh, stop.sh and restart.sh scripts</li>
+  <li>Optional scheduled daily restart of server using cron</li>
+</ul>
+
+<b>UPDATE 12/10/2020 - Multiple instances are currently broken due to the Minecraft Bedrock Edition dedicated server opening up a set of ports it is not supposed to.  Official bug is here on Mojang's official website here: https://bugs.mojang.com/browse/BDS-3989.  This should fix itself eventually as it has nothing to do with this script but is in fact a bug in the server itself but for now be advised multiple instances don't work.  Single instances of the server are still fine.</b>
+
+<h3>Installation Instuctions</h3>
 To run the installation type:<br>
-wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh<br>
-chmod +x SetupMinecraft.sh<br>
-./SetupMinecraft.sh<br>
-<br>
-<b>Tested Distributions</b><br>
--Ubuntu / Ubuntu Server 20.04<br>
--Ubuntu / Ubuntu Server 18.04<br>
--Debian Stretch / Buster<br>
-<br>
-<b>Tested Platforms</b><br>
--PC X86_64 (WORKING)<br>
--Udoo X86 (WORKING)<br>
--Intel Compute Stick (WORKING)<br>
--Other X86_64 platforms (WORKING)<br>
--ARM 64bit (BROKEN -- needs linker and other binaries used for emulation to be updated)<br>
---Raspberry Pi (BROKEN)<br>
---Tinkerboard (BROKEN)<br>
-<br>
-<b>Update History</b><br>
-<br>
-November 17th 2020<br>
--Fixed server autoupdating in start.sh<br>
--Minecraft.net had made a change where the "--spider" parameter would return a 503 -- removed this to fix automatic updates<br>
-<br>
-<br>
-July 24th 2019<br>
--Fixed Raspberry Pi support<br>
-<br>
-July 10th 2019<br>
--Fixed OpenSSL error in 1.12 (thanks obviator!)<br>
--Fixed ports not choosing defaultS if nothing is entered (thanks sweavo!)<br>
-<br>
-July 2nd 2019<br>
--Added libcurl4 Bedrock server dependency to installer script to prevent server startup from failing<br>
-<br>
-July 1st 2019<br>
--Added support for multiple servers<br>
--Choose the folder name and port for the server in SetupMinecraft.sh (must be unique per server instance)<br>
-<br>
-May 23rd 2019<br>
--Fixed typo in restart.sh where there was a space after stop command preventing the server from closing cleanly<br>
--Added 10 second sleep after a force close to give the server time to fully close before calling start.sh<br>
--Fixed server not restarting after scheduled nightly reboot (related to restart.sh bug)<br>
--Removed some direct (for example paths like /bin/sleep) that were harming cross platform compatibility<br>
-<br>
-April 26th 2019<br>
--Tested new Bedrock dedicated server 1.11.1.2<br>
--Added startup counter to server instead of waiting a flat 4s to reduce unnecessary waiting<br>
--Fixed ARM support (64 bit required)<br>
-<br>
-April 18th 2019<br>
--Changed StopChecks++ to StopChecks=$((StopChecks+1)) to improve portability (thanks Jason B.)<br>
--Added TimeoutStartSec=600 to server to prevent it being killed if taking longer than usual to download server<br>
-<br>
-March 7th 2019<br>
--Added Armbian support<br>
--Tested with Tinkerboard<br>
--Fixed portability issue with route vs /sbin/route<br>
-<br>
-March 2nd 2019<br>
--Running the SetupMinecraft.sh script after already installing now updates all scripts and reconfigures the minecraftbe service<br>
--Script now works on any Debian based distribution (Ubuntu, Debian, Raspbian, etc.)<br>
--Added *very slow* support for ARM platforms such as Raspberry Pi with QEMU emulation of x86_64<br>
--Renamed service to minecraftbe to avoid confusion with Java version<br>
-<br>
-February 15th 2019<br>
--Backups now compress into .tar.gz format (saved in backups folder)<br>
--Startup service waits up to 20 seconds for an internet connection to allow time for DHCP to retrieve an IP address<br>
--Removed unnecessary sleep time on stop.sh script so it returns as soon as the minecraft server closes<br>
-<br>
-February 8th 2019<br>
--Initial release<br>
+<pre>wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
+chmod +x SetupMinecraft.sh
+./SetupMinecraft.sh</pre>
+
+<h3>Tested Distributions</h3>
+<ul>
+ <li>Ubuntu / Ubuntu Server 20.04</li>
+ <li>Ubuntu / Ubuntu Server 18.04</li>
+ <li>Debian Stretch / Buster</li>
+</ul>
+  
+<h3>Tested Platforms</h3>
+<ul>
+ <li>PC X86_64 (WORKING)</li>
+ <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (WORKING)</a></li>
+ <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (WORKING)</a></li>
+ <li>Other X86_64 platforms (WORKING)</li>
+  <ul><li>ARM 64bit (BROKEN -- needs linker and other binaries used for emulation to be updated)</li>
+    <ul>
+      <li>Raspberry Pi (BROKEN)</li>
+      <li>Tinkerboard (BROKEN)</li>
+    </ul>
+  </ul>
+</ul>
+
+<h3>Update History</h3>
+
+<ul>
+  <li>December 10th 2020</li>
+  <ul>
+    <li>Cleaned up documentation</li>
+    <li>Added alpha software notice for Bedrock dedicated server per <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/34">issue 34</a></li>
+  </ul>
+  <li>November 17th 2020</li>
+  <ul>
+    <li>Fixed server autoupdating in start.sh</li>
+    <li>Minecraft.net had made a change where the "--spider" parameter would return a 503 -- removed this to fix automatic updates</li>
+  </ul>
+  <li>July 24th 2019</li>
+  <ul>
+    <li>Fixed Raspberry Pi support</li>
+  </ul>
+  <li>July 10th 2019</li>
+  <ul>
+    <li>Fixed OpenSSL error in 1.12 (thanks obviator!)</li>
+    <li>Fixed ports not choosing defaultS if nothing is entered (thanks sweavo!)</li>
+  </ul>
+  <li>July 2nd 2019</li>
+  <ul>
+    <li>Added libcurl4 Bedrock server dependency to installer script to prevent server startup from failing</li>
+  </ul>
+  <li>July 1st 2019</li>
+  <ul>
+    <li>Added support for multiple servers</li>
+    <li>Choose the folder name and port for the server in SetupMinecraft.sh (must be unique per server instance)</li>
+  </ul>
+  <li>May 23rd 2019</li>
+  <ul>
+    <li>Fixed typo in restart.sh where there was a space after stop command preventing the server from closing cleanly</li>
+    <li>Added 10 second sleep after a force close to give the server time to fully close before calling start.sh</li>
+    <li>Fixed server not restarting after scheduled nightly reboot (related to restart.sh bug)</li>
+    <li>Removed some direct (for example paths like /bin/sleep) that were harming cross platform compatibility</li>
+  </ul>
+  <li>April 26th 2019</li>
+  <ul>
+    <li>Tested new Bedrock dedicated server 1.11.1.2</li>
+    <li>Added startup counter to server instead of waiting a flat 4s to reduce unnecessary waiting</li>
+    <li>Fixed ARM support (64 bit required)</li>
+  </ul>
+  <li>April 18th 2019</li>
+  <ul>
+    <li>Changed StopChecks++ to StopChecks=$((StopChecks+1)) to improve portability (thanks Jason B.)</li>
+    <li>Added TimeoutStartSec=600 to server to prevent it being killed if taking longer than usual to download server</li>
+  </ul>
+  <li>March 7th 2019</li>
+  <ul>
+    <li>Added Armbian support</li>
+    <li>Tested with Tinkerboard</li>
+    <li>Fixed portability issue with route vs /sbin/route</li>
+  </ul>
+  <li>March 2nd 2019</li>
+  <ul>
+    <li>Running the SetupMinecraft.sh script after already installing now updates all scripts and reconfigures the minecraftbe service</li>
+    <li>Script now works on any Debian based distribution (Ubuntu, Debian, Raspbian, etc.)<br>
+    <li>Added *very slow* support for ARM platforms such as Raspberry Pi with QEMU emulation of x86_64</li>
+    <li>Renamed service to minecraftbe to avoid confusion with Java version</li>
+  </ul>
+  <li>February 15th 2019</li>
+  <ul>
+    <li>Backups now compress into .tar.gz format (saved in backups folder)</li>
+    <li>Startup service waits up to 20 seconds for an internet connection to allow time for DHCP to retrieve an IP address</li>
+    <li>Removed unnecessary sleep time on stop.sh script so it returns as soon as the minecraft server closes</li>
+  </ul>
+  <li>February 8th 2019</li>
+  <ul>
+    <li>Initial release</li>
+  </ul>
+</ul>
