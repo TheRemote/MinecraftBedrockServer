@@ -45,12 +45,18 @@ chmod +x SetupMinecraft.sh
   </ul>
 </ul>
 
+<h3>RTX Beta Note</h3>
+<p>Mojang has not currently released the dedicated server for the RTX beta version of Minecraft.  Unfortunately if you got the beta version the only way to get back on a dedicated server is to downgrade back to normal.  
+
+The moment the dedicated server is available this project will add support for it!</p>
+
 <h3>Update History</h3>
 
 <ul>
   <li>December 10th 2020</li>
   <ul>
     <li>Cleaned up documentation</li>
+    <li>Added notice that the RTX beta version of Minecraft's dedicated server has not been released yet.  Support will be added the moment it is!</li>
     <li>Added alpha software notice for Bedrock dedicated server per <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/34">issue 34</a></li>
   </ul>
   <li>November 17th 2020</li>
