@@ -9,7 +9,7 @@
 #
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
 
-echo "Minecraft Bedrock Server installation script by James Chambers - November 17th 2020"
+echo "Minecraft Bedrock Server installation script by James Chambers"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
@@ -172,18 +172,8 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   # Check if latest available QEMU version is at least 3.0 or higher
   QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
   if [[ "$QEMUVer" -lt "3" ]]; then
-    echo "Available QEMU version is not high enough to emulate x86_64.  Downloading alternative..."
-    if [[ "$CPUArch" == *"armv7"* || "$CPUArch" == *"armhf"* ]]; then
-      wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-8_armhf.deb
-      wget http://ftp.us.debian.org/debian/pool/main/b/binfmt-support/binfmt-support_2.2.0-2_armhf.deb
-      sudo dpkg --install binfmt*.deb
-      sudo dpkg --install qemu-user*.deb
-    elif [[ "$CPUArch" == *"aarch64"* || "$CPUArch" == *"arm64"* ]]; then
-      wget http://ftp.us.debian.org/debian/pool/main/q/qemu/qemu-user-static_3.1+dfsg-8_arm64.deb
-      wget http://ftp.us.debian.org/debian/pool/main/b/binfmt-support/binfmt-support_2.2.0-2_arm64.deb
-      sudo dpkg --install binfmt*.deb
-      sudo dpkg --install qemu-user*.deb
-    fi
+    echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
+    exit
   else
     sudo apt-get install qemu-user-static binfmt-support -y
   fi

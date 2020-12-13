@@ -33,7 +33,7 @@ chmod +x SetupMinecraft.sh
   
 <h3>Tested Platforms</h3>
 <ul>
- <li>PC X86_64 (WORKING)</li>
+ <li>All PC X86_64 (WORKING)</li>
  <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (WORKING)</a></li>
  <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (WORKING)</a></li>
  <li>Other X86_64 platforms (WORKING)</li>
@@ -46,13 +46,17 @@ chmod +x SetupMinecraft.sh
 </ul>
 
 <h3>RTX Beta Note</h3>
-<p>Mojang has not currently released the dedicated server for the RTX beta version of Minecraft.  Unfortunately if you got the beta version the only way to get back on a dedicated server is to downgrade back to normal.  
-
-The moment the dedicated server is available this project will add support for it!</p>
+<p>RTX has been released into normal Minecraft.  If you had the RTX beta version you need to downgrade your Minecraft to the "normal" version for the dedicated server to work.  Go into the "Xbox Insider" app and change back to the normal version of Minecraft and then uninstall your beta version and install the normal version.</p>
 
 <h3>Update History</h3>
 
 <ul>
+  <li>December 13th 2020</li>
+  <ul>
+    <li>RTX beta is now supported as long as you aren't on the "beta" channel anymore.  Unenroll from the RTX beta and downgrade to normal Minecraft.  RTX is in normal Minecraft now.</li>
+    <li>Fixed ARM support for Raspberry Pi, Tinkerboard, and others.  Be warned, it's still very slow on ARM!</li>
+    <li>Updated depends.zip</li>
+  </ul>
   <li>December 10th 2020</li>
   <ul>
     <li>Cleaned up documentation</li>
