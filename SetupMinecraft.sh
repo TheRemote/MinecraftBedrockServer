@@ -189,8 +189,8 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
   unzip depends.zip
   sudo mkdir /lib64
-  # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.28.so
-  sudo ln -s ~/minecraftbe/$ServerName/ld-2.28.so /lib64/ld-linux-x86-64.so.2
+  # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
+  sudo ln -s ~/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
 fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
@@ -252,7 +252,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
   echo -n "Automatically restart and backup server at 4am daily (y/n)?"
   read answer < /dev/tty
-  if [ "$answer" != "${answer#[Yy]}" ]; then
+  if [ "$answer" != "${answer#[Yy]}" ]; then    
     croncmd="$DirName/minecraftbe/$ServerName/restart.sh"
     cronjob="0 4 * * * $croncmd"
     ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
