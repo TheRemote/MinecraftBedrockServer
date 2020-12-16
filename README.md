@@ -48,9 +48,19 @@ chmod +x SetupMinecraft.sh
 <h3>RTX Beta Note</h3>
 <p>RTX has been released into normal Minecraft.  If you had the RTX beta version you need to downgrade your Minecraft to the "normal" version for the dedicated server to work.  Go into the "Xbox Insider" app and change back to the normal version of Minecraft and then uninstall your beta version and install the normal version.</p>
 
-<h3>Update History</h3>
+<h3>Installing Resource Packs / RTX Support</h3>
+<p>For instructions on how to install resource packs (including optional RTX support) view my <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step by step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
 
+<h3>Update History</h3>
 <ul>
+  <li>December 15th 2020</li>
+  <ul>
+    <li>Resource packs (including ones that optionally enable RTX support) are working</li>
+    <li>Guide available at <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/</a></li>
+    <li>Added automatic backup rotation -- server keeps last 10 backups - thanks aghadjip <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/33">Issue 33</a></li>
+    <li>Added valid_known_packs to unzip whitelist to prevent resource packs from getting overwritten - thanks kmpoppe - <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/53">Pull Request 53</a></li>
+    <li>Create logs directory if it doesn't exist - thanks omkhar - <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/39">Pull Request 39</a></li>
+  </ul>
   <li>December 13th 2020</li>
   <ul>
     <li>RTX beta is now supported as long as you aren't on the "beta" channel anymore.  Unenroll from the RTX beta and downgrade to normal Minecraft.  RTX is in normal Minecraft now.</li>

@@ -31,6 +31,9 @@ if [ -d "worlds" ]; then
     tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
 fi
 
+# Rotate backups -- keep most recent 10
+ls -1tr | head -n -10 | xargs -d '\n' rm -f --
+
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server ..."
 
