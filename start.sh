@@ -51,7 +51,7 @@ else
     else
         echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server ..."
         wget -O "downloads/$DownloadFile" "$DownloadURL"
-        unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*"
+        unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*"
     fi
 fi
 
