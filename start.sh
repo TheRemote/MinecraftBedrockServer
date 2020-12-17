@@ -32,7 +32,7 @@ if [ -d "worlds" ]; then
 fi
 
 # Rotate backups -- keep most recent 10
-ls -1tr | head -n -10 | xargs -d '\n' rm -f --
+ls -1tr backups | head -n -10 | xargs -d '\n' rm -f --
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server ..."
