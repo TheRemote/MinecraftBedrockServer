@@ -75,12 +75,6 @@ echo "It will be used in the folder name and service name..."
 
 read_with_prompt ServerName "Server Label"
 
-echo "Enter server IPV4 port (default 19132): "
-read_with_prompt PortIPV4 "Server IPV4 Port" 19132
-
-echo "Enter server IPV6 port (default 19133): "
-read_with_prompt PortIPV6 "Server IPV6 Port" 19133
-
 if [ -d "$ServerName" ]; then
   echo "Directory minecraftbe/$ServerName already exists!  Updating scripts and configuring service ..."
 
@@ -123,8 +117,6 @@ if [ -d "$ServerName" ]; then
   sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
-  sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
-  sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
   sudo systemctl daemon-reload
   echo -n "Start Minecraft server at startup automatically (y/n)?"
   read answer < /dev/tty
@@ -153,6 +145,13 @@ if [ -d "$ServerName" ]; then
 
   exit 0
 fi
+
+# Prompt user for ports only for new installations
+echo "Enter server IPV4 port (default 19132): "
+read_with_prompt PortIPV4 "Server IPV4 Port" 19132
+
+echo "Enter server IPV6 port (default 19133): "
+read_with_prompt PortIPV6 "Server IPV6 Port" 19133
 
 # Create server directory
 echo "Creating minecraft server directory (~/minecraftbe/$ServerName)..."
