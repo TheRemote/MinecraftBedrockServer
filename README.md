@@ -53,6 +53,11 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>December 18th 2020</li>
+  <ul>
+    <li>Added safety check to prevent the script from being ran as root or sudo.  This would cause the script to be installed to the /root folder.</li>
+    <li>If you know what you are doing and want to override just edit the check out of SetupMinecraft.sh but otherwise just run it as ./SetupMinecraft.sh normally.</li>
+  </ul>
   <li>December 15th 2020</li>
   <ul>
     <li>Resource packs (including ones that optionally enable RTX support) are working</li>

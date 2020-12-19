@@ -38,6 +38,12 @@ function read_with_prompt {
   done
 }
 
+# Check to make sure we aren't being ran as root
+if [ $(id -u) = 0 ]; then
+   echo "This script is not meant to be ran as root or sudo.  Please run normally with ./SetupMinecraft.sh.  If you know what you are doing and want to override this edit this check out of SetupMinecraft.sh.  Exiting..."
+   exit 1
+fi
+
 # Install dependencies required to run Minecraft server in the background
 echo "Installing screen, unzip, sudo, net-tools, wget.."
 if [ ! -n "`which sudo`" ]; then
