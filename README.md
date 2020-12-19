@@ -57,6 +57,7 @@ chmod +x SetupMinecraft.sh
   <ul>
     <li>Added safety check to prevent the script from being ran as root or sudo.  This would cause the script to be installed to the /root folder.</li>
     <li>If you know what you are doing and want to override just edit the check out of SetupMinecraft.sh but otherwise just run it as ./SetupMinecraft.sh normally.</li>
+    <li>Fixed a nasty bug that could cause start.sh and stop.sh to disapper (thanks Paul and James)</li>
   </ul>
   <li>December 15th 2020</li>
   <ul>
