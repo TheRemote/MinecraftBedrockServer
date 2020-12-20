@@ -204,7 +204,7 @@ fi
 # Check for x86 (32 bit) architecture
 if [[ "$CPUArch" == *"i386"* || "$CPUArch" == *"i686"* ]]; then
   # ARM architecture detected -- download QEMU and dependency libraries
-  echo "ARM platform detected -- installing dependencies..."
+  echo "32 bit platform detected -- installing dependencies..."
   # Check if latest available QEMU version is at least 3.0 or higher
   QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
   if [[ "$QEMUVer" -lt "3" ]]; then
