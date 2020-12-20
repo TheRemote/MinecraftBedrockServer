@@ -172,7 +172,37 @@ mkdir logs
 echo "Getting system CPU architecture..."
 CPUArch=$(uname -m)
 echo "System Architecture: $CPUArch"
+
+# Check for ARM architecture
 if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
+  # ARM architecture detected -- download QEMU and dependency libraries
+  echo "ARM platform detected -- installing dependencies..."
+  # Check if latest available QEMU version is at least 3.0 or higher
+  QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
+  if [[ "$QEMUVer" -lt "3" ]]; then
+    echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
+    exit
+  else
+    sudo apt-get install qemu-user-static binfmt-support -y
+  fi
+
+  if [ -n "`which qemu-x86_64-static`" ]; then
+    echo "QEMU-x86_64-static installed successfully"
+  else
+    echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
+    exit 1
+  fi
+  
+  # Retrieve depends.zip from GitHub repository
+  wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
+  unzip depends.zip
+  sudo mkdir /lib64
+  # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
+  sudo ln -s ~/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
+fi
+
+# Check for x86 (32 bit) architecture
+if [[ "$CPUArch" == *"i386"* || "$CPUArch" == *"i686"* ]]; then
   # ARM architecture detected -- download QEMU and dependency libraries
   echo "ARM platform detected -- installing dependencies..."
   # Check if latest available QEMU version is at least 3.0 or higher

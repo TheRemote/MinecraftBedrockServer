@@ -53,6 +53,10 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>December 20th 2020</li>
+  <ul>
+    <li>Added experimental QEMU support for 32 bit (i386, i686) similar to how the ARM support works</li>
+  </ul>
   <li>December 18th 2020</li>
   <ul>
     <li>Added safety check to prevent the script from being ran as root or sudo.  This would cause the script to be installed to the /root folder.</li>
