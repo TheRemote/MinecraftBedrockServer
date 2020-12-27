@@ -45,13 +45,12 @@ if [ $(id -u) = 0 ]; then
 fi
 
 # Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools, wget.."
+echo "Installing screen, unzip, sudo, wget.."
 if [ ! -n "`which sudo`" ]; then
   apt-get update && apt-get install sudo -y
 fi
 sudo apt-get update
 sudo apt-get install screen unzip wget -y
-sudo apt-get install net-tools -y
 sudo apt-get install libcurl4 -y
 sudo apt-get install openssl -y
 
