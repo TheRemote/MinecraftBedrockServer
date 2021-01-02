@@ -20,9 +20,7 @@ View installation instructions at: https://jamesachambers.com/minecraft-bedrock-
 
 <h3>Installation Instuctions</h3>
 To run the installation type:<br>
-<pre>wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
-chmod +x SetupMinecraft.sh
-./SetupMinecraft.sh</pre>
+<pre>wget -qO- https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre>
 
 <h3>Tested Distributions</h3>
 <ul>
