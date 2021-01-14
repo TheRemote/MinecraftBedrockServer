@@ -11,12 +11,14 @@ fi
 echo "正在向服务器发送关闭通知..."
 
 # Start countdown notice on server
+echo "服务器将在30秒后重启"
 screen -Rd servername -X stuff "say §c服务器将在§f30秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 23s
 screen -Rd servername -X stuff "say §c服务器将在§f7秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
 screen -Rd servername -X stuff "say §c服务器将在§f6秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
+echo "服务器将在5秒后重启"
 screen -Rd servername -X stuff "say §c服务器将在§f5秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
 screen -Rd servername -X stuff "say §c服务器将在§f4秒§c后重启，请合理安排您的活动 $(printf '\r')"
