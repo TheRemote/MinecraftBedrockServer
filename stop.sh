@@ -42,8 +42,8 @@ while [ $CountdownTime -gt 0 ]; do
   else
     screen -Rd servername -X stuff "say §c服务器将在§f$CountdownTime 分钟§c后关闭，请合理安排您的活动...$(printf '\r')"
     sleep 60;
-    CountdownTime=$(( $CountdownTime - 1 ))
   fi
+  CountdownTime=$(( $CountdownTime - 1 ))
   echo "服务器将于 $CountdownTime 分钟后关闭..."
 done
 echo "停止 Minecraft 服务中 ..."
