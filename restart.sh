@@ -1,36 +1,36 @@
 #!/bin/bash
-# James Chambers
-# Minecraft Bedrock Server restart script
+# author James Chambers
+# Minecraft 基岩版服务端重启脚本 由HeQuanX汉化
 
 # Check if server is started
 if ! screen -list | grep -q "servername"; then
-    echo "Server is not currently running!"
+    echo "服务尚未运行"
     exit 1
 fi
 
-echo "Sending restart notifications to server..."
+echo "正在向服务器发送关闭通知..."
 
 # Start countdown notice on server
-screen -Rd servername -X stuff "say Server is restarting in 30 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f30秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 23s
-screen -Rd servername -X stuff "say Server is restarting in 7 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f7秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Server is restarting in 6 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f6秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Server is restarting in 5 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f5秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Server is restarting in 4 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f4秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Server is restarting in 3 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f3秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Server is restarting in 2 seconds! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f2秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Server is restarting in 1 second! $(printf '\r')"
+screen -Rd servername -X stuff "say §c服务器将在§f1秒§c后重启，请合理安排您的活动 $(printf '\r')"
 sleep 1s
-screen -Rd servername -X stuff "say Closing server...$(printf '\r')"
+screen -Rd servername -X stuff "say 关闭服务器$(printf '\r')"
 screen -Rd servername -X stuff "stop$(printf '\r')"
 
-echo "Closing server..."
+echo "关闭服务器..."
 # Wait up to 30 seconds for server to close
 StopChecks=0
 while [ $StopChecks -lt 30 ]; do
@@ -43,7 +43,7 @@ done
 
 if screen -list | grep -q "servername"; then
     # Server still hasn't stopped after 30s, tell Screen to close it
-    echo "Minecraft server still hasn't closed after 30 seconds, closing screen manually"
+    echo "Minecraft 服务未能在30秒内正常关闭, 已使用 screen 强制关闭"
     screen -S servername -X quit
     sleep 10
 fi

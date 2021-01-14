@@ -1,10 +1,11 @@
 #!/bin/bash
 # Author: James Chambers
 # Minecraft Bedrock server startup script using screen
+# Minecraft 基岩版服务端启动脚本 由HeQuanX汉化
 
 # Check if server is already started
 if screen -list | grep -q "servername"; then
-    echo "Server is already started!  Press screen -r servername to open it"
+    echo "服务已经启动!  请使用 screen -r servername 来查看"
     exit 1
 fi
 
@@ -17,7 +18,7 @@ while [ -z "$DefaultRoute" ]; do
     DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
     NetworkChecks=$((NetworkChecks+1))
     if [ $NetworkChecks -gt 20 ]; then
-        echo "Waiting for network interface to come up timed out - starting server without network connection ..."
+        echo "警告： 网络连接超时 - 服务将以离线模式启动 ..."
         break
     fi
 done
@@ -27,7 +28,7 @@ cd dirname/minecraftbe/servername
 
 # Create backup
 if [ -d "worlds" ]; then
-    echo "Backing up server (to minecraftbe/servername/backups folder)"
+    echo "正在备份服务器至 minecraftbe/servername/backups 目录"
     tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
 fi
 
@@ -35,12 +36,12 @@ fi
 ls -1tr dirname/minecraftbe/servername/backups | head -n -10 | xargs -d '\n' rm -f --
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
-echo "Checking for the latest version of Minecraft Bedrock server ..."
+echo "正在检查 Minecraft 最新版本 ..."
 
 # Test internet connectivity first
 wget --quiet http://www.minecraft.net/ -O /dev/null
 if [ "$?" != 0 ]; then
-    echo "Unable to connect to update website (internet connection may be down).  Skipping update ..."
+    echo "无法连接至更新服务器 (可能是因为网络原因).  跳过更新步骤 ..."
 else
     # Download server index.html to check latest version
     wget -O downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
@@ -50,16 +51,16 @@ else
     # Download latest version of Minecraft Bedrock dedicated server if a new one is available
     if [ -f "downloads/$DownloadFile" ]
     then
-        echo "Minecraft Bedrock server is up to date..."
+        echo "Minecraft 服务器已经是最新版..."
     else
-        echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server ..."
+        echo "检测到新版本： $DownloadFile .  升级 Minecraft 服务器中 ..."
         wget -O "downloads/$DownloadFile" "$DownloadURL"
         unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*"
     fi
 fi
 
-echo "Starting Minecraft server.  To view window type screen -r servername"
-echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
+echo "Minecraft 服务器其中中.  请输入 screen -r servername 查看"
+echo "如果想要服务器在后台运行, 请先按 Ctrl+A 然后按 Ctrl+D"
 # screen command to spawn log files in logs/ directory never checked to see if a directory named logs/ exists. Now we check and create one if it doesn't
 if [ ! -d "logs/" ]
 then
