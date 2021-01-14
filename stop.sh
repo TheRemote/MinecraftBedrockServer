@@ -9,7 +9,7 @@ if ! screen -list | grep -q "servername"; then
 fi
 
 # Get an optional custom countdown time (in minutes)
-CountdownTime=0
+CountdownTime=1
 while getopts ":t" opt; do
   case $opt in
     t)
