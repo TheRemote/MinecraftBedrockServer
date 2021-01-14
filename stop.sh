@@ -13,7 +13,7 @@ CountdownTime=0
 while getopts ":t" opt; do
   case $opt in
     t)
-      case $string in
+      case $OPTARG in
         ''|*[!0-9]*) 
           echo "Countdown time must be a whole number in minutes."
           exit 1
@@ -41,6 +41,7 @@ while [ $CountdownTime -gt 0 ]; do
   else
     screen -Rd servername -X stuff "say Stopping server in $CountdownTime minutes...$(printf '\r')"
     sleep 60;
+    CountdownTime=$(( $CountdownTime - 1 ))
   fi
   echo "Waiting for $CountdownTime more minutes ..."
 done
