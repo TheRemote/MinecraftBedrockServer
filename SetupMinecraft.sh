@@ -9,7 +9,7 @@
 #
 #
 # 如果你在国内受到GFW或其他原因的影响无法正常使用GitHub 请使用以下作为替代
-# wget https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/SetupMinecraft.sh
+# wget https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/SetupMinecraft.sh
 # chmod +x SetupMinecraft.sh
 # ./SetupMinecraft.sh
 #
@@ -114,28 +114,28 @@ if [ -d "$ServerName" ]; then
 
   # Download start.sh from repository
   echo "正在从仓库获取启动脚本 start.sh ..."
-  wget -O start.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/start.sh
+  wget -O start.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/start.sh
   chmod +x start.sh
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
 
   # Download stop.sh from repository
   echo "正在从仓库获取停止脚本 stop.sh ..."
-  wget -O stop.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/stop.sh
+  wget -O stop.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/stop.sh
   chmod +x stop.sh
   sed -i "s:dirname:$DirName:g" stop.sh
   sed -i "s:servername:$ServerName:g" stop.sh
 
   # Download restart.sh from repository
   echo "正在从仓库获取重启脚本 restart.sh ..."
-  wget -O restart.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/restart.sh
+  wget -O restart.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/restart.sh
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
 
   # Update minecraft server service
   echo "配置服务器: $ServerName 中..."
-  sudo wget -O /etc/systemd/system/$ServerName.service https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/minecraftbe.service
+  sudo wget -O /etc/systemd/system/$ServerName.service https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/minecraftbe.service
   sudo chmod +x /etc/systemd/system/$ServerName.service
   sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
@@ -207,7 +207,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   fi
   
   # Retrieve depends.zip from GitHub repository
-  wget -O depends.zip https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/depends.zip
+  wget -O depends.zip https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/depends.zip
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
@@ -235,7 +235,7 @@ if [[ "$CPUArch" == *"i386"* || "$CPUArch" == *"i686"* ]]; then
   fi
   
   # Retrieve depends.zip from GitHub repository
-  wget -O depends.zip https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/depends.zip
+  wget -O depends.zip https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/depends.zip
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
@@ -259,28 +259,28 @@ unzip -o "downloads/$DownloadFile"
 
 # Download start.sh from repository
 echo "正在从仓库获取启动脚本 start.sh ..."
-wget -O start.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/start.sh
+wget -O start.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/start.sh
 chmod +x start.sh
 sed -i "s:dirname:$DirName:g" start.sh
 sed -i "s:servername:$ServerName:g" start.sh
 
 # Download stop.sh from repository
 echo "正在从仓库获取停止脚本 stop.sh..."
-wget -O stop.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/stop.sh
+wget -O stop.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/stop.sh
 chmod +x stop.sh
 sed -i "s:dirname:$DirName:g" stop.sh
 sed -i "s:servername:$ServerName:g" stop.sh
 
 # Download restart.sh from repository
 echo "正在从仓库获取重启脚本 restart.sh..."
-wget -O restart.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/restart.sh
+wget -O restart.sh https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/restart.sh
 chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
 
 # Service configuration
 echo "Configuring Minecraft $ServerName service..."
-sudo wget -O /etc/systemd/system/$ServerName.service https://gitee.com/crabapples/MinecraftBedrockServer/raw/master/minecraftbe.service
+sudo wget -O /etc/systemd/system/$ServerName.service https://gitee.com/crabapples/MinecraftBedrockServer/raw/zh_cn/minecraftbe.service
 sudo chmod +x /etc/systemd/system/$ServerName.service
 sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
