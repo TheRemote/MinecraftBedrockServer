@@ -2,7 +2,7 @@
 
 在Ubuntu / Debian上设置Minecraft Bedrock专用服务器，并提供自动更新，备份和在启动时自动运行的选项。
 查看安装说明，网址为：https : //jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
-<h3>功能</ h3>
+<h3>功能</h3>
 <ul>
   <li>设置官方的Minecraft基岩服务器（当前正在进行alpha测试）</li>
   <li>几分钟内即可完全运行Minecraft Bedrock版服务器</li>
