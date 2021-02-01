@@ -1,11 +1,19 @@
 #!/bin/bash
-# Author: James Chambers
+# Author: James Chambers - https://jamesachambers.com/
 # Minecraft Bedrock server startup script using screen
 
 # Check if server is already started
 if screen -list | grep -q "\.servername"; then
     echo "Server is already started!  Press screen -r servername to open it"
     exit 1
+fi
+
+Permissions=$()
+
+# Create logs folder if it doesn't exist
+if [ ! -d "logs/" ]
+then
+	mkdir logs
 fi
 
 # Check if network interfaces are up
@@ -23,6 +31,7 @@ while [ -z "$DefaultRoute" ]; do
 done
 
 # Change directory to server directory
+sudo chown 
 cd dirname/minecraftbe/servername
 
 # Create backup
@@ -60,9 +69,5 @@ fi
 
 echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
-# screen command to spawn log files in logs/ directory never checked to see if a directory named logs/ exists. Now we check and create one if it doesn't
-if [ ! -d "logs/" ]
-then
-	mkdir logs
-fi
+
 screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"

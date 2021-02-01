@@ -1,11 +1,12 @@
 [Unit]
-Description=servername minecraft server
+Description=servername Minecraft Bedrock Server
 After=network-online.target
 
 [Service]
-User=replace
+User=userxname
 WorkingDirectory=dirname/minecraftbe/servername
 Type=forking
+ExecStartPre=+/bin/chown -R userxname dirname/minecraftbe/servername
 ExecStart=/bin/bash dirname/minecraftbe/servername/start.sh
 ExecStop=/bin/bash dirname/minecraftbe/servername/stop.sh
 GuessMainPID=no

@@ -121,10 +121,10 @@ if [ -d "$ServerName" ]; then
   sed -i "s:servername:$ServerName:g" restart.sh
 
   # Update minecraft server service
-  echo "Configuring $ServerName service..."
+  echo "Configuring Minecraft $ServerName service..."
   sudo wget -O /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
   sudo chmod +x /etc/systemd/system/$ServerName.service
-  sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
+  sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
   sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
@@ -269,7 +269,7 @@ sed -i "s:servername:$ServerName:g" restart.sh
 echo "Configuring Minecraft $ServerName service..."
 sudo wget -O /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
 sudo chmod +x /etc/systemd/system/$ServerName.service
-sudo sed -i "s/replace/$UserName/g" /etc/systemd/system/$ServerName.service
+sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
 sed -i "/server-port=/c\server-port=$PortIPV4" server.properties

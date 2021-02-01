@@ -1,5 +1,5 @@
 #!/bin/bash
-# James Chambers
+# James Chambers - https://jamesachambers.com/
 # Minecraft Server stop script - primarily called by minecraft service but can be ran manually
 
 # Check if server is running

@@ -1,5 +1,5 @@
 #!/bin/bash
-# James Chambers
+# James Chambers - https://jamesachambers.com/
 # Minecraft Bedrock Server restart script
 
 # Check if server is started

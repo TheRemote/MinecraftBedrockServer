@@ -56,6 +56,7 @@ chmod +x SetupMinecraft.sh
   <li>January 31st 2021</li>
   <ul>
     <li>Added .\ in front of the screen -q checks to prevent similar usernames from tripping up window detection</li>
+    <li>Server now takes ownership of server files on each start to prevent folks a whole heap of trouble and heartache when restoring backups/moving files/etc.</li>
   </ul>
   <li>December 20th 2020</li>
   <ul>
