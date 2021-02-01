@@ -265,6 +265,14 @@ chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
 
+# Download restart.sh from repository
+echo "Grabbing fixpermissions.sh from repository..."
+wget -O restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+chmod +x restart.sh
+sed -i "s:dirname:$DirName:g" fixpermissions.sh
+sed -i "s:servername:$ServerName:g" fixpermissions.sh
+sed -i "s:userxname:$UserName:g" fixpermissions.sh
+
 # Service configuration
 echo "Configuring Minecraft $ServerName service..."
 sudo wget -O /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service

@@ -53,6 +53,10 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>February 1st 2021</li>
+  <ul>
+    <li>Added fixpermissions.sh utility script to take ownership of Minecraft server files manually (the systemd startup service does this automatically for you if you are using it)</li>
+  </ul>
   <li>January 31st 2021</li>
   <ul>
     <li>Added .\ in front of the screen -q checks to prevent similar usernames from tripping up window detection</li>
