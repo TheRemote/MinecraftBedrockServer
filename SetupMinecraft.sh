@@ -97,7 +97,7 @@ if [ -d "$ServerName" ]; then
   echo "Server directory is: $DirName/minecraftbe/$ServerName"
 
   # Remove existing scripts
-  rm start.sh stop.sh restart.sh
+  rm start.sh stop.sh restart.sh fixpermissions.sh
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
@@ -119,6 +119,14 @@ if [ -d "$ServerName" ]; then
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
+
+  # Download fixpermissions.sh from repository
+  echo "Grabbing fixpermissions.sh from repository..."
+  wget -O fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+  chmod +x fixpermissions.sh
+  sed -i "s:dirname:$DirName:g" fixpermissions.sh
+  sed -i "s:servername:$ServerName:g" fixpermissions.sh
+  sed -i "s:userxname:$UserName:g" fixpermissions.sh
 
   # Update minecraft server service
   echo "Configuring Minecraft $ServerName service..."
@@ -265,10 +273,10 @@ chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
 
-# Download restart.sh from repository
+# Download fixpermissions.sh from repository
 echo "Grabbing fixpermissions.sh from repository..."
-wget -O restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
-chmod +x restart.sh
+wget -O fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+chmod +x fixpermissions.sh
 sed -i "s:dirname:$DirName:g" fixpermissions.sh
 sed -i "s:servername:$ServerName:g" fixpermissions.sh
 sed -i "s:userxname:$UserName:g" fixpermissions.sh
