@@ -53,6 +53,10 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>January 31st 2021</li>
+  <ul>
+    <li>Added .\ in front of the screen -q checks to prevent similar usernames from tripping up window detection</li>
+  </ul>
   <li>December 20th 2020</li>
   <ul>
     <li>Added experimental QEMU support for 32 bit (i386, i686) similar to how the ARM support works</li>

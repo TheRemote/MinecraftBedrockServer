@@ -3,7 +3,7 @@
 # Minecraft Bedrock server startup script using screen
 
 # Check if server is already started
-if screen -list | grep -q "servername"; then
+if screen -list | grep -q "\.servername"; then
     echo "Server is already started!  Press screen -r servername to open it"
     exit 1
 fi

@@ -303,7 +303,7 @@ sudo systemctl start $ServerName.service
 # Wait up to 20 seconds for server to start
 StartChecks=0
 while [ $StartChecks -lt 20 ]; do
-  if screen -list | grep -q "$ServerName"; then
+  if screen -list | grep -q "\.$ServerName"; then
     break
   fi
   sleep 1;
@@ -311,7 +311,7 @@ while [ $StartChecks -lt 20 ]; do
 done
 
 # Force quit if server is still open
-if ! screen -list | grep -q "$ServerName"; then
+if ! screen -list | grep -q "\.$ServerName"; then
   echo "Minecraft server failed to start after 20 seconds."
 else
   echo "Minecraft server has started.  Type screen -r $ServerName to view the running server!"

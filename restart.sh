@@ -3,7 +3,7 @@
 # Minecraft Bedrock Server restart script
 
 # Check if server is started
-if ! screen -list | grep -q "servername"; then
+if ! screen -list | grep -q "\.servername"; then
     echo "Server is not currently running!"
     exit 1
 fi
@@ -34,14 +34,14 @@ echo "Closing server..."
 # Wait up to 30 seconds for server to close
 StopChecks=0
 while [ $StopChecks -lt 30 ]; do
-  if ! screen -list | grep -q "servername"; then
+  if ! screen -list | grep -q "\.servername"; then
     break
   fi
   sleep 1;
   StopChecks=$((StopChecks+1))
 done
 
-if screen -list | grep -q "servername"; then
+if screen -list | grep -q "\.servername"; then
     # Server still hasn't stopped after 30s, tell Screen to close it
     echo "Minecraft server still hasn't closed after 30 seconds, closing screen manually"
     screen -S servername -X quit
