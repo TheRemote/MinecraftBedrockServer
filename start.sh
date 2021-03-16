@@ -32,7 +32,7 @@ done
 cd dirname/minecraftbe/servername
 
 # Take ownership of server files
-sudo chown -Rv userxname dirname/minecraftbe/servername
+sudo chown -R userxname dirname/minecraftbe/servername >/dev/null
 
 # Create backup
 if [ -d "worlds" ]; then
