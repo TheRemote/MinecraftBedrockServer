@@ -8,8 +8,6 @@ if screen -list | grep -q "\.servername"; then
     exit 1
 fi
 
-Permissions=$()
-
 # Create logs folder if it doesn't exist
 if [ ! -d "logs/" ]
 then
@@ -31,8 +29,10 @@ while [ -z "$DefaultRoute" ]; do
 done
 
 # Change directory to server directory
-sudo chown 
 cd dirname/minecraftbe/servername
+
+# Take ownership of server files
+sudo chown -Rv userxname dirname/minecraftbe/servername
 
 # Create backup
 if [ -d "worlds" ]; then
