@@ -32,7 +32,7 @@ done
 cd dirname/minecraftbe/servername
 
 # Take ownership of server files
-sudo chown -R userxname dirname/minecraftbe/servername >/dev/null
+Permissions=$(sudo chown -R userxname dirname/minecraftbe/servername >/dev/null)
 
 # Create backup
 if [ -d "worlds" ]; then
@@ -41,7 +41,7 @@ if [ -d "worlds" ]; then
 fi
 
 # Rotate backups -- keep most recent 10
-ls -1tr dirname/minecraftbe/servername/backups | head -n -10 | xargs -d '\n' rm -f --
+Rotate=$(ls -1tr dirname/minecraftbe/servername/backups | head -n -10 | xargs -d '\n' rm -f --)
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server ..."
