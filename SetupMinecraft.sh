@@ -258,6 +258,7 @@ wget -O start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockSer
 chmod +x start.sh
 sed -i "s:dirname:$DirName:g" start.sh
 sed -i "s:servername:$ServerName:g" start.sh
+sed -i "s:userxname:$UserName:g" start.sh
 
 # Download stop.sh from repository
 echo "Grabbing stop.sh from repository..."
@@ -265,6 +266,7 @@ wget -O stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServ
 chmod +x stop.sh
 sed -i "s:dirname:$DirName:g" stop.sh
 sed -i "s:servername:$ServerName:g" stop.sh
+sed -i "s:userxname:$UserName:g" stop.sh
 
 # Download restart.sh from repository
 echo "Grabbing restart.sh from repository..."
@@ -272,6 +274,7 @@ wget -O restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockS
 chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
+sed -i "s:userxname:$UserName:g" restart.sh
 
 # Download fixpermissions.sh from repository
 echo "Grabbing fixpermissions.sh from repository..."

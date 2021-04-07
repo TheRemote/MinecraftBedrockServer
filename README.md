@@ -53,6 +53,10 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>April 7th 2021</li>
+  <ul>
+    <li>Fixed a bug with userxname appearing in start.sh and not being updated to the correct username</li>
+  </ul>
   <li>March 16th 2021</li>
   <ul>
     <li>Fixed a incomplete sudo line in start.sh that was throwing an error (thanks /u/zfa from reddit!)</li>
