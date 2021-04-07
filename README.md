@@ -56,6 +56,7 @@ chmod +x SetupMinecraft.sh
   <li>April 7th 2021</li>
   <ul>
     <li>Fixed a bug with userxname appearing in start.sh and not being updated to the correct username</li>
+    <li>Fixed an issue that could trigger PAM authentication in start.sh</li>
   </ul>
   <li>March 16th 2021</li>
   <ul>

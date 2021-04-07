@@ -32,9 +32,9 @@ done
 cd dirname/minecraftbe/servername
 
 # Take ownership of server files
-Permissions=$(sudo chown -R userxname dirname/minecraftbe/servername >/dev/null)
+Permissions=$(chown -R userxname dirname/minecraftbe/servername >/dev/null)
 Permissions=$(chmod 755 dirname/minecraftbe/servername/bedrock_server >/dev/null)
-Permissions=$(sudo chmod -R 755 dirname/minecraftbe/servername/*.sh >/dev/null)
+Permissions=$(chmod -R 755 dirname/minecraftbe/servername/*.sh >/dev/null)
 
 # Create backup
 if [ -d "worlds" ]; then
