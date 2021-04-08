@@ -55,6 +55,7 @@ chmod +x SetupMinecraft.sh
 <ul>
   <li>April 7th 2021</li>
   <ul>
+    <li>Updated permissions_fix.sh -- can fix issues with permissions if you are seeing them!</li>
     <li>Fixed a bug with userxname appearing in start.sh and not being updated to the correct username</li>
     <li>Fixed an issue that could trigger PAM authentication in start.sh</li>
   </ul>
