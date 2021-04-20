@@ -8,6 +8,7 @@
 
 echo "Taking ownership of all server files/folders in dirname/minecraftbe/servername"
 sudo chown -Rv userxname dirname/minecraftbe/servername
-sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
 sudo chmod -R 755 dirname/minecraftbe/servername/*.sh
+sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
+sudo chmod +x dirname/minecraftbe/servername/bedrock_server
 echo "Complete"

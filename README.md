@@ -53,6 +53,14 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>April 20th 2021</li>
+  <ul>
+    <li>Fully qualified route command with /sbin/route to alleviate network check breaking some servers</li>
+    <li>Added safety check to prevent using the server label 'minecraftbe' which can break the scripts</li>
+    <li>Added libc6 dependency check as several people have reported libns1.so.1 missing</li>
+    <li>Added curl and libcurl3 dependency as a fallback for older distros to avoid missing libcurl.so errors</li>
+    <li>Added libcrypt1 dependency check</li>
+  </ul>
   <li>April 7th 2021</li>
   <ul>
     <li>If you are updating from an old version make sure you remove the old SetupMinecraft.sh and redownload the new version from scratch.  If you are seeing something like userxname in the systemd service you're using an old version of SetupMinecraft.sh and need to download the latest</li>

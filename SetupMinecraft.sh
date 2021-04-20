@@ -52,8 +52,15 @@ fi
 sudo apt-get update
 sudo apt-get install screen unzip wget -y
 sudo apt-get install net-tools -y
+echo "Installing curl and libcurl.."
+sudo apt-get install curl -y
 sudo apt-get install libcurl4 -y
+# Install libcurl3 for backwards compatibility in case libcurl4 isn't available
+sudo apt-get install libcurl3 -y
+echo "Installing openssl, libc6 and libcrypt1.."
 sudo apt-get install openssl -y
+sudo apt-get install libc6 -y
+sudo apt-get install libcrypt1 -y
 
 # Check to see if Minecraft server main directory already exists
 cd ~
@@ -74,10 +81,15 @@ else
 fi
 
 # Server name configuration
-echo "Enter a short one word label for a new or existing server..."
+echo "Enter a short one word label for a new or existing server (don't use minecraftbe)..."
 echo "It will be used in the folder name and service name..."
 
 read_with_prompt ServerName "Server Label"
+
+if [[ "$ServerName" == *"minecraftbe"* ]]; then
+  echo "Server label of minecraftbe is not allowed.  Please choose a different server label!"
+  exit 1
+fi
 
 echo "Enter server IPV4 port (default 19132): "
 read_with_prompt PortIPV4 "Server IPV4 Port" 19132
