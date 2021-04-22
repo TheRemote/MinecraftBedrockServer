@@ -53,6 +53,11 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>April 22nd 2021</li>
+  <ul>
+    <li>Added a safety check to prevent installing on 32 bit (i386 or i686) operating systems.  The official Bedrock dedicated server has only been released as a 64 bit (x86_64) binary and attempts at emulation on 32 bit have failed to yield any successful results!</li>
+    <li>Added chmod +x bedrock_server to start.sh as updates seem to be removing executable permissions sometimes</li>
+  </ul>
   <li>April 20th 2021</li>
   <ul>
     <li>Fully qualified route command with /sbin/route to alleviate network check breaking some servers</li>

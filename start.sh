@@ -34,6 +34,7 @@ cd dirname/minecraftbe/servername
 # Take ownership of server files
 Permissions=$(chown -R userxname dirname/minecraftbe/servername >/dev/null)
 Permissions=$(chmod 755 dirname/minecraftbe/servername/bedrock_server >/dev/null)
+Permissions=$(chmod +x dirname/minecraftbe/servername/bedrock_server >/dev/null)
 Permissions=$(chmod -R 755 dirname/minecraftbe/servername/*.sh >/dev/null)
 
 # Create backup
