@@ -57,6 +57,7 @@ chmod +x SetupMinecraft.sh
   <ul>
     <li>Added setting the path variable to each script to prevent service from failing to start due to not being able to find the right path.</li>
     <li>Please redownload SetupMinecraft.sh for this update.  The script will give you a warning each time you start up that it couldn't set the path variable without the new SetupMinecraft.sh script</li>
+    <li>Added user agent to wget string to prevent update check from failing</li>
   </ul>
   <li>April 22nd 2021</li>
   <ul>

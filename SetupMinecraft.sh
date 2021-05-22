@@ -255,7 +255,7 @@ fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."
-wget -O downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
+wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
 DownloadURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html)
 DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
 echo "$DownloadURL"
@@ -265,7 +265,7 @@ echo "$DownloadFile"
 echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
 DirName=$(readlink -e ~)
-wget -O "downloads/$DownloadFile" "$DownloadURL"
+wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 
 # Download start.sh from repository
@@ -284,6 +284,7 @@ chmod +x stop.sh
 sed -i "s:dirname:$DirName:g" stop.sh
 sed -i "s:servername:$ServerName:g" stop.sh
 sed -i "s:userxname:$UserName:g" stop.sh
+sed -i "s:pathvariable:$PATH:g" start.sh
 
 # Download restart.sh from repository
 echo "Grabbing restart.sh from repository..."
@@ -292,6 +293,7 @@ chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
 sed -i "s:userxname:$UserName:g" restart.sh
+sed -i "s:pathvariable:$PATH:g" start.sh
 
 # Download fixpermissions.sh from repository
 echo "Grabbing fixpermissions.sh from repository..."

@@ -64,12 +64,12 @@ Rotate=$(pushd dirname/minecraftbe/servername/backups; ls -1tr | head -n -10 | x
 echo "Checking for the latest version of Minecraft Bedrock server ..."
 
 # Test internet connectivity first
-wget --quiet http://www.minecraft.net/ -O /dev/null
+wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" --quiet http://www.minecraft.net/ -O /dev/null
 if [ "$?" != 0 ]; then
     echo "Unable to connect to update website (internet connection may be down).  Skipping update ..."
 else
     # Download server index.html to check latest version
-    wget -O downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
+    wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
     DownloadURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html)
     DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
 
@@ -79,7 +79,7 @@ else
         echo "Minecraft Bedrock server is up to date..."
     else
         echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server ..."
-        wget -O "downloads/$DownloadFile" "$DownloadURL"
+        wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O "downloads/$DownloadFile" "$DownloadURL"
         unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*"
     fi
 fi
