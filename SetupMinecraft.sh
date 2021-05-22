@@ -14,7 +14,7 @@ echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServ
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
 # Check for updates
-if [[ $(find "SetupMinecraft.sh" -mtime +30 -print) ]]; then
+if [[ $(find "SetupMinecraft.sh" -mtime +7 -print) ]]; then
   echo "Performing self update..."
   wget -O SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
   chmod +x SetupMinecraft.sh
