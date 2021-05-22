@@ -13,6 +13,15 @@ echo "Minecraft Bedrock Server installation script by James Chambers"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
+# Check for updates
+if [[ $(find "SetupMinecraft.sh" -mtime +30 -print) ]]; then
+  echo "Performing self update..."
+  wget -O SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
+  chmod +x SetupMinecraft.sh
+  /bin/bash SetupMinecraft.sh
+  exit 0
+fi
+
 # Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
