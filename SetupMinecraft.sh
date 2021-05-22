@@ -118,7 +118,7 @@ if [ -d "$ServerName" ]; then
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
   sed -i "s:userxname:$UserName:g" start.sh
-  sed -i "s:pathvariable:$PATH:g" start.sh
+  sed -i "s<pathvariable<$PATH<g" start.sh
 
   # Download stop.sh from repository
   echo "Grabbing stop.sh from repository..."
@@ -127,7 +127,7 @@ if [ -d "$ServerName" ]; then
   sed -i "s:dirname:$DirName:g" stop.sh
   sed -i "s:servername:$ServerName:g" stop.sh
   sed -i "s:userxname:$UserName:g" stop.sh
-  sed -i "s:pathvariable:$PATH:g" stop.sh
+  sed -i "s<pathvariable<$PATH<g" stop.sh
 
   # Download restart.sh from repository
   echo "Grabbing restart.sh from repository..."
@@ -136,7 +136,7 @@ if [ -d "$ServerName" ]; then
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
   sed -i "s:userxname:$UserName:g" restart.sh
-  sed -i "s:pathvariable:$PATH:g" restart.sh
+  sed -i "s<pathvariable<$PATH<g" restart.sh
 
   # Download fixpermissions.sh from repository
   echo "Grabbing fixpermissions.sh from repository..."
@@ -281,7 +281,7 @@ chmod +x start.sh
 sed -i "s:dirname:$DirName:g" start.sh
 sed -i "s:servername:$ServerName:g" start.sh
 sed -i "s:userxname:$UserName:g" start.sh
-sed -i "s:pathvariable:$PATH:g" start.sh
+sed -i "s<pathvariable<$PATH<g" start.sh
 
 # Download stop.sh from repository
 echo "Grabbing stop.sh from repository..."
@@ -290,7 +290,7 @@ chmod +x stop.sh
 sed -i "s:dirname:$DirName:g" stop.sh
 sed -i "s:servername:$ServerName:g" stop.sh
 sed -i "s:userxname:$UserName:g" stop.sh
-sed -i "s:pathvariable:$PATH:g" stop.sh
+sed -i "s<pathvariable<$PATH<g" stop.sh
 
 # Download restart.sh from repository
 echo "Grabbing restart.sh from repository..."
@@ -299,7 +299,7 @@ chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
 sed -i "s:userxname:$UserName:g" restart.sh
-sed -i "s:pathvariable:$PATH:g" restart.sh
+sed -i "s<pathvariable<$PATH<g" restart.sh
 
 # Download fixpermissions.sh from repository
 echo "Grabbing fixpermissions.sh from repository..."
