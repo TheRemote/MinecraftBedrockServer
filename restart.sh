@@ -1,5 +1,5 @@
 #!/bin/bash
-# James Chambers - https://jamesachambers.com/
+# James Chambers - https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # Minecraft Bedrock Server restart script
 
 # Set path variable

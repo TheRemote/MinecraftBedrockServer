@@ -1,5 +1,5 @@
 #!/bin/bash
-# James Chambers - https://jamesachambers.com/
+# James Chambers - https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 # Minecraft Server stop script - primarily called by minecraft service but can be ran manually
 
 # Set path variable
