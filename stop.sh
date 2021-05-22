@@ -2,6 +2,15 @@
 # James Chambers - https://jamesachambers.com/
 # Minecraft Server stop script - primarily called by minecraft service but can be ran manually
 
+# Set path variable
+USERPATH="pathvariable"
+PathLength=${#USERPATH}
+if [ "$PathLength" > 12 ]; then
+    PATH=$($USERPATH)
+else
+    echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
+fi
+
 # Check if server is running
 if ! screen -list | grep -q "\.servername"; then
   echo "Server is not currently running!"

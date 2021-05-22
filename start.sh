@@ -2,16 +2,30 @@
 # Author: James Chambers - https://jamesachambers.com/
 # Minecraft Bedrock server startup script using screen
 
+# Set path variable
+USERPATH="pathvariable"
+PathLength=${#USERPATH}
+if [ "$PathLength" > 12 ]; then
+    PATH=$($USERPATH)
+else
+    echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
+fi
+
 # Check if server is already started
 if screen -list | grep -q "\.servername"; then
     echo "Server is already started!  Press screen -r servername to open it"
     exit 1
 fi
 
-# Create logs folder if it doesn't exist
-if [ ! -d "logs/" ]
-then
-	mkdir logs
+# Create logs/backups/downloads folder if it doesn't exist
+if [ ! -d "logs" ]; then
+    mkdir logs
+fi
+if [ ! -d "downloads" ]; then
+    mkdir downloads
+fi
+if [ ! -d "backups" ]; then
+    mkdir backups
 fi
 
 # Check if network interfaces are up

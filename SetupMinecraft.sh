@@ -275,6 +275,7 @@ chmod +x start.sh
 sed -i "s:dirname:$DirName:g" start.sh
 sed -i "s:servername:$ServerName:g" start.sh
 sed -i "s:userxname:$UserName:g" start.sh
+sed -i "s:pathvariable:$PATH:g" start.sh
 
 # Download stop.sh from repository
 echo "Grabbing stop.sh from repository..."

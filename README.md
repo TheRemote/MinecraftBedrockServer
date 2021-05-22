@@ -53,6 +53,11 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>May 22nd 2021</li>
+  <ul>
+    <li>Added setting the path variable to each script to prevent service from failing to start due to not being able to find the right path.</li>
+    <li>Please redownload SetupMinecraft.sh for this update.  The script will give you a warning each time you start up that it couldn't set the path variable without the new SetupMinecraft.sh script</li>
+  </ul>
   <li>April 22nd 2021</li>
   <ul>
     <li>Added a safety check to prevent installing on 32 bit (i386 or i686) operating systems.  The official Bedrock dedicated server has only been released as a 64 bit (x86_64) binary and attempts at emulation on 32 bit have failed to yield any successful results!</li>
