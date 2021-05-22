@@ -5,8 +5,8 @@
 # Set path variable
 USERPATH="pathvariable"
 PathLength=${#USERPATH}
-if [ "$PathLength" > 12 ]; then
-    PATH=$($USERPATH)
+if [ "$PathLength" -gt 12 ]; then
+    PATH="$USERPATH"
 else
     echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
 fi
