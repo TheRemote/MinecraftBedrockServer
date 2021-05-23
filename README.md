@@ -53,6 +53,10 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>May 23nd 2021</li>
+  <ul>
+    <li>The fixpermissions.sh script now displays the last 5 lines from the latest log file to aid in troubleshooting.  If your server won't start this script often will take care of it and the logs can give useful information otherwise!</li>
+  </ul>
   <li>May 22nd 2021</li>
   <ul>
     <li>Added setting the path variable to each script to prevent service from failing to start due to not being able to find the right path.</li>
