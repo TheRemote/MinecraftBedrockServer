@@ -12,8 +12,8 @@ sudo chmod -R 755 dirname/minecraftbe/servername/*.sh
 sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
 sudo chmod +x dirname/minecraftbe/servername/bedrock_server
 
-echo "Displaying last 5 lines from log file in /logs folder:"
 NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
+echo "Displaying last 5 lines from log file $NewestLog in /logs folder:"
 tail -5 "$NewestLog"
 
 echo "Complete"
