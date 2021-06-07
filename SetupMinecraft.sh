@@ -165,13 +165,13 @@ if [ -d "$ServerName" ]; then
   sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
   sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
   sudo systemctl daemon-reload
-  echo -n "Start Minecraft server at startup automatically (y/n)?"
+  echo -n "Start Minecraft server at startup automatically (y/n)? "
   read answer < /dev/tty
   if [ "$answer" != "${answer#[Yy]}" ]; then
     sudo systemctl enable $ServerName.service
 
     # Automatic reboot at 4am configuration
-    echo -n "Automatically restart and backup server at 4am daily (y/n)?"
+    echo -n "Automatically restart and backup server at 4am daily (y/n)? "
     read answer < /dev/tty
     if [ "$answer" != "${answer#[Yy]}" ]; then
       croncmd="$DirName/minecraftbe/$ServerName/restart.sh"
