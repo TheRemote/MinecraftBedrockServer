@@ -55,6 +55,7 @@ chmod +x SetupMinecraft.sh
 <ul>
   <li>June 19th 2021</li>
   <ul>
+    <li>Fixed timestamps to display on every line (thanks murkyl)</li>
     <li>Added chmod command after unzip line to make bedrock_server executable for issue #22 (thanks murkyl)</li>
     <li>Merged pull request #91 from starkey-01 to add prompt for an alternate installation directory.  This has been requested for a while so thanks starkey-01!</li>
     <li>Merged pull request #88 clarifying instructions to run script as non-root user (thanks sparagi!)</li>
