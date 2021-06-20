@@ -71,8 +71,13 @@ sudo apt-get install openssl -y
 sudo apt-get install libc6 -y
 sudo apt-get install libcrypt1 -y
 
+# Get directory path (default ~)
+echo "Enter directory path to install Minecraft BE Server (default ~): "
+read_with_prompt DirName "Directory Path" ~
+DirName=$(eval echo "$DirName")
+
 # Check to see if Minecraft server main directory already exists
-cd ~
+cd $DirName
 if [ ! -d "minecraftbe" ]; then
   mkdir minecraftbe
   cd minecraftbe
@@ -80,7 +85,7 @@ else
   cd minecraftbe
   if [ -f "bedrock_server" ]; then
     echo "Migrating old Bedrock server to minecraftbe/old"
-    cd ~
+    cd $DirName
     mv minecraftbe old
     mkdir minecraftbe
     mv old minecraftbe/old
@@ -109,10 +114,9 @@ read_with_prompt PortIPV6 "Server IPV6 Port" 19133
 if [ -d "$ServerName" ]; then
   echo "Directory minecraftbe/$ServerName already exists!  Updating scripts and configuring service ..."
 
-  # Get Home directory path and username
-  DirName=$(readlink -e ~)
+  # Get username
   UserName=$(whoami)
-  cd ~
+  cd $DirName
   cd minecraftbe
   cd $ServerName
   echo "Server directory is: $DirName/minecraftbe/$ServerName"
@@ -194,8 +198,8 @@ if [ -d "$ServerName" ]; then
 fi
 
 # Create server directory
-echo "Creating minecraft server directory (~/minecraftbe/$ServerName)..."
-cd ~
+echo "Creating minecraft server directory ($DirName/minecraftbe/$ServerName)..."
+cd $DirName
 cd minecraftbe
 mkdir $ServerName
 cd $ServerName
@@ -233,7 +237,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
-  sudo ln -s ~/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
+  sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
 fi
 
 # Check for x86 (32 bit) architecture
@@ -261,7 +265,7 @@ if [[ "$CPUArch" == *"i386"* || "$CPUArch" == *"i686"* ]]; then
   #unzip depends.zip
   #sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
-  #sudo ln -s ~/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
+  #sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
 
   # 32 bit attempts have not been successful -- notify user to install 64 bit OS
   echo "You are running a 32 bit operating system (i386 or i686) and the Bedrock Dedicated Server has only been released for 64 bit (x86_64).  If you have a 64 bit processor please install a 64 bit operating system to run the Bedrock dedicated server!"
@@ -279,7 +283,6 @@ echo "$DownloadFile"
 # Download latest version of Minecraft Bedrock dedicated server
 echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
-DirName=$(readlink -e ~)
 wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 
