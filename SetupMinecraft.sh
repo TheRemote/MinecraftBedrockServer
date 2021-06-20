@@ -285,6 +285,7 @@ echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
 wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
+chmod u+x bedrock_server
 
 # Download start.sh from repository
 echo "Grabbing start.sh from repository..."

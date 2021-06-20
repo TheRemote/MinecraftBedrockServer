@@ -53,6 +53,12 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>June 19th 2021</li>
+  <ul>
+    <li>Added chmod command after unzip line to make bedrock_server executable for issue #22 (thanks murkyl)</li>
+    <li>Merged pull request #91 from starkey-01 to add prompt for an alternate installation directory.  This has been requested for a while so thanks starkey-01!</li>
+    <li>Merged pull request #88 clarifying instructions to run script as non-root user (thanks sparagi!)</li>
+  </ul>
   <li>May 23nd 2021</li>
   <ul>
     <li>The fixpermissions.sh script now displays the last 5 lines from the latest log file to aid in troubleshooting.  If your server won't start this script often will take care of it and the logs can give useful information otherwise!</li>

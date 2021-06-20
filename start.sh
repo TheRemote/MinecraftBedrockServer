@@ -45,10 +45,8 @@ done
 # Change directory to server directory
 cd dirname/minecraftbe/servername
 
-# Take ownership of server files
+# Take ownership of server files and set correct permissions
 Permissions=$(chown -R userxname dirname/minecraftbe/servername >/dev/null)
-Permissions=$(chmod 755 dirname/minecraftbe/servername/bedrock_server >/dev/null)
-Permissions=$(chmod +x dirname/minecraftbe/servername/bedrock_server >/dev/null)
 Permissions=$(chmod -R 755 dirname/minecraftbe/servername/*.sh >/dev/null)
 
 # Create backup
@@ -81,6 +79,7 @@ else
         echo "New version $DownloadFile is available.  Updating Minecraft Bedrock server ..."
         wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" -O "downloads/$DownloadFile" "$DownloadURL"
         unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*"
+        Permissions=$(chmod u+x dirname/minecraftbe/servername/bedrock_server >/dev/null)
     fi
 fi
 
