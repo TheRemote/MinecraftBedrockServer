@@ -47,9 +47,9 @@ function read_with_prompt {
   done
 }
 
-# Check to make sure we aren't being ran as root
+# Check to make sure we aren't running as root
 if [ $(id -u) = 0 ]; then
-   echo "This script is not meant to be ran as root or sudo.  Please run normally with ./SetupMinecraft.sh.  If you know what you are doing and want to override this edit this check out of SetupMinecraft.sh.  Exiting..."
+   echo "This script is not meant to be run as root. Please run ./SetupMinecraft.sh as a non-root user, without sudo; the script will call sudo when it is needed. Exiting..."
    exit 1
 fi
 
