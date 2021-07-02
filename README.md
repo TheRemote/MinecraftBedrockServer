@@ -55,7 +55,7 @@ chmod +x SetupMinecraft.sh
 <ul>
   <li>July 1st 2021</li>
   <ul>
-    <li>Added 15 second timeout to wget command to prevent freezing when the update server won't respond</li>
+    <li>Changed from wget to curl as wget is freezing (but curl works)</li>
     <li>Added randomization to user agent</li>
   </ul>
   <li>June 19th 2021</li>
