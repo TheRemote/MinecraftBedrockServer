@@ -5,7 +5,7 @@
 # Set path variable
 USERPATH="pathvariable"
 PathLength=${#USERPATH}
-if [ "$PathLength" -gt 12 ]; then
+if [[ "$PathLength" -gt 12 ]]; then
     PATH="$USERPATH"
 else
     echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
@@ -42,7 +42,7 @@ screen -Rd servername -X stuff "stop$(printf '\r')"
 echo "Closing server..."
 # Wait up to 30 seconds for server to close
 StopChecks=0
-while [ $StopChecks -lt 30 ]; do
+while [[ $StopChecks -lt 30 ]]; do
   if ! screen -list | grep -q "\.servername"; then
     break
   fi
