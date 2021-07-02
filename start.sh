@@ -20,6 +20,9 @@ if screen -list | grep -q "\.servername"; then
     exit 1
 fi
 
+# Change directory to server directory
+cd dirname/minecraftbe/servername
+
 # Create logs/backups/downloads folder if it doesn't exist
 if [ ! -d "logs" ]; then
     mkdir logs
@@ -44,9 +47,6 @@ while [ -z "$DefaultRoute" ]; do
         break
     fi
 done
-
-# Change directory to server directory
-cd dirname/minecraftbe/servername
 
 # Take ownership of server files and set correct permissions
 Permissions=$(chown -R userxname dirname/minecraftbe/servername >/dev/null)

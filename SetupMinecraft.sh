@@ -16,15 +16,6 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
 
-# Check for updates
-if [[ $(find "SetupMinecraft.sh" -mtime +7 -print) ]]; then
-  echo "Performing self update..."
-  curl -L -o SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
-  chmod +x SetupMinecraft.sh
-  /bin/bash SetupMinecraft.sh
-  exit 0
-fi
-
 # Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
@@ -86,8 +77,8 @@ if command -v apt-get &> /dev/null; then
 
   # Double check curl since libcurl dependency issues can sometimes remove it
   if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
-
-  echo "Dependency installation completed."
+  
+  echo "Dependency installation completed"
 else
   echo "Warning:  apt-get was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
 fi
