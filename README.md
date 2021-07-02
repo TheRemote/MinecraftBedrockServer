@@ -18,7 +18,7 @@ View installation instructions at: https://jamesachambers.com/minecraft-bedrock-
 </ul>
 
 <b>UPDATE 7/2/2021 - Multiple instances are currently broken due to the Minecraft Bedrock Edition dedicated server opening up a set of ports it is not supposed to.  Official bug is here on Mojang's official website here: https://bugs.mojang.com/browse/BDS-3989.<br>
-There is one workaround by not using the default ports on any of your server instances (use custom ports for IPv4 and IPv6 on every different server) and don't use the "default" ports.  Single instances of the server are still fine and not impacted by any of this.</b>
+There is one workaround by not using the default ports on any of your server instances (use custom ports for IPv4 and IPv6 on every different server) and don't use the "default" ports 19132 or 19133 in any of your servers (leave them open).  Single instances of the server are still fine and not impacted by any of this.</b>
 
 <h3>Installation Instuctions</h3>
 To run the installation type:<br>
