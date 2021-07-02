@@ -53,6 +53,11 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>July 1st 2021</li>
+  <ul>
+    <li>Added 15 second timeout to wget command to prevent freezing when the update server won't respond</li>
+    <li>Added randomization to user agent</li>
+  </ul>
   <li>June 19th 2021</li>
   <ul>
     <li>Fixed timestamps to display on every line (thanks murkyl)</li>
