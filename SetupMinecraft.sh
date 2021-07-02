@@ -72,10 +72,15 @@ if command -v apt-get &> /dev/null; then
   if ! command -v openssl &> /dev/null; then apt-get install openssl -y; fi
   if ! command -v xargs &> /dev/null; then apt-get install xargs -y; fi
 
-  sudo apt-get install libcurl4 -y
-  # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
-  CurlVer=$(apt-cache show libcurl3 | grep Version | awk 'NR==1{ print $2 }')
-  if [[ "$CurlVer" ]]; then sudo apt-get install libcurl3 -y; fi
+  CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
+  if [[ "$CurlVer" ]]; then 
+    sudo apt-get install libcurl4 -y; fi
+  else
+    # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
+    CurlVer=$(apt-cache show libcurl3 | grep Version | awk 'NR==1{ print $2 }')
+    if [[ "$CurlVer" ]]; then sudo apt-get install libcurl3 -y; fi
+  fi
+
   sudo apt-get install libc6 -y
   sudo apt-get install libcrypt1 -y
 
