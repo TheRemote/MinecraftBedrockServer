@@ -65,7 +65,7 @@ chmod +x SetupMinecraft.sh
     <li>Improved dependency detection and installation</li>
     <li>Removed wget dependency</li>
     <li>Added gawk dependency -- this should not have any impact on most systems but on systems that use mawk by default this will fix server startup issues related to timestamps since mawk doesn't support strftime</li>
-    <li>Fixed stop.sh's -t countdown option (thanks da99Beast, issue #94)</li>
+    <li>Fixed stop.sh's -t countdown option (thanks da99Beast, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/76">issue #76</a>)</li>
     <li>Fixed a nasty issue where the installation of libcurl3 over the top of libcurl4 was allowed in some configurations (like Ubuntu 18.04) and was clobbering curl (thanks Goretech)</li>
   </ul>
   <li>July 1st 2021</li>
@@ -76,9 +76,9 @@ chmod +x SetupMinecraft.sh
   <li>June 19th 2021</li>
   <ul>
     <li>Fixed timestamps to display on every line (thanks murkyl)</li>
-    <li>Added chmod command after unzip line to make bedrock_server executable for issue #22 (thanks murkyl)</li>
-    <li>Merged pull request #91 from starkey-01 to add prompt for an alternate installation directory.  This has been requested for a while so thanks starkey-01!</li>
-    <li>Merged pull request #88 clarifying instructions to run script as non-root user (thanks sparagi!)</li>
+    <li>Added chmod command after unzip line to make bedrock_server executable for <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/22">issue #22</a> (thanks murkyl)</li>
+    <li>Merged <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/91">pull request #91</a> from starkey-01 to add prompt for an alternate installation directory.  This has been requested for a while so thanks starkey-01!</li>
+    <li>Merged <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/88">pull request #88</a> clarifying instructions to run script as non-root user (thanks sparagi!)</li>
   </ul>
   <li>May 23nd 2021</li>
   <ul>
