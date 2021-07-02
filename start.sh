@@ -70,8 +70,8 @@ if [ "$?" != 0 ]; then
     echo "Unable to connect to update website (internet connection may be down).  Skipping update ..."
 else
     # Download server index.html to check latest version
-    curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.36" -o downloads/version.html https://www.minecraft.net/en-us/download/server/bedrock
-    DownloadURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html)
+    curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.36" -H "Accept-Language: en" -H "Accept-Encoding: gzip, deflate" -o downloads/version.html.gz https://www.minecraft.net/en-us/download/server/bedrock
+    DownloadURL=$(zgrep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html.gz)
     DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
 
     # Download latest version of Minecraft Bedrock dedicated server if a new one is available
