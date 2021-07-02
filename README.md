@@ -22,8 +22,8 @@ There is one workaround by not using the default ports on any of your server ins
 
 <h3>Quick Installation Instuctions</h3>
 To run the installation type:<br>
-<pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre><br>
--OR-<br>
+<pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre>
+<b>- OR -</b><br>
 <pre>wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
 chmod +x SetupMinecraft.sh
 ./SetupMinecraft.sh</pre>
