@@ -2,10 +2,10 @@
 # Minecraft Server Installation Script - James A. Chambers - https://jamesachambers.com
 #
 # Instructions: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+# Resource Pack Guide: https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/
+#
 # To run the setup script use:
-# wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
-# chmod +x SetupMinecraft.sh
-# ./SetupMinecraft.sh
+# curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
 #
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
 
