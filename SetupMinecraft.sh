@@ -19,7 +19,7 @@ RandNum=$(echo $((1 + $RANDOM % 5000)))
 # Check for updates
 if [[ $(find "SetupMinecraft.sh" -mtime +7 -print) ]]; then
   echo "Performing self update..."
-  curl -o SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
+  curl -L -o SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
   chmod +x SetupMinecraft.sh
   /bin/bash SetupMinecraft.sh
   exit 0
@@ -129,7 +129,7 @@ if [ -d "$ServerName" ]; then
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
-  curl -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
+  curl -L -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
   chmod +x start.sh
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
@@ -138,7 +138,7 @@ if [ -d "$ServerName" ]; then
 
   # Download stop.sh from repository
   echo "Grabbing stop.sh from repository..."
-  curl -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
+  curl -L -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
   chmod +x stop.sh
   sed -i "s:dirname:$DirName:g" stop.sh
   sed -i "s:servername:$ServerName:g" stop.sh
@@ -147,7 +147,7 @@ if [ -d "$ServerName" ]; then
 
   # Download restart.sh from repository
   echo "Grabbing restart.sh from repository..."
-  curl -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
+  curl -L -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
@@ -156,7 +156,7 @@ if [ -d "$ServerName" ]; then
 
   # Download fixpermissions.sh from repository
   echo "Grabbing fixpermissions.sh from repository..."
-  curl -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+  curl -L -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
   chmod +x fixpermissions.sh
   sed -i "s:dirname:$DirName:g" fixpermissions.sh
   sed -i "s:servername:$ServerName:g" fixpermissions.sh
@@ -164,7 +164,7 @@ if [ -d "$ServerName" ]; then
 
   # Update minecraft server service
   echo "Configuring Minecraft $ServerName service..."
-  sudo curl -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
+  sudo curl -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
   sudo chmod +x /etc/systemd/system/$ServerName.service
   sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
@@ -236,7 +236,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   fi
   
   # Retrieve depends.zip from GitHub repository
-  curl -o depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
+  curl -L -o depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
@@ -277,7 +277,7 @@ fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."
-curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
+curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
 DownloadURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html)
 DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
 echo "$DownloadURL"
@@ -286,13 +286,13 @@ echo "$DownloadFile"
 # Download latest version of Minecraft Bedrock dedicated server
 echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
-curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o "downloads/$DownloadFile" "$DownloadURL"
+curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 chmod u+x bedrock_server
 
 # Download start.sh from repository
 echo "Grabbing start.sh from repository..."
-curl -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
+curl -L -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
 chmod +x start.sh
 sed -i "s:dirname:$DirName:g" start.sh
 sed -i "s:servername:$ServerName:g" start.sh
@@ -301,7 +301,7 @@ sed -i "s<pathvariable<$PATH<g" start.sh
 
 # Download stop.sh from repository
 echo "Grabbing stop.sh from repository..."
-curl -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
+curl -L -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
 chmod +x stop.sh
 sed -i "s:dirname:$DirName:g" stop.sh
 sed -i "s:servername:$ServerName:g" stop.sh
@@ -310,7 +310,7 @@ sed -i "s<pathvariable<$PATH<g" stop.sh
 
 # Download restart.sh from repository
 echo "Grabbing restart.sh from repository..."
-curl -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
+curl -L -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
 chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
@@ -319,7 +319,7 @@ sed -i "s<pathvariable<$PATH<g" restart.sh
 
 # Download fixpermissions.sh from repository
 echo "Grabbing fixpermissions.sh from repository..."
-curl -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+curl -L -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
 chmod +x fixpermissions.sh
 sed -i "s:dirname:$DirName:g" fixpermissions.sh
 sed -i "s:servername:$ServerName:g" fixpermissions.sh
@@ -327,7 +327,7 @@ sed -i "s:userxname:$UserName:g" fixpermissions.sh
 
 # Service configuration
 echo "Configuring Minecraft $ServerName service..."
-sudo curl -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
+sudo curl -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
 sudo chmod +x /etc/systemd/system/$ServerName.service
 sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
