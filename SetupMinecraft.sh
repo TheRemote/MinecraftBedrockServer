@@ -57,22 +57,31 @@ if [ $(id -u) = 0 ]; then
 fi
 
 # Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools, wget.."
-if [ ! -n "`which sudo`" ]; then
-  apt-get update && apt-get install sudo -y
+if command -v apt-get &> /dev/null; then
+  if ! command -v sudo &> /dev/null; then apt-get install sudo -y; fi
+
+  echo "Updating apt.."
+  sudo apt-get update
+
+  echo "Checking and installing dependencies.."
+  if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
+  if ! command -v unzip &> /dev/null; then apt-get install unzip -y; fi
+  if ! command -v screen &> /dev/null; then apt-get install screen -y; fi
+  if ! command -v route &> /dev/null; then apt-get install net-tools -y; fi
+  if ! command -v gawk &> /dev/null; then apt-get install gawk -y; fi
+  if ! command -v openssl &> /dev/null; then apt-get install openssl -y; fi
+
+  sudo apt-get install libcurl4 -y
+  # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
+  CurlVer=$(apt-cache show libcurl3 | grep Version | awk 'NR==1{ print $2 }')
+  if [[ "$CurlVer" ]]; then sudo apt-get install libcurl3 -y; fi
+  sudo apt-get install libc6 -y
+  sudo apt-get install libcrypt1 -y
+
+  echo "Dependency installation completed."
+else
+  echo "Warning:  apt-get was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
 fi
-sudo apt-get update
-sudo apt-get install screen unzip wget -y
-sudo apt-get install net-tools -y
-echo "Installing curl and libcurl.."
-sudo apt-get install curl -y
-sudo apt-get install libcurl4 -y
-# Install libcurl3 for backwards compatibility in case libcurl4 isn't available
-sudo apt-get install libcurl3 -y
-echo "Installing openssl, libc6 and libcrypt1.."
-sudo apt-get install openssl -y
-sudo apt-get install libc6 -y
-sudo apt-get install libcrypt1 -y
 
 # Get directory path (default ~)
 echo "Enter directory path to install Minecraft BE Server (default ~): "
@@ -172,6 +181,7 @@ if [ -d "$ServerName" ]; then
   sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
   sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
   sudo systemctl daemon-reload
+  
   echo -n "Start Minecraft server at startup automatically (y/n)?"
   read answer < /dev/tty
   if [ "$answer" != "${answer#[Yy]}" ]; then
@@ -245,31 +255,6 @@ fi
 
 # Check for x86 (32 bit) architecture
 if [[ "$CPUArch" == *"i386"* || "$CPUArch" == *"i686"* ]]; then
-  # ARM architecture detected -- download QEMU and dependency libraries
-  #echo "32 bit platform detected -- installing dependencies..."
-  # Check if latest available QEMU version is at least 3.0 or higher
-  #QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
-  #if [[ "$QEMUVer" -lt "3" ]]; then
-  #  echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
-  #  exit
-  #else
-  #  sudo apt-get install qemu-user-static binfmt-support -y
-  #fi
-
-  #if [ -n "`which qemu-x86_64-static`" ]; then
-  #  echo "QEMU-x86_64-static installed successfully"
-  #else
-  #  echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
-  #  exit 1
-  #fi
-  
-  # Retrieve depends.zip from GitHub repository
-  #wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
-  #unzip depends.zip
-  #sudo mkdir /lib64
-  # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
-  #sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
-
   # 32 bit attempts have not been successful -- notify user to install 64 bit OS
   echo "You are running a 32 bit operating system (i386 or i686) and the Bedrock Dedicated Server has only been released for 64 bit (x86_64).  If you have a 64 bit processor please install a 64 bit operating system to run the Bedrock dedicated server!"
   exit 1

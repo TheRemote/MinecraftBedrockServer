@@ -13,6 +13,7 @@ View installation instructions at: https://jamesachambers.com/minecraft-bedrock-
   <li>Supports multiple instances -- you can run multiple Bedrock servers on the same system</li>
   <li>Updates automatically to the latest version when server is started</li>
   <li>Easy control of server with start.sh, stop.sh and restart.sh scripts</li>
+  <li>Adds logging with timestamps to "logs" directory</li>
   <li>Optional scheduled daily restart of server using cron</li>
 </ul>
 
@@ -20,6 +21,8 @@ View installation instructions at: https://jamesachambers.com/minecraft-bedrock-
 
 <h3>Installation Instuctions</h3>
 To run the installation type:<br>
+<pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre><br>
+-OR-<br>
 <pre>wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
 chmod +x SetupMinecraft.sh
 ./SetupMinecraft.sh</pre>
@@ -37,10 +40,10 @@ chmod +x SetupMinecraft.sh
  <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (WORKING)</a></li>
  <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (WORKING)</a></li>
  <li>Other X86_64 platforms (WORKING)</li>
-  <ul><li>ARM 64bit (BROKEN -- needs linker and other binaries used for emulation to be updated)</li>
+  <ul><li>ARM 64bit (WORKING -- needs linker and other binaries used for emulation to be updated)</li>
     <ul>
-      <li>Raspberry Pi (BROKEN)</li>
-      <li>Tinkerboard (BROKEN)</li>
+      <li>Raspberry Pi (WORKING, SLOW)</li>
+      <li>Tinkerboard (WORKING, SLOW)</li>
     </ul>
   </ul>
 </ul>
@@ -53,6 +56,12 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>July 2nd 2021</li>
+  <ul>
+    <li>Improved dependency detection and installation</li>
+    <li>Removed wget dependency</li>
+    <li>Added gawk dependency -- this should not have any impact on most systems but on systems that use mawk by default this will fix server startup issues related to timestamps since mawk doesn't support strftime</li>
+  </ul>
   <li>July 1st 2021</li>
   <ul>
     <li>Changed from wget to curl as wget is freezing (but curl works)</li>
