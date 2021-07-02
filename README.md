@@ -65,6 +65,7 @@ chmod +x SetupMinecraft.sh
     <li>Improved dependency detection and installation</li>
     <li>Removed wget dependency</li>
     <li>Added gawk dependency -- this should not have any impact on most systems but on systems that use mawk by default this will fix server startup issues related to timestamps since mawk doesn't support strftime</li>
+    <li>Fixed stop.sh's -t countdown option (thanks da99Beast, issue #94)</li>
   </ul>
   <li>July 1st 2021</li>
   <ul>

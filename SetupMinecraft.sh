@@ -42,7 +42,7 @@ function read_with_prompt {
     fi
     echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
     read answer < /dev/tty
-    if [ "$answer" == "${answer#[Yy]}" ]; then
+    if [[ "$answer" == "${answer#[Yy]}" ]]; then
       unset $variable_name
     else
       echo "$prompt: ${!variable_name}"
@@ -51,7 +51,7 @@ function read_with_prompt {
 }
 
 # Check to make sure we aren't running as root
-if [ $(id -u) = 0 ]; then
+if [[ $(id -u) = 0 ]]; then
    echo "This script is not meant to be run as root. Please run ./SetupMinecraft.sh as a non-root user, without sudo; the script will call sudo when it is needed. Exiting..."
    exit 1
 fi
@@ -70,6 +70,7 @@ if command -v apt-get &> /dev/null; then
   if ! command -v route &> /dev/null; then apt-get install net-tools -y; fi
   if ! command -v gawk &> /dev/null; then apt-get install gawk -y; fi
   if ! command -v openssl &> /dev/null; then apt-get install openssl -y; fi
+  if ! command -v xargs &> /dev/null; then apt-get install xargs -y; fi
 
   sudo apt-get install libcurl4 -y
   # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
@@ -184,13 +185,13 @@ if [ -d "$ServerName" ]; then
   
   echo -n "Start Minecraft server at startup automatically (y/n)?"
   read answer < /dev/tty
-  if [ "$answer" != "${answer#[Yy]}" ]; then
+  if [[ "$answer" != "${answer#[Yy]}" ]]; then
     sudo systemctl enable $ServerName.service
 
     # Automatic reboot at 4am configuration
     echo -n "Automatically restart and backup server at 4am daily (y/n)?"
     read answer < /dev/tty
-    if [ "$answer" != "${answer#[Yy]}" ]; then
+    if [[ "$answer" != "${answer#[Yy]}" ]]; then
       croncmd="$DirName/minecraftbe/$ServerName/restart.sh"
       cronjob="0 4 * * * $croncmd"
       ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
@@ -323,7 +324,7 @@ sudo systemctl daemon-reload
 
 echo -n "Start Minecraft server at startup automatically (y/n)?"
 read answer < /dev/tty
-if [ "$answer" != "${answer#[Yy]}" ]; then
+if [[ "$answer" != "${answer#[Yy]}" ]]; then
   sudo systemctl enable $ServerName.service
 
   # Automatic reboot at 4am configuration
@@ -333,7 +334,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
   echo -n "Automatically restart and backup server at 4am daily (y/n)?"
   read answer < /dev/tty
-  if [ "$answer" != "${answer#[Yy]}" ]; then    
+  if [[ "$answer" != "${answer#[Yy]}" ]]; then    
     croncmd="$DirName/minecraftbe/$ServerName/restart.sh"
     cronjob="0 4 * * * $croncmd"
     ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
@@ -347,7 +348,7 @@ sudo systemctl start $ServerName.service
 
 # Wait up to 20 seconds for server to start
 StartChecks=0
-while [ $StartChecks -lt 20 ]; do
+while [[ $StartChecks -lt 20 ]]; do
   if screen -list | grep -q "\.$ServerName"; then
     break
   fi

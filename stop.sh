@@ -5,7 +5,7 @@
 # Set path variable
 USERPATH="pathvariable"
 PathLength=${#USERPATH}
-if [ "$PathLength" -gt 12 ]; then
+if [[ "$PathLength" -gt 12 ]]; then
     PATH="$USERPATH"
 else
     echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
@@ -19,16 +19,16 @@ fi
 
 # Get an optional custom countdown time (in minutes)
 CountdownTime=0
-while getopts ":t" opt; do
+while getopts ":t:" opt; do
   case $opt in
     t)
-      case $string in
-        ''|*[!0-9]*) 
+      case $OPTARG in
+        ''|*[!0-9]*)
           echo "Countdown time must be a whole number in minutes."
           exit 1
           ;;
-        *) 
-          CountdownTime=$OPTARG >&2 
+        *)
+          CountdownTime=$OPTARG >&2
           ;;
       esac
       ;;
@@ -39,17 +39,23 @@ while getopts ":t" opt; do
 done
 
 # Stop the server
-while [ $CountdownTime -gt 0 ]; do
-  if [ $CountdownTime -eq 1 ]; then
+while [[ $CountdownTime -gt 0 ]]; do
+  if [[ $CountdownTime -eq 1 ]]; then
     screen -Rd servername -X stuff "say Stopping server in 60 seconds...$(printf '\r')"
+    echo "Stopping server in 60 seconds..."
     sleep 30;
     screen -Rd servername -X stuff "say Stopping server in 30 seconds...$(printf '\r')"
+    echo "Stopping server in 30 seconds..."
     sleep 20;
     screen -Rd servername -X stuff "say Stopping server in 10 seconds...$(printf '\r')"
+    echo "Stopping server in 10 seconds..."
     sleep 10;
+    CountdownTime=$((CountdownTime-1))
   else
     screen -Rd servername -X stuff "say Stopping server in $CountdownTime minutes...$(printf '\r')"
+    echo "Stopping server in $CountdownTime minutes...$(printf '\r')"
     sleep 60;
+    CountdownTime=$((CountdownTime-1))
   fi
   echo "Waiting for $CountdownTime more minutes ..."
 done
@@ -59,7 +65,7 @@ screen -Rd servername -X stuff "stop$(printf '\r')"
 
 # Wait up to 20 seconds for server to close
 StopChecks=0
-while [ $StopChecks -lt 20 ]; do
+while [[ $StopChecks -lt 20 ]]; do
   if ! screen -list | grep -q "\.servername"; then
     break
   fi
