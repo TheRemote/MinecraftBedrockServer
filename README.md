@@ -23,10 +23,6 @@ There is one workaround by not using the default ports on any of your server ins
 <h3>Quick Installation Instuctions</h3>
 To run the installation type:<br>
 <pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre>
-<b>- OR -</b><br>
-<pre>wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
-chmod +x SetupMinecraft.sh
-./SetupMinecraft.sh</pre>
 
 <h3>Installation Guide</h3>
 <a href="https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/">Minecraft Bedrock Dedicated Server Script Installation / Configuration Guide</a>
@@ -65,7 +61,8 @@ chmod +x SetupMinecraft.sh
     <li>Added Accept-Encoding: Identity header to curl as a very small % of users are getting an "Access Denied" error without this header (thanks titiscan, <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/95">pull request #95</a></li>
     <li>Added default language header to curl as non-english computers were getting an Access Denied error</li>
     <li>Script now checks for gawk being present in start.sh.  If it's not installed (likely due to reusing old SetupMinecraft.sh files) timestamps will be disabled.  This will prevent the server from failing to start.  This is avoided by not running an old copy of SetupMinecraft.sh!</li>
-    <li>Escaped $ServerName variable on screen -r command after completing setup</li>
+    <li>Removed broken screen -r command at the end of SetupMinecraft.sh as fixing it actually causes lockups -- instead now gives the command (screen -r) to pull up the Minecraft console.  Press Ctrl+A then Ctrl+D to hide the console once you're inside it.</li>
+    <li>Added code to prevent SetupMinecraft.sh from being ran as a local file (please use the new method of curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash)</li>
   </ul>
   <li>July 2nd 2021</li>
   <ul>

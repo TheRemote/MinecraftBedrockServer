@@ -47,6 +47,12 @@ if [[ $(id -u) = 0 ]]; then
    exit 1
 fi
 
+if [ -e "SetupMinecraft.sh" ]; then
+  rm -f "SetupMinecraft.sh"
+  echo "Local copy of SetupMinecraft.sh running.  Exiting and running online version..."
+  curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
+fi
+
 # Install dependencies required to run Minecraft server in the background
 if command -v apt-get &> /dev/null; then
   if ! command -v sudo &> /dev/null; then apt-get install sudo -y; fi
