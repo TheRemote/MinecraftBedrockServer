@@ -204,7 +204,6 @@ if [ -d "$ServerName" ]; then
   # Sleep for 4 seconds to give the server time to start
   sleep 4s
 
-  script /dev/null &> /dev/null
   screen -r "\.$ServerName"
 
   exit 0
@@ -362,6 +361,8 @@ else
   echo "Minecraft server has started.  Type screen -r $ServerName to view the running server!"
 fi
 
+# Sleep for 4 seconds to give the server time to start
+sleep 4s
+
 # Attach to screen
-script /dev/null &> /dev/null
 screen -r "\.$ServerName"
