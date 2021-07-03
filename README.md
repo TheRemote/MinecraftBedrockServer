@@ -60,6 +60,10 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>July 3rd 2021</li>
+  <ul>
+    <li>Added default language header to curl as non-english computers were getting an Access Denied error</li>
+  </ul>
   <li>July 2nd 2021</li>
   <ul>
     <li>Improved dependency detection and installation</li>
