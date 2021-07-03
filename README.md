@@ -62,7 +62,7 @@ chmod +x SetupMinecraft.sh
 <ul>
   <li>July 3rd 2021</li>
   <ul>
-    <li>Added Accept-Encoding: Identity header to curl as a very small % of users are getting an "Access Denied" error without this header</li>
+    <li>Added Accept-Encoding: Identity header to curl as a very small % of users are getting an "Access Denied" error without this header (thanks titiscan, <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/95">pull request #95</a></li>
     <li>Added default language header to curl as non-english computers were getting an Access Denied error</li>
     <li>Script now checks for gawk being present in start.sh.  If it's not installed (likely due to reusing old SetupMinecraft.sh files) timestamps will be disabled.  This will prevent the server from failing to start.  This is avoided by not running an old copy of SetupMinecraft.sh!</li>
   </ul>
