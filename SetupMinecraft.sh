@@ -338,9 +338,8 @@ fi
 
 # Finished!
 echo "Setup is complete.  Starting Minecraft server. To view the console use the command screen -r or check the logs folder if the server fails to start."
-  echo "Setup is complete.  Starting Minecraft $ServerName server.  To view the console use the command screen -r"
-  sudo systemctl daemon-reload
-  sudo systemctl start $ServerName.service
+sudo systemctl daemon-reload
+sudo systemctl start $ServerName.service
 
 # Wait up to 20 seconds for server to start
 StartChecks=0
