@@ -65,7 +65,7 @@ if command -v apt-get &> /dev/null; then
 
   CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
   if [[ "$CurlVer" ]]; then
-    sudo apt-get install libcurl4 -y; fi
+    sudo apt-get install libcurl4 -y
   else
     # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
     CurlVer=$(apt-cache show libcurl3 | grep Version | awk 'NR==1{ print $2 }')
@@ -77,7 +77,6 @@ if command -v apt-get &> /dev/null; then
 
   # Double check curl since libcurl dependency issues can sometimes remove it
   if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
-
   echo "Dependency installation completed"
 else
   echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
