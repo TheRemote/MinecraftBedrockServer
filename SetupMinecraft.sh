@@ -64,7 +64,7 @@ if command -v apt-get &> /dev/null; then
   if ! command -v xargs &> /dev/null; then apt-get install xargs -y; fi
 
   CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
-  if [[ "$CurlVer" ]]; then 
+  if [[ "$CurlVer" ]]; then
     sudo apt-get install libcurl4 -y; fi
   else
     # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
@@ -80,7 +80,7 @@ if command -v apt-get &> /dev/null; then
 
   echo "Dependency installation completed"
 else
-  echo "Warning:  apt-get was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
+  echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
 fi
 
 # Get directory path (default ~)
