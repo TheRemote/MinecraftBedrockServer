@@ -362,4 +362,4 @@ else
 fi
 
 # Attach to screen
-screen -r $ServerName
+screen -r "\.$ServerName"
