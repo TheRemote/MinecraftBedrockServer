@@ -63,6 +63,7 @@ chmod +x SetupMinecraft.sh
   <li>July 3rd 2021</li>
   <ul>
     <li>Added default language header to curl as non-english computers were getting an Access Denied error</li>
+    <li>Script now checks for gawk being present in start.sh.  If it's not installed (likely due to reusing old SetupMinecraft.sh files) timestamps will be disabled.  This will prevent the server from failing to start.  This is avoided by not running an old copy of SetupMinecraft.sh!</li>
   </ul>
   <li>July 2nd 2021</li>
   <ul>
