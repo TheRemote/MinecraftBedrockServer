@@ -77,7 +77,7 @@ if command -v apt-get &> /dev/null; then
 
   # Double check curl since libcurl dependency issues can sometimes remove it
   if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
-  
+
   echo "Dependency installation completed"
 else
   echo "Warning:  apt-get was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
