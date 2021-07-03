@@ -198,13 +198,9 @@ if [ -d "$ServerName" ]; then
   fi
 
   # Setup completed
-  echo "Setup is complete.  Starting Minecraft $ServerName server..."
+  echo "Setup is complete.  Starting Minecraft $ServerName server.  To view the console use the command screen -r or check the logs folder if the server fails to start"
+  sudo systemctl daemon-reload
   sudo systemctl start $ServerName.service
-
-  # Sleep for 4 seconds to give the server time to start
-  sleep 4s
-
-  screen -r
 
   exit 0
 fi
@@ -341,8 +337,10 @@ if [[ "$answer" != "${answer#[Yy]}" ]]; then
 fi
 
 # Finished!
-echo "Setup is complete.  Starting Minecraft server..."
-sudo systemctl start $ServerName.service
+echo "Setup is complete.  Starting Minecraft server. To view the console use the command screen -r or check the logs folder if the server fails to start."
+  echo "Setup is complete.  Starting Minecraft $ServerName server.  To view the console use the command screen -r"
+  sudo systemctl daemon-reload
+  sudo systemctl start $ServerName.service
 
 # Wait up to 20 seconds for server to start
 StartChecks=0
@@ -361,8 +359,3 @@ else
   echo "Minecraft server has started.  Type screen -r $ServerName to view the running server!"
 fi
 
-# Sleep for 4 seconds to give the server time to start
-sleep 4s
-
-# Attach to screen
-screen -r
