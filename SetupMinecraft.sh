@@ -204,7 +204,7 @@ if [ -d "$ServerName" ]; then
   # Sleep for 4 seconds to give the server time to start
   sleep 4s
 
-  screen -r "\.$ServerName"
+  screen -r
 
   exit 0
 fi
@@ -365,4 +365,4 @@ fi
 sleep 4s
 
 # Attach to screen
-screen -r "\.$ServerName"
+screen -r
