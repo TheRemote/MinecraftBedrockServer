@@ -2,10 +2,10 @@
 # Minecraft Server Installation Script - James A. Chambers - https://jamesachambers.com
 #
 # Instructions: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+# Resource Pack Guide: https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/
+#
 # To run the setup script use:
-# wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
-# chmod +x SetupMinecraft.sh
-# ./SetupMinecraft.sh
+# curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
 #
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
 
@@ -15,15 +15,6 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
-
-# Check for updates
-if [[ $(find "SetupMinecraft.sh" -mtime +7 -print) ]]; then
-  echo "Performing self update..."
-  curl -L -o SetupMinecraft.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
-  chmod +x SetupMinecraft.sh
-  /bin/bash SetupMinecraft.sh
-  exit 0
-fi
 
 # Function to read input from user with a prompt
 function read_with_prompt {
@@ -42,7 +33,7 @@ function read_with_prompt {
     fi
     echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
     read answer < /dev/tty
-    if [ "$answer" == "${answer#[Yy]}" ]; then
+    if [[ "$answer" == "${answer#[Yy]}" ]]; then
       unset $variable_name
     else
       echo "$prompt: ${!variable_name}"
@@ -51,28 +42,45 @@ function read_with_prompt {
 }
 
 # Check to make sure we aren't running as root
-if [ $(id -u) = 0 ]; then
+if [[ $(id -u) = 0 ]]; then
    echo "This script is not meant to be run as root. Please run ./SetupMinecraft.sh as a non-root user, without sudo; the script will call sudo when it is needed. Exiting..."
    exit 1
 fi
 
 # Install dependencies required to run Minecraft server in the background
-echo "Installing screen, unzip, sudo, net-tools, wget.."
-if [ ! -n "`which sudo`" ]; then
-  apt-get update && apt-get install sudo -y
+if command -v apt-get &> /dev/null; then
+  if ! command -v sudo &> /dev/null; then apt-get install sudo -y; fi
+
+  echo "Updating apt.."
+  sudo apt-get update
+
+  echo "Checking and installing dependencies.."
+  if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
+  if ! command -v unzip &> /dev/null; then apt-get install unzip -y; fi
+  if ! command -v screen &> /dev/null; then apt-get install screen -y; fi
+  if ! command -v route &> /dev/null; then apt-get install net-tools -y; fi
+  if ! command -v gawk &> /dev/null; then apt-get install gawk -y; fi
+  if ! command -v openssl &> /dev/null; then apt-get install openssl -y; fi
+  if ! command -v xargs &> /dev/null; then apt-get install xargs -y; fi
+
+  CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
+  if [[ "$CurlVer" ]]; then
+    sudo apt-get install libcurl4 -y
+  else
+    # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
+    CurlVer=$(apt-cache show libcurl3 | grep Version | awk 'NR==1{ print $2 }')
+    if [[ "$CurlVer" ]]; then sudo apt-get install libcurl3 -y; fi
+  fi
+
+  sudo apt-get install libc6 -y
+  sudo apt-get install libcrypt1 -y
+
+  # Double check curl since libcurl dependency issues can sometimes remove it
+  if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
+  echo "Dependency installation completed"
+else
+  echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
 fi
-sudo apt-get update
-sudo apt-get install screen unzip wget -y
-sudo apt-get install net-tools -y
-echo "Installing curl and libcurl.."
-sudo apt-get install curl -y
-sudo apt-get install libcurl4 -y
-# Install libcurl3 for backwards compatibility in case libcurl4 isn't available
-sudo apt-get install libcurl3 -y
-echo "Installing openssl, libc6 and libcrypt1.."
-sudo apt-get install openssl -y
-sudo apt-get install libc6 -y
-sudo apt-get install libcrypt1 -y
 
 # Get directory path (default ~)
 echo "Enter directory path to install Minecraft BE Server (default ~): "
@@ -129,7 +137,7 @@ if [ -d "$ServerName" ]; then
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
-  curl -L -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
+  curl -H "Accept-Encoding: identity" -L -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
   chmod +x start.sh
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
@@ -138,7 +146,7 @@ if [ -d "$ServerName" ]; then
 
   # Download stop.sh from repository
   echo "Grabbing stop.sh from repository..."
-  curl -L -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
+  curl -H "Accept-Encoding: identity" -L -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
   chmod +x stop.sh
   sed -i "s:dirname:$DirName:g" stop.sh
   sed -i "s:servername:$ServerName:g" stop.sh
@@ -147,7 +155,7 @@ if [ -d "$ServerName" ]; then
 
   # Download restart.sh from repository
   echo "Grabbing restart.sh from repository..."
-  curl -L -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
+  curl -H "Accept-Encoding: identity" -L -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
@@ -156,7 +164,7 @@ if [ -d "$ServerName" ]; then
 
   # Download fixpermissions.sh from repository
   echo "Grabbing fixpermissions.sh from repository..."
-  curl -L -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+  curl -H "Accept-Encoding: identity" -L -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
   chmod +x fixpermissions.sh
   sed -i "s:dirname:$DirName:g" fixpermissions.sh
   sed -i "s:servername:$ServerName:g" fixpermissions.sh
@@ -164,7 +172,7 @@ if [ -d "$ServerName" ]; then
 
   # Update minecraft server service
   echo "Configuring Minecraft $ServerName service..."
-  sudo curl -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
+  sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
   sudo chmod +x /etc/systemd/system/$ServerName.service
   sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
@@ -172,15 +180,16 @@ if [ -d "$ServerName" ]; then
   sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
   sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
   sudo systemctl daemon-reload
+  
   echo -n "Start Minecraft server at startup automatically (y/n)?"
   read answer < /dev/tty
-  if [ "$answer" != "${answer#[Yy]}" ]; then
+  if [[ "$answer" != "${answer#[Yy]}" ]]; then
     sudo systemctl enable $ServerName.service
 
     # Automatic reboot at 4am configuration
     echo -n "Automatically restart and backup server at 4am daily (y/n)?"
     read answer < /dev/tty
-    if [ "$answer" != "${answer#[Yy]}" ]; then
+    if [[ "$answer" != "${answer#[Yy]}" ]]; then
       croncmd="$DirName/minecraftbe/$ServerName/restart.sh"
       cronjob="0 4 * * * $croncmd"
       ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
@@ -236,7 +245,7 @@ if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
   fi
   
   # Retrieve depends.zip from GitHub repository
-  curl -L -o depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
+  curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
   unzip depends.zip
   sudo mkdir /lib64
   # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
@@ -245,31 +254,6 @@ fi
 
 # Check for x86 (32 bit) architecture
 if [[ "$CPUArch" == *"i386"* || "$CPUArch" == *"i686"* ]]; then
-  # ARM architecture detected -- download QEMU and dependency libraries
-  #echo "32 bit platform detected -- installing dependencies..."
-  # Check if latest available QEMU version is at least 3.0 or higher
-  #QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
-  #if [[ "$QEMUVer" -lt "3" ]]; then
-  #  echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
-  #  exit
-  #else
-  #  sudo apt-get install qemu-user-static binfmt-support -y
-  #fi
-
-  #if [ -n "`which qemu-x86_64-static`" ]; then
-  #  echo "QEMU-x86_64-static installed successfully"
-  #else
-  #  echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
-  #  exit 1
-  #fi
-  
-  # Retrieve depends.zip from GitHub repository
-  #wget -O depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
-  #unzip depends.zip
-  #sudo mkdir /lib64
-  # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
-  #sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
-
   # 32 bit attempts have not been successful -- notify user to install 64 bit OS
   echo "You are running a 32 bit operating system (i386 or i686) and the Bedrock Dedicated Server has only been released for 64 bit (x86_64).  If you have a 64 bit processor please install a 64 bit operating system to run the Bedrock dedicated server!"
   exit 1
@@ -277,7 +261,7 @@ fi
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server..."
-curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
+curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
 DownloadURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html)
 DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
 echo "$DownloadURL"
@@ -286,13 +270,13 @@ echo "$DownloadFile"
 # Download latest version of Minecraft Bedrock dedicated server
 echo "Downloading the latest version of Minecraft Bedrock server..."
 UserName=$(whoami)
-curl -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o "downloads/$DownloadFile" "$DownloadURL"
+curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o "downloads/$DownloadFile" "$DownloadURL"
 unzip -o "downloads/$DownloadFile"
 chmod u+x bedrock_server
 
 # Download start.sh from repository
 echo "Grabbing start.sh from repository..."
-curl -L -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
+curl -H "Accept-Encoding: identity" -L -o start.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/start.sh
 chmod +x start.sh
 sed -i "s:dirname:$DirName:g" start.sh
 sed -i "s:servername:$ServerName:g" start.sh
@@ -301,7 +285,7 @@ sed -i "s<pathvariable<$PATH<g" start.sh
 
 # Download stop.sh from repository
 echo "Grabbing stop.sh from repository..."
-curl -L -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
+curl -H "Accept-Encoding: identity" -L -o stop.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/stop.sh
 chmod +x stop.sh
 sed -i "s:dirname:$DirName:g" stop.sh
 sed -i "s:servername:$ServerName:g" stop.sh
@@ -310,7 +294,7 @@ sed -i "s<pathvariable<$PATH<g" stop.sh
 
 # Download restart.sh from repository
 echo "Grabbing restart.sh from repository..."
-curl -L -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
+curl -H "Accept-Encoding: identity" -L -o restart.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/restart.sh
 chmod +x restart.sh
 sed -i "s:dirname:$DirName:g" restart.sh
 sed -i "s:servername:$ServerName:g" restart.sh
@@ -319,7 +303,7 @@ sed -i "s<pathvariable<$PATH<g" restart.sh
 
 # Download fixpermissions.sh from repository
 echo "Grabbing fixpermissions.sh from repository..."
-curl -L -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
+curl -H "Accept-Encoding: identity" -L -o fixpermissions.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/fixpermissions.sh
 chmod +x fixpermissions.sh
 sed -i "s:dirname:$DirName:g" fixpermissions.sh
 sed -i "s:servername:$ServerName:g" fixpermissions.sh
@@ -327,7 +311,7 @@ sed -i "s:userxname:$UserName:g" fixpermissions.sh
 
 # Service configuration
 echo "Configuring Minecraft $ServerName service..."
-sudo curl -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
+sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
 sudo chmod +x /etc/systemd/system/$ServerName.service
 sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
@@ -338,7 +322,7 @@ sudo systemctl daemon-reload
 
 echo -n "Start Minecraft server at startup automatically (y/n)?"
 read answer < /dev/tty
-if [ "$answer" != "${answer#[Yy]}" ]; then
+if [[ "$answer" != "${answer#[Yy]}" ]]; then
   sudo systemctl enable $ServerName.service
 
   # Automatic reboot at 4am configuration
@@ -348,7 +332,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
   echo -n "Automatically restart and backup server at 4am daily (y/n)?"
   read answer < /dev/tty
-  if [ "$answer" != "${answer#[Yy]}" ]; then    
+  if [[ "$answer" != "${answer#[Yy]}" ]]; then    
     croncmd="$DirName/minecraftbe/$ServerName/restart.sh"
     cronjob="0 4 * * * $croncmd"
     ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
@@ -362,7 +346,7 @@ sudo systemctl start $ServerName.service
 
 # Wait up to 20 seconds for server to start
 StartChecks=0
-while [ $StartChecks -lt 20 ]; do
+while [[ $StartChecks -lt 20 ]]; do
   if screen -list | grep -q "\.$ServerName"; then
     break
   fi

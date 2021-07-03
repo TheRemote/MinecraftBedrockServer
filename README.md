@@ -13,16 +13,23 @@ View installation instructions at: https://jamesachambers.com/minecraft-bedrock-
   <li>Supports multiple instances -- you can run multiple Bedrock servers on the same system</li>
   <li>Updates automatically to the latest version when server is started</li>
   <li>Easy control of server with start.sh, stop.sh and restart.sh scripts</li>
+  <li>Adds logging with timestamps to "logs" directory</li>
   <li>Optional scheduled daily restart of server using cron</li>
 </ul>
 
-<b>UPDATE 12/10/2020 - Multiple instances are currently broken due to the Minecraft Bedrock Edition dedicated server opening up a set of ports it is not supposed to.  Official bug is here on Mojang's official website here: https://bugs.mojang.com/browse/BDS-3989.  This should fix itself eventually as it has nothing to do with this script but is in fact a bug in the server itself but for now be advised multiple instances don't work.  Single instances of the server are still fine.</b>
+<b>UPDATE 7/2/2021 - Multiple instances are currently broken due to the Minecraft Bedrock Edition dedicated server opening up a set of ports it is not supposed to.  Official bug is here on Mojang's official website here: https://bugs.mojang.com/browse/BDS-3989.<br>
+There is one workaround by not using the default ports on any of your server instances (use custom ports for IPv4 and IPv6 on every different server) and don't use the "default" ports 19132 or 19133 in any of your servers (leave them open).  Single instances of the server are still fine and not impacted by any of this.</b>
 
-<h3>Installation Instuctions</h3>
+<h3>Quick Installation Instuctions</h3>
 To run the installation type:<br>
+<pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre>
+<b>- OR -</b><br>
 <pre>wget https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh
 chmod +x SetupMinecraft.sh
 ./SetupMinecraft.sh</pre>
+
+<h3>Installation Guide</h3>
+<a href="https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/">Minecraft Bedrock Dedicated Server Script Installation / Configuration Guide</a>
 
 <h3>Tested Distributions</h3>
 <ul>
@@ -37,10 +44,10 @@ chmod +x SetupMinecraft.sh
  <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (WORKING)</a></li>
  <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (WORKING)</a></li>
  <li>Other X86_64 platforms (WORKING)</li>
-  <ul><li>ARM 64bit (BROKEN -- needs linker and other binaries used for emulation to be updated)</li>
+  <ul><li>ARM 64bit (WORKING -- needs linker and other binaries used for emulation to be updated)</li>
     <ul>
-      <li>Raspberry Pi (BROKEN)</li>
-      <li>Tinkerboard (BROKEN)</li>
+      <li>Raspberry Pi (WORKING, SLOW)</li>
+      <li>Tinkerboard (WORKING, SLOW)</li>
     </ul>
   </ul>
 </ul>
@@ -53,6 +60,21 @@ chmod +x SetupMinecraft.sh
 
 <h3>Update History</h3>
 <ul>
+  <li>July 3rd 2021</li>
+  <ul>
+    <li>Added Accept-Encoding: Identity header to curl as a very small % of users are getting an "Access Denied" error without this header (thanks titiscan, <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/95">pull request #95</a></li>
+    <li>Added default language header to curl as non-english computers were getting an Access Denied error</li>
+    <li>Script now checks for gawk being present in start.sh.  If it's not installed (likely due to reusing old SetupMinecraft.sh files) timestamps will be disabled.  This will prevent the server from failing to start.  This is avoided by not running an old copy of SetupMinecraft.sh!</li>
+  </ul>
+  <li>July 2nd 2021</li>
+  <ul>
+    <li>Improved dependency detection and installation</li>
+    <li>Removed wget dependency</li>
+    <li>Added gawk dependency -- this should not have any impact on most systems but on systems that use mawk by default this will fix server startup issues related to timestamps since mawk doesn't support strftime</li>
+    <li>Fixed stop.sh's -t countdown option (thanks da99Beast, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/76">issue #76</a>)</li>
+    <li>Fixed a nasty issue where the installation of libcurl3 over the top of libcurl4 was allowed in some configurations (like Ubuntu 18.04) and was clobbering curl (thanks Goretech)</li>
+    <li>Fixed an issue where empty folders could be created in the wrong location if start.sh was not ran from the server folder (thanks CobraBitYou, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/76">issue #93</a></li>
+  </ul>
   <li>July 1st 2021</li>
   <ul>
     <li>Changed from wget to curl as wget is freezing (but curl works)</li>
@@ -61,9 +83,9 @@ chmod +x SetupMinecraft.sh
   <li>June 19th 2021</li>
   <ul>
     <li>Fixed timestamps to display on every line (thanks murkyl)</li>
-    <li>Added chmod command after unzip line to make bedrock_server executable for issue #22 (thanks murkyl)</li>
-    <li>Merged pull request #91 from starkey-01 to add prompt for an alternate installation directory.  This has been requested for a while so thanks starkey-01!</li>
-    <li>Merged pull request #88 clarifying instructions to run script as non-root user (thanks sparagi!)</li>
+    <li>Added chmod command after unzip line to make bedrock_server executable for <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/22">issue #22</a> (thanks murkyl)</li>
+    <li>Merged <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/91">pull request #91</a> from starkey-01 to add prompt for an alternate installation directory.  This has been requested for a while so thanks starkey-01!</li>
+    <li>Merged <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/88">pull request #88</a> clarifying instructions to run script as non-root user (thanks sparagi!)</li>
   </ul>
   <li>May 23nd 2021</li>
   <ul>
