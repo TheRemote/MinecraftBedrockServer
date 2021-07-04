@@ -56,6 +56,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>July 4th 2021</li>
+  <ul>
+    <li>Added missing sudo line to some prerequistes and removed apt-get install sudo as the script no longer runs as root (install sudo if missing) - thanks Rick Horn</li>
+  </ul>
   <li>July 3rd 2021</li>
   <ul>
     <li>Added Accept-Encoding: Identity header to curl as a very small % of users are getting an "Access Denied" error without this header (thanks titiscan, <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/95">pull request #95</a></li>

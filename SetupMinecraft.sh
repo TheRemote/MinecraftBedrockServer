@@ -56,19 +56,17 @@ fi
 
 # Install dependencies required to run Minecraft server in the background
 if command -v apt-get &> /dev/null; then
-  if ! command -v sudo &> /dev/null; then apt-get install sudo -y; fi
-
   echo "Updating apt.."
   sudo apt-get update
 
   echo "Checking and installing dependencies.."
-  if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
-  if ! command -v unzip &> /dev/null; then apt-get install unzip -y; fi
-  if ! command -v screen &> /dev/null; then apt-get install screen -y; fi
-  if ! command -v route &> /dev/null; then apt-get install net-tools -y; fi
-  if ! command -v gawk &> /dev/null; then apt-get install gawk -y; fi
-  if ! command -v openssl &> /dev/null; then apt-get install openssl -y; fi
-  if ! command -v xargs &> /dev/null; then apt-get install xargs -y; fi
+  if ! command -v curl &> /dev/null; then sudo apt-get install curl -y; fi
+  if ! command -v unzip &> /dev/null; then sudo apt-get install unzip -y; fi
+  if ! command -v screen &> /dev/null; then sudo apt-get install screen -y; fi
+  if ! command -v route &> /dev/null; then sudo apt-get install net-tools -y; fi
+  if ! command -v gawk &> /dev/null; then sudo apt-get install gawk -y; fi
+  if ! command -v openssl &> /dev/null; then sudo apt-get install openssl -y; fi
+  if ! command -v xargs &> /dev/null; then sudo apt-get install xargs -y; fi
 
   CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
   if [[ "$CurlVer" ]]; then
@@ -83,7 +81,7 @@ if command -v apt-get &> /dev/null; then
   sudo apt-get install libcrypt1 -y
 
   # Double check curl since libcurl dependency issues can sometimes remove it
-  if ! command -v curl &> /dev/null; then apt-get install curl -y; fi
+  if ! command -v curl &> /dev/null; then sudo apt-get install curl -y; fi
   echo "Dependency installation completed"
 else
   echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
