@@ -181,6 +181,11 @@ if [ -d "$ServerName" ]; then
   sed -i "s:servername:$ServerName:g" fixpermissions.sh
   sed -i "s:userxname:$UserName:g" fixpermissions.sh
 
+  # Download update.sh from repository
+  echo "Grabbing update.sh from repository..."
+  curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/update.sh
+  chmod +x update.sh
+
   # Update minecraft server service
   echo "Configuring Minecraft $ServerName service..."
   sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
@@ -315,6 +320,11 @@ chmod +x fixpermissions.sh
 sed -i "s:dirname:$DirName:g" fixpermissions.sh
 sed -i "s:servername:$ServerName:g" fixpermissions.sh
 sed -i "s:userxname:$UserName:g" fixpermissions.sh
+
+# Download update.sh from repository
+echo "Grabbing update.sh from repository..."
+curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/update.sh
+chmod +x update.sh
 
 # Service configuration
 echo "Configuring Minecraft $ServerName service..."
