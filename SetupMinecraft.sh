@@ -88,9 +88,15 @@ else
 fi
 
 # Get directory path (default ~)
-echo "Enter directory path to install Minecraft BE Server (default ~): "
-read_with_prompt DirName "Directory Path" ~
-DirName=$(eval echo "$DirName")
+until [ -d "$DirName" ]
+do
+  echo "Enter directory path to install Minecraft BE Server (default ~): "
+  read_with_prompt DirName "Directory Path" ~
+  DirName=$(eval echo "$DirName")
+  if [ ! -d "$DirName" ]; then
+    echo "Invalid directory.  Please use the default path of ~ if you aren't familiar with fully qualified Linux paths or you're going to have errors."
+  fi
+done
 
 # Check to see if Minecraft server main directory already exists
 cd $DirName
