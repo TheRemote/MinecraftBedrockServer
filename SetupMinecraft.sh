@@ -90,7 +90,7 @@ fi
 # Get directory path (default ~)
 until [ -d "$DirName" ]
 do
-  echo "Enter directory path to install Minecraft BE Server (default ~): "
+  echo "Enter root installation path for Minecraft BE.  Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
   read_with_prompt DirName "Directory Path" ~
   DirName=$(eval echo "$DirName")
   if [ ! -d "$DirName" ]; then
