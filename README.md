@@ -62,6 +62,7 @@ To run the installation type:<br>
     <li>Added validation loop for directory path -- if you are upgrading from an old version you should use the default directory.</li>
     <li>Nothing good can come from changing this and I've never seen or heard of it solving a single problem despite being requested for years (especially if you don't understand relative vs fully qualified Linux paths and other pitfalls -- leave it default!).</li>
     <li>Attempting to solve this problem with safety checks in case this is useful to some people and I just haven't heard about it but it may be removed entirely or turned into a check that you have to download and modify the script to enable if it continues to be a source of strife for people.</li>
+    <li>Updated depends.zip for Raspberry Pis</li>
   </ul>
   <li>July 4th 2021</li>
   <ul>
