@@ -56,6 +56,11 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>July 17th 2021</li>
+  <ul>
+    <li>Added in check to ensure start.sh and other scripts are not being ran as root.  If this happens you have to use sudo screen -r to find the screen and the permissions will be wrong since root isn't the owner of the server files</li>
+    <li>If you know you ran the script/server as root (which starts creating files owned by root instead of the regular user) and your server won't start/is wonky run the fixpermissions script from your server folder with ./fixpermissions.sh and it will correct them for you!</li>
+  </ul>
   <li>July 15th 2021</li>
   <ul>
     <li>Added update.sh convenience script to run SetupMinecraft.sh to update everything to the latest version</li>
