@@ -6,7 +6,6 @@ After=network-online.target
 User=userxname
 WorkingDirectory=dirname/minecraftbe/servername
 Type=forking
-ExecStartPre=+/bin/chown -R userxname dirname/minecraftbe/servername
 ExecStart=/bin/bash dirname/minecraftbe/servername/start.sh
 ExecStop=/bin/bash dirname/minecraftbe/servername/stop.sh
 GuessMainPID=no

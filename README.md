@@ -17,15 +17,15 @@ View installation instructions at: https://jamesachambers.com/minecraft-bedrock-
   <li>Optional scheduled daily restart of server using cron</li>
 </ul>
 
-<b>UPDATE 7/2/2021 - Multiple instances are currently broken due to the Minecraft Bedrock Edition dedicated server opening up a set of ports it is not supposed to.  Official bug is here on Mojang's official website here: https://bugs.mojang.com/browse/BDS-3989.<br>
-There is one workaround by not using the default ports on any of your server instances (use custom ports for IPv4 and IPv6 on every different server) and don't use the "default" ports 19132 or 19133 in any of your servers (leave them open).  Single instances of the server are still fine and not impacted by any of this.</b>
-
 <h3>Quick Installation Instuctions</h3>
 To run the installation type:<br>
 <pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre>
 
 <h3>Installation Guide</h3>
 <a href="https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/">Minecraft Bedrock Dedicated Server Script Installation / Configuration Guide</a>
+
+<h3>Installing Resource Packs / RTX Support</h3>
+<p>For instructions on how to install resource packs (including optional RTX support) view my <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step by step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
 
 <h3>Tested Distributions</h3>
 <ul>
@@ -42,20 +42,25 @@ To run the installation type:<br>
  <li>Other X86_64 platforms (WORKING)</li>
   <ul><li>ARM 64bit (WORKING -- needs linker and other binaries used for emulation to be updated)</li>
     <ul>
-      <li>Raspberry Pi (WORKING, SLOW)</li>
+      <li>Raspberry Pi (WORKING, SLOW, Ubuntu required, not working on Pi OS 64 bit and has segfaults)</li>
       <li>Tinkerboard (WORKING, SLOW)</li>
     </ul>
   </ul>
 </ul>
 
-<h3>RTX Beta Note</h3>
-<p>RTX has been released into normal Minecraft.  If you had the RTX beta version you need to downgrade your Minecraft to the "normal" version for the dedicated server to work.  Go into the "Xbox Insider" app and change back to the normal version of Minecraft and then uninstall your beta version and install the normal version.</p>
-
-<h3>Installing Resource Packs / RTX Support</h3>
-<p>For instructions on how to install resource packs (including optional RTX support) view my <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step by step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
+<h3>Add systemd permissions (optional)</h3>
+<p>Some users track the Minecraft servers by the systemd service.  If you are using the automatic daily restart feature the service will not show as "online" since restart.sh does not run as root so it doesn't restart the systemd service.</p>
+<p>To fix this add a line to your sudoers file (sudo visudo) like this:</p>
+<pre>yourusername ALL=(ALL) NOPASSWD: /bin/systemctl start yourservername</pre>
+<p>This will give you
 
 <h3>Update History</h3>
 <ul>
+  <li>July 21st 2021</li>
+  <ul>
+    <li>Updated documentation and restart.sh to document how to enable systemd's service showing as "online" after called by restart.sh (useful for people tracking the servers using the systemd service) by adding a line to the sudoers file to allow passwordless sudo for the sudo systemctl start yourservername command.  Restart.sh now has commented lines at the bottom along with instructions on how to enable if you need this functionality (most people probably won't)</li>
+    <li>Added error redirection to crontab line to help diagnose failures during scheduled restarts and removed ExecStartPre from the service as it wasn't doing anything (run ./fixpermissions.sh if you need to fix the permissions) and caused compatibility issues with older systemd versions</li>
+  </ul>
   <li>July 17th 2021</li>
   <ul>
     <li>Added in check to ensure start.sh and other scripts are not being ran as root.  If this happens you have to use sudo screen -r to find the screen and the permissions will be wrong since root isn't the owner of the server files</li>
