@@ -331,7 +331,6 @@ chmod +x update.sh
 # Service configuration
 echo "Configuring Minecraft $ServerName service..."
 sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/minecraftbe.service
-sudo chmod +x /etc/systemd/system/$ServerName.service
 sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
 sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
