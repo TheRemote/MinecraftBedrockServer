@@ -35,7 +35,7 @@ while getopts ":a:" opt; do
   esac
 done
 
-echo "Taking ownership of all server files/folders in dirname/minecraftbe/servername"
+echo "Taking ownership of all server files/folders in dirname/minecraftbe/servername..."
 if [[ $Automated == 1 ]]; then
     sudo -n chown -R userxname dirname/minecraftbe/servername
     sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
