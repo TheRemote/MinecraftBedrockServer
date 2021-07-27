@@ -110,7 +110,7 @@ Update_Service() {
     echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
     echo -n "Automatically restart and backup server at 4am daily (y/n)?"
     read answer < /dev/tty
-    if [[ "$answer" != "${answer#[Yy]}" ]]; then    
+    if [[ "$answer" != "${answer#[Yy]}" ]]; then
       croncmd="$DirName/minecraftbe/$ServerName/restart.sh 2>&1"
       cronjob="0 4 * * * $croncmd"
       ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
@@ -121,7 +121,7 @@ Update_Service() {
 
 Fix_Permissions() {
   echo "Setting server file permissions..."
-  sudo ./fixpermissions.sh > /dev/null
+  sudo ./fixpermissions.sh -a > /dev/null
 }
 
 Check_Dependencies() {
@@ -221,7 +221,7 @@ Check_Architecture () {
 
 Update_Sudoers() {
   if [ -d /etc/sudoers.d ]; then
-    sudoline="$UserName ALL=(ALL) NOPASSWD: /bin/bash $DirName/minecraftbe/$ServerName/fixpermissions.sh, /bin/systemctl start $ServerName, /bin/bash $DirName/minecraftbe/$ServerName/fixpermissions.sh"
+    sudoline="$UserName ALL=(ALL) NOPASSWD: /bin/bash $DirName/minecraftbe/$ServerName/fixpermissions.sh, /bin/systemctl start $ServerName, /bin/bash $DirName/minecraftbe/$ServerName/start.sh"
     if [ -e /etc/sudoers.d/minecraftbe ]; then
       sudo grep -qxF "$sudoline" /etc/sudoers.d/minecraftbe || echo "$sudoline" | sudo tee -a /etc/sudoers.d/minecraftbe
     else
