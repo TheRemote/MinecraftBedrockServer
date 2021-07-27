@@ -228,7 +228,7 @@ Update_Sudoers() {
       AddLine=$(echo "$sudoline" | sudo tee /etc/sudoers.d/minecraftbe)
     fi
   else
-    echo "/etc/sudoers.d was not found on your system."
+    echo "/etc/sudoers.d was not found on your system.  Please add this line to sudoers using sudo visudo:  $sudoline"
   fi
 }
 
