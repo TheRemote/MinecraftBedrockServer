@@ -55,8 +55,7 @@ while [ -z "$DefaultRoute" ]; do
 done
 
 # Take ownership of server files and set correct permissions
-Permissions=$(chown -R userxname dirname/minecraftbe/servername >/dev/null)
-Permissions=$(chmod -R 755 dirname/minecraftbe/servername/*.sh >/dev/null)
+Permissions=$(bash /dirname/minecraftbe/servername/fixpermissions.sh -a)
 
 # Create backup
 if [ -d "worlds" ]; then

@@ -56,6 +56,12 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>July 27th 2021</li>
+  <ul>
+    <li>Cleaned up SetupMinecraft.sh and removed redundant code by organizing code into functions</li>
+    <li>Server now fixes all server file permissions on startup</li>
+    <li>Added /etc/sudoers.d/minecraftbe file to contain passwordless sudo permission for fixpermissions and sudo systemctl start server</li>
+  </ul>
   <li>July 21st 2021</li>
   <ul>
     <li>Updated documentation and restart.sh to document how to enable systemd's service showing as "online" after called by restart.sh (useful for people tracking the servers using the systemd service) by adding a line to the sudoers file to allow passwordless sudo for the sudo systemctl start yourservername command.  Restart.sh now has commented lines at the bottom along with instructions on how to enable if you need this functionality (most people probably won't)</li>
