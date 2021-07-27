@@ -59,7 +59,7 @@ To run the installation type:<br>
   <li>July 27th 2021</li>
   <ul>
     <li>Cleaned up SetupMinecraft.sh and removed redundant code by organizing code into functions</li>
-    <li>Server now fixes all server file permissions on startup</li>
+    <li>Scripts now fix all server file permissions on startup</li>
     <li>Added /etc/sudoers.d/minecraftbe file to contain passwordless sudo permission for fixpermissions and sudo systemctl start server</li>
   </ul>
   <li>July 21st 2021</li>
