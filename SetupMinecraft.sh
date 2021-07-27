@@ -223,9 +223,9 @@ Update_Sudoers() {
   if [ -d /etc/sudoers.d ]; then
     sudoline="$UserName ALL=(ALL) NOPASSWD: /bin/bash $DirName/minecraftbe/$ServerName/fixpermissions.sh, /bin/systemctl start $ServerName, /bin/bash $DirName/minecraftbe/$ServerName/start.sh"
     if [ -e /etc/sudoers.d/minecraftbe ]; then
-      sudo grep -qxF "$sudoline" /etc/sudoers.d/minecraftbe || echo "$sudoline" | sudo tee -a /etc/sudoers.d/minecraftbe
+      AddLine=$(sudo grep -qxF "$sudoline" /etc/sudoers.d/minecraftbe || echo "$sudoline" | sudo tee -a /etc/sudoers.d/minecraftbe)
     else
-      echo "$sudoline" | sudo tee /etc/sudoers.d/minecraftbe
+      AddLine=$(echo "$sudoline" | sudo tee /etc/sudoers.d/minecraftbe)
     fi
   else
     echo "/etc/sudoers.d was not found on your system."
