@@ -305,12 +305,16 @@ if [ -d "$ServerName" ]; then
   cd $ServerName
   echo "Server directory is: $DirName/minecraftbe/$ServerName"
 
+  # Update Minecraft server scripts
   Update_Scripts
 
+  # Service configuration
   Update_Service
 
+  # Sudoers configuration
   Update_Sudoers
 
+  # Fix server files/folders permissions
   Fix_Permissions
 
   # Setup completed
@@ -333,14 +337,19 @@ mkdir logs
 
 Check_Architecture
 
+# Update Minecraft server binary
 Update_Server
 
+# Update Minecraft server scripts
 Update_Scripts
 
+# Update Minecraft server services
 Update_Service
 
+# Sudoers configuration
 Update_Sudoers
 
+# Fix server files/folders permissions
 Fix_Permissions
 
 # Finished!
