@@ -256,7 +256,7 @@ do
   read_with_prompt DirName "Directory Path" ~
   DirName=$(eval echo "$DirName")
   if [ ! -d "$DirName" ]; then
-    echo "Invalid directory.  Please use the default path of ~ if you aren't familiar with fully qualified Linux paths or you're going to have errors."
+    echo "Invalid directory.  Please use the default path of ~ or you're going to have errors.  This should be the same for ALL servers as it is your ROOT install directory."
   fi
 done
 
