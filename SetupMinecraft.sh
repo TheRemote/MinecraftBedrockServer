@@ -252,7 +252,7 @@ Check_Dependencies
 # Get directory path (default ~)
 until [ -d "$DirName" ]
 do
-  echo "Enter root installation path for Minecraft BE.  Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
+  echo "Enter root installation path for Minecraft BE (this is the same for ALL servers and should be ~, the subfolder will be chosen from the server name you provide). Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
   read_with_prompt DirName "Directory Path" ~
   DirName=$(eval echo "$DirName")
   if [ ! -d "$DirName" ]; then

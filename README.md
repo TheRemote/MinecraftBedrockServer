@@ -48,6 +48,11 @@ To run the installation type:<br>
   </ul>
 </ul>
 
+<h3>Multiple Servers and Installation Paths</h3>
+<p>The server supports multiple servers at once.  When you run SetupMinecraft.sh again pick the identical root path as any previous servers.  The path structure of the scripts is $ROOTPATH/minecraftbe/yourservername which is why the "root" path SetupMinecraft.sh asks you for should always be the same.</p>
+<p>The individual server folder is determined by the "server name" you enter for your server.  If it's an existing server the scripts will be safely updated.  If it's a new server then a new folder will be created under $ROOTPATH/minecraftbe/newservername.</p>
+<p>Keep the installation the path the same for all servers and the script will manage all this for you.</p>
+
 <h3>Add systemd permissions (optional)</h3>
 <p>Some users track the Minecraft servers by the systemd service.  If you are using the automatic daily restart feature the service will not show as "online" since restart.sh does not run as root so it doesn't restart the systemd service.</p>
 <p>To fix this add a line to your sudoers file (sudo visudo) like this:</p>
@@ -56,6 +61,13 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>August 1st 2021</li>
+  <ul>
+    <li>Updated documentation and root path selection prompt to make it more clear that the root directory should be the same for ALL servers</li>
+    <li>Don't change unless installing to a different disk, and then use the same root path for ALL servers as they will follow the structure $ROOTPATH/minecraftbe/yourservername</li>
+    <li>Choosing a perfect storm of invalid paths has resulted in people's server files being pruned before from being off by one folder sublevel etc.  Please follow instructions carefully here and do not change it and make sure you have backups (saved outside of the main Minecraft backups folder) before ever trying to install an additional server or updating existing scripts.</li>
+    <li>Fortunately this person was starting a new server so the pruning didn't get anything serious but I can't stress enough to leave the paths alone unless you're legitimately an expert with a use case like having an entire separate disk for all the Minecraft servers.  Use the same root directory every time (preferably the default)!</li>
+  </ul>
   <li>July 27th 2021</li>
   <ul>
     <li>Cleaned up SetupMinecraft.sh and removed redundant code by organizing code into functions</li>
