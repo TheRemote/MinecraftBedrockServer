@@ -61,6 +61,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>November 2nd 2021</li>
+  <ul>
+    <li>Fixed extra / in front of permissions fix script (thanks MarkBarbieri, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/109">issue #109</a>)</li>
+  </ul>
   <li>October 31st 2021</li>
   <ul>
     <li>Fixed missing sudo from fixpermissions line in start.sh (thanks MarkBarbieri, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/109">issue #109</a>)</li>
