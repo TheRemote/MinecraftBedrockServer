@@ -1,67 +1,67 @@
-# Minecraft Bedrock Server
+# マインクラフト 統合版(bedrock edition)サーバー構築ツール
 
-[日本語版 README はこちら](https://github.com/TheRemote/MinecraftBedrockServer/README_jp.md)
+※ 統合版とbedrock editionの２つの呼び方がありますがここではbedrock editionに統一しています。
 
-Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup<br>
-View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+このツールは Ubuntu / Debian サーバー上でマインクラフトサーバーを構築し、マインクラフトの自動アップデート、自動バックアップ、自動起動が設定できます。<br>
+詳しいインストール方法はこちら: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
 
-<h3>Features</h3>
+<h3>ツールの特徴</h3>
 <ul>
-  <li>Sets up the official Minecraft Bedrock Server (currently in alpha testing)</li>
-  <li>Fully operational Minecraft Bedrock edition server in a couple of minutes</li>
-  <li>Ubuntu / Debian distributions supported</li>
-  <li>Sets up Minecraft as a system service with option to autostart at boot</li>
-  <li>Automatic backups when server restarts</li>
-  <li>Supports multiple instances -- you can run multiple Bedrock servers on the same system</li>
-  <li>Updates automatically to the latest version when server is started</li>
-  <li>Easy control of server with start.sh, stop.sh and restart.sh scripts</li>
-  <li>Adds logging with timestamps to "logs" directory</li>
-  <li>Optional scheduled daily restart of server using cron</li>
+  <li>公式のマインクラフト bedrock edition サーバー(アルファテスト中)を構築します</li>
+  <li>マインクラフト bedrock edition サーバーの完全インストールが数分で完了</li>
+  <li>Ubuntu / Debian ディストリビューション下の動作がサポートされています</li>
+  <li>マインクラフトをOSのシステムサービスに登録し、OS起動時にマインクラフトが自動起動するように設定可能</li>
+  <li>サーバー再起動時、自動バックアップ</li>
+  <li>マルチインスタンスに対応 -- 同一システム上で複数の Bedrock サーバー が起動できます。</li>
+  <li>サーバー起動時に最新版への自動アップデート</li>
+  <li>start.sh, stop.sh and restart.sh ,これらのスクリプトで簡単操作</li>
+  <li>"logs" ディレクトリへタイムスタンプのログが可能</li>
+  <li>cron を利用して、毎日の再起動が設定可能</li>
 </ul>
 
-<h3>Quick Installation Instuctions</h3>
-To run the installation type:<br>
+<h3>インストール方法（簡易版）</h3>
+インストールのコマンド:<br>
 <pre>curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash</pre>
 
-<h3>Installation Guide</h3>
+<h3>インストールガイド</h3>
 <a href="https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/">Minecraft Bedrock Dedicated Server Script Installation / Configuration Guide</a>
 
-<h3>Installing Resource Packs / RTX Support</h3>
-<p>For instructions on how to install resource packs (including optional RTX support) view my <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step by step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
+<h3>RTX用リソースパックのインストール</h3>
+<p>リソースパック(RTXサポート)のインストール方法→<a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step by step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
 
-<h3>Tested Distributions</h3>
+<h3>テストが完了しているディストリビューション</h3>
 <ul>
  <li>Ubuntu / Ubuntu Server 20.04</li>
  <li>Ubuntu / Ubuntu Server 18.04</li>
  <li>Debian Stretch / Buster</li>
 </ul>
   
-<h3>Tested Platforms</h3>
+<h3>テストが完了しているハードウェア環境</h3>
 <ul>
- <li>All PC X86_64 (WORKING)</li>
- <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (WORKING)</a></li>
- <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (WORKING)</a></li>
- <li>Other X86_64 platforms (WORKING)</li>
-  <ul><li>ARM 64bit (WORKING -- needs linker and other binaries used for emulation to be updated)</li>
+ <li>All PC X86_64 (稼働中)</li>
+ <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (稼働中)</a></li>
+ <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (稼働中)</a></li>
+ <li>Other X86_64 platforms (稼働中)</li>
+  <ul><li>ARM 64bit (稼働中 -- 仮想化のために、リンカと他のバイナリをアップデートする必要があります)</li>
     <ul>
-      <li>Raspberry Pi (WORKING, SLOW, Ubuntu required, not working on Pi OS 64 bit and has segfaults)</li>
-      <li>Tinkerboard (WORKING, SLOW)</li>
+      <li>Raspberry Pi (稼働中, 動作は遅いです, OSはUbuntu , セグメンテーション違反が起きるため、Pi OS 64 bitでは動きません)</li>
+      <li>Tinkerboard (稼働中, 動作は遅いです)</li>
     </ul>
   </ul>
 </ul>
 
-<h3>Multiple Servers and Installation Paths</h3>
-<p>The server supports multiple servers at once.  When you run SetupMinecraft.sh again pick the identical root path as any previous servers.  The path structure of the scripts is $ROOTPATH/minecraftbe/yourservername which is why the "root" path SetupMinecraft.sh asks you for should always be the same.</p>
-<p>The individual server folder is determined by the "server name" you enter for your server.  If it's an existing server the scripts will be safely updated.  If it's a new server then a new folder will be created under $ROOTPATH/minecraftbe/newservername.</p>
-<p>Keep the installation the path the same for all servers and the script will manage all this for you.</p>
+<h3>マルチサーバーとインストールパスについて</h3>
+<p>複数ワールドの. SetupMinecraft.sh を再度実行する際は、初回起動時と同じディレクトリパスで実行してください。 ディレクトリパスの構成は $ROOTPATH/minecraftbe/yourservername です。そのため、SetupMinecraft.sh がアクセスするディレクトリパスは常に同じにしなければならないです。</p>
+<p>マイクラサーバーのフォルダ名は "server name" として入力した名前になります. スクリプ上で存在していればマインクラフトのアップデートは機能します。  もしも、新しいフォルダーでサーバーを作成した場合のパスは $ROOTPATH/minecraftbe/newservername. となります。</p>
+<p>すべてのワールドのサーバーのインストールは同じパスにしてください。同一にすることでワールドを管理します</p>
 
-<h3>Add systemd permissions (optional)</h3>
-<p>Some users track the Minecraft servers by the systemd service.  If you are using the automatic daily restart feature the service will not show as "online" since restart.sh does not run as root so it doesn't restart the systemd service.</p>
-<p>To fix this add a line to your sudoers file (sudo visudo) like this:</p>
+<h3>systemd権限を追加(オプション)</h3>
+<p>マインクラフトをsystemdサービスとして追跡しているユーザーについて、毎日の自動再起動機能を使用している場合。restart.sh はrootとして起動せず、systemd サービスとして再起動しません、よって、サービスは"online"と表示しません。</p>
+<p>これを修正するには sudoers ファイル (sudo visudo) に下記コードを加えてください:</p>
 <pre>yourusername ALL=(ALL) NOPASSWD: /bin/systemctl start yourservername</pre>
 <p>This will give you
 
-<h3>Update History</h3>
+<h3>アップデート履歴</h3>
 <ul>
   <li>November 2nd 2021</li>
   <ul>
