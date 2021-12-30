@@ -1,6 +1,6 @@
 # Minecraft Bedrock Server
 
-[日本語版 README はこちら](https://github.com/TheRemote/MinecraftBedrockServer/README_jp.md)
+[日本語版 README はこちら](https://github.com/TheRemote/MinecraftBedrockServer/blob/master/README_jp.md)
 
 Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup<br>
 View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
