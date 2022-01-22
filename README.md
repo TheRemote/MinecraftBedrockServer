@@ -38,7 +38,7 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
     Enable KuuPrivateServer.service
     Created symlink /etc/systemd/system/multi-user.target.wants/KuuPrivateServer.service → /etc/systemd/system/KuuPrivateServer.service.
 
-    Enter BuildCraft execution command (LD_LIBRARY_PATH=. ./bedrock_server) java -Xmx1024M -Xms1024M -jar forge-1.7.10-10.13.4.1614-1.7.10-universal.jar
+    Enter BuildCraft execution command (LD_LIBRARY_PATH=. ./bedrock_server) java -Xmx1024M -Xms1024M -jar forge-xxx-universal.jar
     Install BuildCraft.service into /etc/systemd/system/
     Reload systemd manager configuration
     Do you want to enable automatic startup of the BuildCraft? [Y/n] Y
