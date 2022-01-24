@@ -1,7 +1,7 @@
 #!/bin/bash
 if sudo screen -list | grep -q "\.servername"; then
-    sudo screen -Rd servername -X stuff "say バックアップのため、20秒後にサーバーを閉じます。$(printf '\r')"
-    sleep 23s
+    sudo screen -Rd servername -X stuff "say バックアップのため、25秒後にサーバーを閉じます。$(printf '\r')"
+    sleep 25s
     sudo screen -Rd servername -X stuff "say サーバーを7秒後に閉じます$(printf '\r')"
     sleep 1s
     sudo screen -Rd servername -X stuff "say サーバーを6秒後に閉じます$(printf '\r')"
