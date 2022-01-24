@@ -1,4 +1,4 @@
-# minecraft_bedrock_server
+# MinecraftBedrockServer
 
 UbuntuのMinecraft統合版サーバー管理のスクリプトです。サーバーの実行コマンドを変えればJava版のサーバーにも使えます。
 
@@ -15,8 +15,7 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 1. サーバーのセットアップを開始する
 
     ```bash
-    git clone https://github.com/Kuuchan2308/minecraft_bedrock_server
-    cd minecraft_bedrock_server/
+    cd MinecraftBedrockServer
     ./setup.sh
     ```
 
@@ -92,7 +91,7 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 - 設定した全サーバーの停止とバックアップと再スタート
 
     ```bash
-    ~/.minecraft_bedrock_server/stop_backup_and_restart.sh
+    ~/.MinecraftBedrockServer/stop_backup_and_restart.sh
     ```
 
 - 個別のサーバーの停止とバックアップ
@@ -124,7 +123,7 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 2. cronで行われる内容の編集
     - いくつかのサーバーを削除したい場合
         ```bash
-        vim ~/.minecraft_bedrock_server/stop_backup_and_restart.sh
+        vim ~/.MinecraftBedrockServer/stop_backup_and_restart.sh
         ```
         以下の行を削除
         ```txt
@@ -133,12 +132,12 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
         ```
     - すべてのサーバーを削除したい場合
         ```bash
-        sudo rm -r ~/.minecraft_bedrock_server
+        sudo rm -r ~/.MinecraftBedrockServer
         ```
         ```bash
         sudo crontab -e
         ```
         以下の行を削除
         ```txt
-        0 5 * * * /home/ユーザー名/.minecraft_bedrock_server/stop_backup_and_restart.sh
+        0 5 * * * /home/ユーザー名/.MinecraftBedrockServer/stop_backup_and_restart.sh
         ```

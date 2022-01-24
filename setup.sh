@@ -52,8 +52,8 @@ case "$yn" in
 [yY]*)
     echo 'Export the root crontab'
     sudo crontab -l >crontab.tmp
-    if ! grep -q "0 5 \* \* \* /home/$username/.minecraft_bedrock_server/stop_backup_and_restart.sh" crontab.tmp; then
-        echo "0 5 * * * /home/$username/.minecraft_bedrock_server/stop_backup_and_restart.sh" >>crontab.tmp
+    if ! grep -q "0 5 \* \* \* /home/$username/.MinecraftBedrockServer/stop_backup_and_restart.sh" crontab.tmp; then
+        echo "0 5 * * * /home/$username/.MinecraftBedrockServer/stop_backup_and_restart.sh" >>crontab.tmp
         echo "Add this to the root crontab"
         sudo crontab -u root crontab.tmp
     fi
@@ -61,6 +61,6 @@ case "$yn" in
     ;;
 esac
 chmod 755 stop_backup_and_restart.sh
-mkdir -p /home/$username/.minecraft_bedrock_server
-mv stop_backup_and_restart.sh /home/$username/.minecraft_bedrock_server
+mkdir -p /home/$username/.MinecraftBedrockServer
+mv stop_backup_and_restart.sh /home/$username/.MinecraftBedrockServer
 echo 'Completed setup'
