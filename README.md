@@ -9,6 +9,12 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 - cronで定期的にバックアップ・再起動できます。
 - 複数のサーバーを建てられます。
 - setup.sh以外のコードは割とシンプルかなと思います。
+- webhookでサーバーの状況とユーザーの入退出をDiscordに出せます。
+
+
+## Requirement
+- `pip install watchdog`
+- `pip install discord_webhook`
 
 ## サーバーの設定
 

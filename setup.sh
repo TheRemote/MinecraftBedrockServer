@@ -16,6 +16,8 @@ for servername in $servernames; do
     mkdir -p $servername
     mkdir -p /home/$username/$servername
     cp serverfiles/* $servername
+    read -p "Enter the webhook URL of the discord you want to output the status of $servername" webhookurl
+    echo WEBHOOK_URL=$webhookurl >$servername/.env
     sed -i "s/username/$username/g" $servername/ExecStart.sh
     sed -i "s/username/$username/g" $servername/stop_and_backup_for_restart.sh
     sed -i "s/servername/$servername/g" $servername/ExecStart.sh
