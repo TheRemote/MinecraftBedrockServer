@@ -21,7 +21,7 @@ if __name__ == "__main__":
                 last_line = file.readlines()[-1]
                 # say, not /say.
                 if re.match('say', last_line):
-                    server_say_word = re.gruop(
+                    server_say_word = re.search(
                         '(?<=say )(.*)', last_line).group()
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=server_say_word)
