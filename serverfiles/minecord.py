@@ -22,7 +22,7 @@ if __name__ == "__main__":
                 # say, not /say.
                 if re.match('say', last_line):
                     server_say_word = re.gruop(
-                        '(say )(.*)', last_line).group()
+                        '(?<=say )(.*)', last_line).group()
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=server_say_word)
                     webhook.execute()
