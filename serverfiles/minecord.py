@@ -19,21 +19,21 @@ if __name__ == "__main__":
         if os.path.getsize(event.src_path) != 0:
             with open(event.src_path, "r") as file:
                 last_line = file.readlines()[-1]
-                # say, not /say.
+                # It's /say, not /say. In other words, it is a server command only.
                 if re.match('say', last_line):
                     server_say_word = re.search(
                         '(?<=say )(.*)', last_line).group()
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=server_say_word)
                     webhook.execute()
-                elif 'Player connected' in last_line:
+                elif re.match('\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}:\d{3} INFO] Player connected', last_line):
                     connected_player_name = re.search(
                         '(?<=Player connected: )(.*)(?=, xuid:)', last_line).group()
                     print(connected_player_name+'がゲームに参加しました。')
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=connected_player_name+'がゲームに参加しました。')
                     webhook.execute()
-                elif 'Player disconnected' in last_line:
+                elif re.match('\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}:\d{3} INFO] Player disconnected', last_line):
                     disconnected_player_name = re.search(
                         '(?<=Player disconnected: )(.*)(?=, xuid:)', last_line).group()
                     print(disconnected_player_name+"がゲームから退出しました。")
