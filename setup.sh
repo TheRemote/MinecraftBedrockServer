@@ -24,7 +24,7 @@ for servername in $servernames; do
     sed -i "s/servername/$servername/g" $servername/ExecStop.sh
     sed -i "s/servername/$servername/g" $servername/stop_and_backup_for_restart.sh
     sed -i "s#serverstartcommand#$serverstartcommand#g" $servername/ExecStart.sh
-    mv $servername/* /home/$username/$servername
+    mv $servername/* $servername/.[^\.]* /home/$username/$servername
     rmdir $servername
     cp exampleserver.service $servername.service
     sed -i "s/username/$username/g" $servername.service
