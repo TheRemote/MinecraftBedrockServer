@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+import time
+import os
+import re
+from watchdog.events import RegexMatchingEventHandler
+from watchdog.observers import Observer
+from discord_webhook import DiscordWebhook
+from dotenv import load_dotenv
+load_dotenv()
+
+# 環境変数を読み込む
+WEBHOOK_URL = os.environ["WEBHOOK_URL"]
+
+if __name__ == "__main__":
+    regexes = ['^\.\/\d{12}\.log$']
+    event_handler = RegexMatchingEventHandler(regexes)
+
+    def on_modified(event):
+        if os.path.getsize(event.src_path) != 0:
+            with open(event.src_path, "r") as file:
+                last_line = file.readlines()[-1]
+                if 'Starting Server' in last_line:
+                    print("サーバーを開始しています。")
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content='サーバーを開始しています。')
+                    webhook.execute()
+                elif 'Server started.' in last_line:
+                    print("サーバーが開始されました。")
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content='サーバーを開始しました。')
+                    webhook.execute()
+                elif 'Player connected' in last_line:
+                    connected_player_name = re.search(
+                        '(?<=Player connected: )(.*)(?=, xuid:)', last_line).group()
+                    print(connected_player_name+'がゲームに参加しました。')
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content=connected_player_name+'がゲームに参加しました。')
+                    webhook.execute()
+                elif 'Player disconnected' in last_line:
+                    disconnected_player_name = re.search(
+                        '(?<=Player disconnected: )(.*)(?=, xuid:)', last_line).group()
+                    print(disconnected_player_name+"がゲームから退出しました。")
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content=disconnected_player_name+'がゲームから退出しました。')
+                    webhook.execute()
+                elif 'Server stop requested.' in last_line:
+                    print('サーバーを停止がリクエストされました。')
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content='サーバーを停止がリクエストされました。')
+                    webhook.execute()
+                elif 'Stopping server...' in last_line:
+                    print('サーバーを停止しています。')
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content='サーバーを停止しています。')
+                    webhook.execute()
+                elif 'Quit correctly' in last_line:
+                    print('サーバーを正常に停止しました。')
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content='サーバーを正常に停止しました。')
+                    webhook.execute()
+
+    event_handler.on_modified = on_modified
+    path = "."
+    observer = Observer()
+    observer.schedule(event_handler, path, recursive=False)
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
