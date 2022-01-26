@@ -20,7 +20,7 @@ if __name__ == "__main__":
             with open(event.src_path, "r") as file:
                 last_line = file.readlines()[-1]
                 if 'IPv6 supported' in last_line:
-                    print("サーバーが開始されました。")
+                    print("サーバーを開始しました。")
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content='サーバーを開始しました。')
                     webhook.execute()
