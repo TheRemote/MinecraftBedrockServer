@@ -19,10 +19,12 @@ if __name__ == "__main__":
         if os.path.getsize(event.src_path) != 0:
             with open(event.src_path, "r") as file:
                 last_line = file.readlines()[-1]
-                if 'IPv6 supported' in last_line:
-                    print("サーバーを開始しました。")
+                # say, not /say.
+                if re.match('say', last_line):
+                    server_say_word = re.gruop(
+                        '(say )(.*)', last_line).group()
                     webhook = DiscordWebhook(
-                        url=WEBHOOK_URL, content='サーバーを開始しました。')
+                        url=WEBHOOK_URL, content=server_say_word)
                     webhook.execute()
                 elif 'Player connected' in last_line:
                     connected_player_name = re.search(
@@ -37,11 +39,6 @@ if __name__ == "__main__":
                     print(disconnected_player_name+"がゲームから退出しました。")
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=disconnected_player_name+'がゲームから退出しました。')
-                    webhook.execute()
-                elif 'Quit correctly' in last_line:
-                    print('サーバーを正常に停止しました。')
-                    webhook = DiscordWebhook(
-                        url=WEBHOOK_URL, content='サーバーを正常に停止しました。')
                     webhook.execute()
 
     event_handler.on_modified = on_modified
