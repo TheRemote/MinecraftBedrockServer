@@ -13,6 +13,7 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 
 ## To do
 - `sudo pip`とか`sudo screen`はあんまりよくないみたいなのでユーザー権限で実行できるように対応を検討中
+- 現在の設定を読み込めるようにする
 
 ## Requirement
 - `sudo pip install watchdog`
