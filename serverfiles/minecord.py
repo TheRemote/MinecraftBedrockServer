@@ -42,8 +42,11 @@ def on_modified(event):
 
 def handler(_signum, _frame):
     observer.stop()
+    observer.join()
+    exit(0)
 
 
+print(os.getpid())
 event_handler = RegexMatchingEventHandler('^\.\/\d{12}\.log$')
 event_handler.on_modified = on_modified
 path = "."
@@ -51,9 +54,6 @@ observer = Observer()
 observer.schedule(event_handler, path, recursive=False)
 observer.start()
 signal.signal(signal.SIGTERM, handler)
-try:
-    while True:
-        time.sleep(1)
-except KeyboardInterrupt:
-    observer.stop()
-observer.join()
+
+while True:
+    time.sleep(1)
