@@ -1,5 +1,5 @@
 #!/bin/bash
-if ! sudo screen -list | grep -q "\.servername"; then
+if ! sudo screen -ls | grep -q "\.servername"; then
     exit 0
 fi
 sudo screen -Rd servername -X stuff "say サーバーを閉じます...$(printf '\r')"

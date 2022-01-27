@@ -12,9 +12,6 @@ from dotenv import load_dotenv
 load_dotenv()
 WEBHOOK_URL = os.environ["WEBHOOK_URL"]
 
-webhook = DiscordWebhook(url=WEBHOOK_URL, content='サーバーを開始します')
-webhook.execute()
-
 
 def on_modified(event):
     if os.path.getsize(event.src_path) != 0:
