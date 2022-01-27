@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import signal
 import time
 import os
 import re
@@ -46,6 +47,9 @@ observer = Observer()
 observer.schedule(event_handler, path, recursive=False)
 observer.start()
 try:
+    def handler(signum, frame):
+        observer.stop()
+    signal.signal(signal.SIGTERM, handler)
     while True:
         time.sleep(1)
 except KeyboardInterrupt:
