@@ -43,7 +43,7 @@ def on_modified(event):
 def handler(_signum, _frame):
     observer.stop()
     observer.join()
-    print('Quited Correctly')
+    print('Minecord terminated successfully')
     exit(0)
 
 
