@@ -13,9 +13,9 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 
 
 ## Requirement
-- `pip install --system watchdog`
-- `pip install --system discord_webhook`
-- `pip install --system python-dotenv`
+- `sudo pip install watchdog`
+- `sudo pip install discord_webhook`
+- `sudo pip install python-dotenv`
 
 ## サーバーの設定
 
