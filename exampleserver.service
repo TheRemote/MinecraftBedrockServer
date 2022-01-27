@@ -1,15 +1,12 @@
 [Unit]
-Description=exampleserver
+Description=KuuServer
 After=syslog.target
 After=network.target
 
 [Service]
 WorkingDirectory=/home/username/exampleserver
-Type=forking
 ExecStart=/home/username/exampleserver/ExecStart.sh
 ExecStop=/home/username/exampleserver/ExecStop.sh
-GuessMainPID=no
-TimeoutStartSec=600
 Restart=always
 
 [Install]
