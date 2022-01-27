@@ -19,18 +19,12 @@ if __name__ == "__main__":
         if os.path.getsize(event.src_path) != 0:
             with open(event.src_path, "r") as file:
                 last_line = file.readlines()[-1]
-                # It's /say, not /say. In other words, it is a server command only.
+                # It's say, not /say. In other words, it is a server command only.
                 if re.match('say', last_line):
                     server_say_word = re.search(
                         '(?<=say )(.*)', last_line).group()
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=server_say_word)
-                    webhook.execute()
-                elif re.match('whitelist add', last_line):
-                    whitelist_add_gamerstag = re.search(
-                        '(?<=whitelist add )(.*)', last_line).group()
-                    webhook = DiscordWebhook(
-                        url=WEBHOOK_URL, content=whitelist_add_gamerstag+'を許可リストに追加しました。')
                     webhook.execute()
                 elif re.match('\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}:\d{3} INFO] Player connected', last_line):
                     connected_player_name = re.search(
