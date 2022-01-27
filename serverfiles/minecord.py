@@ -50,7 +50,6 @@ def handler(_signum, _frame):
     exit(0)
 
 
-print(os.getpid())
 event_handler = RegexMatchingEventHandler('^\.\/\d{12}\.log$')
 event_handler.on_modified = on_modified
 path = "."
