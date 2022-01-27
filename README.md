@@ -26,6 +26,7 @@ rootに
     cd MinecraftBedrockServer
     ./setup.sh
     ```
+
     ホームディレクトリにサーバーディレクトリが作成される
 
 2. 追加の設定
