@@ -11,6 +11,8 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 - setup.sh以外のコードは割とシンプルかなと思います。
 - webhookでサーバーの状況とユーザーの入退出をDiscordに出せます。
 
+## To do
+- `sudo pip`とか`sudo screen`はあんまりよくないみたいなのでユーザー権限で実行できるように対応を検討中
 
 ## Requirement
 - `sudo pip install watchdog`
