@@ -35,33 +35,20 @@ for servername in $servernames; do
     echo 'Reload systemd manager configuration'
     sudo systemctl daemon-reload
     read -p "Do you want to enable automatic startup of the $servername? [Y/n] " yn
-    case "$yn" in
-    [yY]*)
-        echo "Enable $servername.service"
-        sudo systemctl enable $servername.service
-        ;;
-    *)
-        echo "Disable $servername.service"
-        sudo systemctl disable $servername.service
-        ;;
-    esac
+    echo "Enable $servername.service"
+    sudo systemctl enable $servername.service
     echo "/home/$username/$servername/stop_and_backup_for_restart.sh" >>stop_backup_and_restart.sh
     echo "systemctl restart $servername" >>stop_backup_and_restart.sh
     echo
 done
-read -p "Do you want to stop, back up, and reboot at 5am? [Y/n] " yn
-case "$yn" in
-[yY]*)
-    echo 'Export the root crontab'
-    sudo crontab -l >crontab.tmp
-    if ! grep -q "0 5 \* \* \* /home/$username/.MinecraftBedrockServer/stop_backup_and_restart.sh" crontab.tmp; then
-        echo "0 5 * * * /home/$username/.MinecraftBedrockServer/stop_backup_and_restart.sh" >>crontab.tmp
-        echo "Add this to the root crontab"
-        sudo crontab -u root crontab.tmp
-    fi
-    rm crontab.tmp
-    ;;
-esac
+echo 'Export the root crontab'
+sudo crontab -l >crontab.tmp
+if ! grep -q "0 5 \* \* \* /home/$username/.MinecraftBedrockServer/stop_backup_and_restart.sh" crontab.tmp; then
+    echo "0 5 * * * /home/$username/.MinecraftBedrockServer/stop_backup_and_restart.sh" >>crontab.tmp
+    echo "Add this to the root crontab"
+    sudo crontab -u root crontab.tmp
+fi
+rm crontab.tmp
 chmod 755 stop_backup_and_restart.sh
 mkdir -p /home/$username/.MinecraftBedrockServer
 mv stop_backup_and_restart.sh /home/$username/.MinecraftBedrockServer
