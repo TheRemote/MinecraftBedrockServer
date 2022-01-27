@@ -26,6 +26,12 @@ if __name__ == "__main__":
                     webhook = DiscordWebhook(
                         url=WEBHOOK_URL, content=server_say_word)
                     webhook.execute()
+                elif re.match('whitelist add', last_line):
+                    whitelist_add_gamerstag = re.search(
+                        '(?<=whitelist add )(.*)', last_line).group()
+                    webhook = DiscordWebhook(
+                        url=WEBHOOK_URL, content=whitelist_add_gamerstag+'を許可リストに追加しました。')
+                    webhook.execute()
                 elif re.match('\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}:\d{3} INFO] Player connected', last_line):
                     connected_player_name = re.search(
                         '(?<=Player connected: )(.*)(?=, xuid:)', last_line).group()
