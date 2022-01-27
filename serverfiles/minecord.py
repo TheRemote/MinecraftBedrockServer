@@ -43,6 +43,7 @@ def on_modified(event):
 def handler(_signum, _frame):
     observer.stop()
     observer.join()
+    print('Quited Correctly')
     exit(0)
 
 
@@ -54,6 +55,7 @@ observer = Observer()
 observer.schedule(event_handler, path, recursive=False)
 observer.start()
 signal.signal(signal.SIGTERM, handler)
+signal.signal(signal.SIGINT, handler)
 
 while True:
     time.sleep(1)
