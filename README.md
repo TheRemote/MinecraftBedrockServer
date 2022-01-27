@@ -26,38 +26,6 @@ rootに
     cd MinecraftBedrockServer
     ./setup.sh
     ```
-
-    実行例:
-
-    ```txt
-    Enter the server name to be configured, separated by a space: KuuServerRC KuuPrivateServer BuildCraft
-    Enter KuuServerRC execution command (LD_LIBRARY_PATH=. ./bedrock_server)
-    Install KuuServerRC.service into /etc/systemd/system/
-    Reload systemd manager configuration
-    Do you want to enable automatic startup of the KuuServerRC? [Y/n] Y
-    Enable KuuServerRC.service
-    Created symlink /etc/systemd/system/multi-user.target.wants/KuuServerRC.service → /etc/systemd/system/KuuServerRC.service.
-
-    Enter KuuPrivateServer execution command (LD_LIBRARY_PATH=. ./bedrock_server)
-    Install KuuPrivateServer.service into /etc/systemd/system/
-    Reload systemd manager configuration
-    Do you want to enable automatic startup of the KuuPrivateServer? [Y/n] Y
-    Enable KuuPrivateServer.service
-    Created symlink /etc/systemd/system/multi-user.target.wants/KuuPrivateServer.service → /etc/systemd/system/KuuPrivateServer.service.
-
-    Enter BuildCraft execution command (LD_LIBRARY_PATH=. ./bedrock_server) java -Xmx1024M -Xms1024M -jar forge-xxx-universal.jar
-    Install BuildCraft.service into /etc/systemd/system/
-    Reload systemd manager configuration
-    Do you want to enable automatic startup of the BuildCraft? [Y/n] Y
-    Enable BuildCraft.service
-    Created symlink /etc/systemd/system/multi-user.target.wants/BuildCraft.service → /etc/systemd/system/BuildCraft.service.
-
-    Do you want to stop, back up, and reboot at 5am? [Y/n] Y
-    Export the root crontab
-    Add the contents to root's crontab and overwrite it
-    Completed setup
-    ```
-
     ホームディレクトリにサーバーディレクトリが作成される
 
 2. 追加の設定
