@@ -21,9 +21,33 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 
 1. サーバーのセットアップを開始する
 
-    ```bash
+    ```sh
     cd MinecraftBedrockServer
     ./setup.sh
+    ```
+
+    ```txt
+    Enter the server name to be configured, separated by a space: KuuServer KuuPrivateServer GeyserMC
+    Enter KuuServer execution command (LD_LIBRARY_PATH=. ./bedrock_server)
+    Enter the webhook URL of the discord you want to output the status of KuuServer: https://discord.com/api/webhooks/foo
+    Install KuuServer.service into /etc/systemd/system/
+    Reload systemd manager configuration
+    Enable KuuServer.service
+
+    Enter KuuPrivateServer execution command (LD_LIBRARY_PATH=. ./bedrock_server)
+    Enter the webhook URL of the discord you want to output the status of KuuPrivateServer: https://discord.com/api/webhooks/bar
+    Install KuuPrivateServer.service into /etc/systemd/system/
+    Reload systemd manager configuration
+    Enable KuuPrivateServer.service
+
+    Enter GeyserMC execution command (LD_LIBRARY_PATH=. ./bedrock_server) java -Xms1G -Xmx1G -jar paper-1.18.1-175.jar --nogui
+    Enter the webhook URL of the discord you want to output the status of GeyserMC:
+    Install GeyserMC.service into /etc/systemd/system/
+    Reload systemd manager configuration
+    Enable GeyserMC.service
+
+    Export the root crontab
+    Completed setup
     ```
 
     ホームディレクトリにサーバーディレクトリが作成される
@@ -40,25 +64,25 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 
 1. サーバーの開始
 
-    ```bash
+    ```sh
     sudo systemctl start servername
     ```
 
 2. サーバーの状態をチェックする
 
-    ```bash
+    ```sh
     sudo systemctl status servername
     ```
 
 3. セッションの状態をチェックする
 
-    ```bash
+    ```sh
     sudo screen -ls
     ```
 
 4. セッションのアタッチ
 
-    ```bash
+    ```sh
     sudo screen -r servername
     ```
 
@@ -66,39 +90,39 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
 
 - 設定した全サーバーの停止とバックアップと再スタート
 
-    ```bash
+    ```sh
     ~/.MinecraftBedrockServer/stop_backup_and_restart.sh
     ```
 
 - 個別のサーバーの停止とバックアップ
 
-    ```bash
+    ```sh
     ~/servername/stop_and_backup_for_restart.sh
     ```
 
 - サーバーの再スタートまたは再開
 
-    ```bash
+    ```sh
     sudo systemctl restart servername
     ```
 
 - バックアップせずにサーバーを停止
 
-    ```bash
+    ```sh
     sudo systemctl stop servername
     ```
 
 ## アンインストール
 
 1. サーバーデーモンの削除
-   ```bash
+   ```sh
     sudo systemctl disable 不要なサーバー名
     sudo rm /etc/systemd/system/不要なサーバー名.service
     sudo rm -r ~/不要なサーバー名
     ```
 2. cronで行われる内容の編集
     - いくつかのサーバーを削除したい場合
-        ```bash
+        ```sh
         vim ~/.MinecraftBedrockServer/stop_backup_and_restart.sh
         ```
         以下の行を削除
@@ -107,10 +131,10 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
         systemctl restart 不要なサーバー名
         ```
     - すべてのサーバーを削除したい場合
-        ```bash
+        ```sh
         sudo rm -r ~/.MinecraftBedrockServer
         ```
-        ```bash
+        ```sh
         sudo crontab -e
         ```
         以下の行を削除
