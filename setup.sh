@@ -34,7 +34,6 @@ for servername in $servernames; do
     sudo mv $servername.service /etc/systemd/system/
     echo 'Reload systemd manager configuration'
     sudo systemctl daemon-reload
-    read -p "Do you want to enable automatic startup of the $servername? [Y/n] " yn
     echo "Enable $servername.service"
     sudo systemctl enable $servername.service
     echo "/home/$username/$servername/stop_and_backup_for_restart.sh" >>stop_backup_and_restart.sh
