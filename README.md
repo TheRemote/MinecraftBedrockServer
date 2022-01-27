@@ -29,6 +29,7 @@ UbuntuのMinecraft統合版サーバー管理のスクリプトです。サー�
     ./setup.sh
     ```
 
+    セットアップ例:
     ```txt
     Enter the server name to be configured, separated by a space: KuuServer KuuPrivateServer GeyserMC
     Enter KuuServer execution command (LD_LIBRARY_PATH=. ./bedrock_server)
