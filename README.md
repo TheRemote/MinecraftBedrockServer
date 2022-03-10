@@ -63,6 +63,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>March 10th 2022</li>
+  <ul>
+    <li>Add new allowlist.json to the unzip whitelist (thanks shaman79, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/118">issue #118</a>)</li>
+  </ul>
   <li>November 2nd 2021</li>
   <ul>
     <li>Fixed extra / in front of permissions fix script (thanks MarkBarbieri, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/109">issue #109</a>)</li>
