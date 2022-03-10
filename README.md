@@ -55,17 +55,21 @@ To run the installation type:<br>
 <p>The individual server folder is determined by the "server name" you enter for your server.  If it's an existing server the scripts will be safely updated.  If it's a new server then a new folder will be created under $ROOTPATH/minecraftbe/newservername.</p>
 <p>Keep the installation the path the same for all servers and the script will manage all this for you.</p>
 
-<h3>Add systemd permissions (optional)</h3>
-<p>Some users track the Minecraft servers by the systemd service.  If you are using the automatic daily restart feature the service will not show as "online" since restart.sh does not run as root so it doesn't restart the systemd service.</p>
-<p>To fix this add a line to your sudoers file (sudo visudo) like this:</p>
-<pre>yourusername ALL=(ALL) NOPASSWD: /bin/systemctl start yourservername</pre>
-<p>This will give you
+<h3>Buy A Coffee / Donate</h3>
+<p>People have expressed some interest in this (you are all saints, thank you, truly)</p>
+<ul>
+ <li>PayPal: 05jchambers@gmail.com</li>
+ <li>Venmo: @JamesAChambers</li>
+ <li>CashApp: $theremote</li>
+ <li>Bitcoin (BTC): 3H6wkPnL1Kvne7dJQS8h7wB4vndB9KxZP7</li>
+</ul>
 
 <h3>Update History</h3>
 <ul>
   <li>March 10th 2022</li>
   <ul>
     <li>Add new allowlist.json to the unzip whitelist (thanks shaman79, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/118">issue #118</a>)</li>
+    <li>Added buy a coffe / donation information (thanks vandersonmota, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/117">issue #117</a>)</li>
   </ul>
   <li>November 2nd 2021</li>
   <ul>
