@@ -66,6 +66,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>March 19th 2022</li>
+  <ul>
+    <li>Removed /sbin qualifier from route command as the PATH variable is now stored at the top of each script by SetupMinecraft.sh</li>
+  </ul>
   <li>March 10th 2022</li>
   <ul>
     <li>Add new allowlist.json to the unzip whitelist (thanks shaman79, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/118">issue #118</a>)</li>
