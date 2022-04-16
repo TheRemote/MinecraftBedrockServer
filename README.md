@@ -66,6 +66,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>April 16th 2022</li>
+  <ul>
+    <li>Added multiple CPU core support for backups which should speed up backup process</li>
+  </ul>
   <li>March 19th 2022</li>
   <ul>
     <li>Removed /sbin qualifier from route command as the PATH variable is now stored at the top of each script by SetupMinecraft.sh</li>

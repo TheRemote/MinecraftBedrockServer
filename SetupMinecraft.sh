@@ -138,6 +138,7 @@ Check_Dependencies() {
     if ! command -v gawk &> /dev/null; then sudo apt-get install gawk -y; fi
     if ! command -v openssl &> /dev/null; then sudo apt-get install openssl -y; fi
     if ! command -v xargs &> /dev/null; then sudo apt-get install xargs -y; fi
+    if ! command -v pigz &> /dev/null; then sudo apt-get install pigz -y; fi
 
     CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
     if [[ "$CurlVer" ]]; then
