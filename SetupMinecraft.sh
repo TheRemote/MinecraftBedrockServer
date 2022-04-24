@@ -43,7 +43,7 @@ function read_with_prompt {
 
 Update_Scripts() {
   # Remove existing scripts
-  rm start.sh stop.sh restart.sh fixpermissions.sh
+  rm -f start.sh stop.sh restart.sh fixpermissions.sh
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
@@ -131,29 +131,46 @@ Check_Dependencies() {
     sudo apt-get update
 
     echo "Checking and installing dependencies.."
-    if ! command -v curl &> /dev/null; then sudo apt-get install curl -y; fi
-    if ! command -v unzip &> /dev/null; then sudo apt-get install unzip -y; fi
-    if ! command -v screen &> /dev/null; then sudo apt-get install screen -y; fi
-    if ! command -v route &> /dev/null; then sudo apt-get install net-tools -y; fi
-    if ! command -v gawk &> /dev/null; then sudo apt-get install gawk -y; fi
-    if ! command -v openssl &> /dev/null; then sudo apt-get install openssl -y; fi
-    if ! command -v xargs &> /dev/null; then sudo apt-get install xargs -y; fi
-    if ! command -v pigz &> /dev/null; then sudo apt-get install pigz -y; fi
+    if ! command -v curl &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
+    if ! command -v unzip &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install unzip -yqq; fi
+    if ! command -v screen &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install screen -yqq; fi
+    if ! command -v route &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools -yqq; fi
+    if ! command -v gawk &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install gawk -yqq; fi
+    if ! command -v openssl &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install openssl -yqq; fi
+    if ! command -v xargs &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install xargs -yqq; fi
+    if ! command -v pigz &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install pigz -yqq; fi
 
     CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
     if [[ "$CurlVer" ]]; then
-      sudo apt-get install libcurl4 -y
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install libcurl4 -yqq
     else
       # Install libcurl3 for backwards compatibility in case libcurl4 isn't available
       CurlVer=$(apt-cache show libcurl3 | grep Version | awk 'NR==1{ print $2 }')
-      if [[ "$CurlVer" ]]; then sudo apt-get install libcurl3 -y; fi
+      if [[ "$CurlVer" ]]; then sudo DEBIAN_FRONTEND=noninteractive apt-get install libcurl3 -yqq; fi
     fi
 
-    sudo apt-get install libc6 -y
-    sudo apt-get install libcrypt1 -y
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install libc6 -yqq
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install libcrypt1 -yqq
+
+    # Install libssl 1.1 if available
+    SSLVer=$(apt-cache show libssl1.1 | grep Version | awk 'NR==1{ print $2 }')
+    if [[ "$SSLVer" ]]; then
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install libssl1.1 -yqq
+    else
+      echo "No libssl1.1 available in repositories -- attempting manual install"
+      sudo curl -o libssl.deb -k -L http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
+      sudo dpkg -i libssl.deb
+      sudo rm libssl.deb
+      SSLVer=$(apt-cache show libssl1.1 | grep Version | awk 'NR==1{ print $2 }')
+      if [[ "$SSLVer" ]]; then
+        echo "Manual libssl1.1 installation successful!"
+      else
+        echo "Manual libssl1.1 installation failed."
+      fi
+    fi
 
     # Double check curl since libcurl dependency issues can sometimes remove it
-    if ! command -v curl &> /dev/null; then sudo apt-get install curl -y; fi
+    if ! command -v curl &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
     echo "Dependency installation completed"
   else
     echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
@@ -193,7 +210,7 @@ Check_Architecture () {
       echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
       exit
     else
-      sudo apt-get update && sudo apt-get install qemu-user-static binfmt-support -y
+      sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
     fi
 
     if [ -n "`which qemu-x86_64-static`" ]; then

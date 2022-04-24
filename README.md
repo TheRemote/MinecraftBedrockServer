@@ -66,6 +66,12 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>April 24th 2022</li>
+  <ul>
+    <li>Added dependency package install for libssl1.1 when it's available in apt</li>
+    <li>Added fallback installation for libssl1.1 to hopefully fix the installer for Ubuntu 22.04/22.10 and other distros using libssl3</li>
+    <li>Added DEBIAN_NONINTERACTIVE to some apt commands to try to suppress some interactive dialogs (such as running outdated kernel) that were causing the installer to get stuck</li>
+  </ul>
   <li>April 16th 2022</li>
   <ul>
     <li>Added multiple CPU core support for backups which should speed up backup process</li>
