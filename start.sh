@@ -60,9 +60,9 @@ Permissions=$(sudo bash dirname/minecraftbe/servername/fixpermissions.sh -a)
 # Create backup
 if [ -d "worlds" ]; then
     echo "Backing up server (to minecraftbe/servername/backups folder)"
-    if [ ! -n "`which pigz`" ]; then
+    if [ -n "`which pigz`" ]; then
         echo "Backing up server (multiple cores) to minecraftbe/servername/backups folder"
-        tar -I pigz -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
+        tar -I pigz -pvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
     else
         echo "Backing up server (single cored) to minecraftbe/servername/backups folder"
         tar -pzvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds

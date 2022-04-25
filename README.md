@@ -72,6 +72,7 @@ To run the installation type:<br>
     <li>Added fallback installation for libssl1.1 to hopefully fix the installer for Ubuntu 22.04/22.10 and other distros using libssl3</li>
     <li>Fixed a minor 'tail' error message that could occur upon starting the server if no logs were created yet</li>
     <li>Added DEBIAN_NONINTERACTIVE to some apt commands to try to suppress some interactive dialogs (such as running outdated kernel) that were causing the installer to get stuck</li>
+    <li>Fixed a mistake in new multicore backup causing it to select the wrong compressor</li>
   </ul>
   <li>April 16th 2022</li>
   <ul>
