@@ -66,6 +66,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>April 28th 2022</li>
+  <ul>
+    <li>Fixed a line in fixpermissions.sh that could cause picky shells to complain</li>
+  </ul>
   <li>April 24th 2022</li>
   <ul>
     <li>Added dependency package install for libssl1.1 when it's available in apt</li>

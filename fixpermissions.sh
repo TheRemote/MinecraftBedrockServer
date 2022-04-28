@@ -49,7 +49,7 @@ else
 
     NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
     if [ -z "$NewestLog" ]; then
-      # No logs found
+      echo "No log files were found"
     else
       echo "Displaying last 10 lines from log file $NewestLog in /logs folder:"
       tail -10 "$NewestLog"
