@@ -42,11 +42,19 @@ fi
 
 # Check if network interfaces are up
 NetworkChecks=0
-DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
+if [ -e '/sbin/route' ]; then
+    DefaultRoute=$(/sbin/route -n | awk '$4 == "UG" {print $2}')
+else
+    DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
+fi
 while [ -z "$DefaultRoute" ]; do
     echo "Network interface not up, will try again in 1 second";
     sleep 1;
-    DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
+    if [ -e '/sbin/route' ]; then
+        DefaultRoute=$(/sbin/route -n | awk '$4 == "UG" {print $2}')
+    else
+        DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
+    fi
     NetworkChecks=$((NetworkChecks+1))
     if [ $NetworkChecks -gt 20 ]; then
         echo "Waiting for network interface to come up timed out - starting server without network connection ..."

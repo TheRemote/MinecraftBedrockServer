@@ -66,6 +66,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>May 4th 2022</li>
+  <ul>
+    <li>Fixed an issue on Debian where the route command (/sbin/route) is not on the default path by adding a check for this</li>
+  </ul>
   <li>April 28th 2022</li>
   <ul>
     <li>Fixed a line in fixpermissions.sh that could cause picky shells to complain</li>
@@ -84,7 +88,7 @@ To run the installation type:<br>
   </ul>
   <li>March 19th 2022</li>
   <ul>
-    <li>Removed /sbin qualifier from route command as the PATH variable is now stored at the top of each script by SetupMinecraft.sh</li>
+    <li>Removed /sbin qualifier from route command as the PATH variable is now stored at the top of each script by SetupMinecraft.sh (thanks LookedPath, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/120">issue #120</a>)</li>
   </ul>
   <li>March 10th 2022</li>
   <ul>
