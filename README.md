@@ -31,6 +31,7 @@ To run the installation type:<br>
 
 <h3>Tested Distributions</h3>
 <ul>
+ <li>Ubuntu / Ubuntu Server 22.04</li>
  <li>Ubuntu / Ubuntu Server 20.04</li>
  <li>Ubuntu / Ubuntu Server 18.04</li>
  <li>Debian Stretch / Buster</li>
@@ -69,6 +70,7 @@ To run the installation type:<br>
   <li>May 4th 2022</li>
   <ul>
     <li>Fixed an issue on Debian where the route command (/sbin/route) is not on the default path by adding a check for this</li>
+    <li>Added Ubuntu 22.04 to tested distributions list (I upgraded my desktop OS to this today)</li>
   </ul>
   <li>April 28th 2022</li>
   <ul>
