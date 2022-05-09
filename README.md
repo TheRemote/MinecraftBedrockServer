@@ -67,6 +67,10 @@ To run the installation type:<br>
 
 <h3>Update History</h3>
 <ul>
+  <li>May 9th 2022</li>
+  <ul>
+    <li>Updated fallback installation URL for OpenSSL 1.1</li>
+  </ul>
   <li>May 4th 2022</li>
   <ul>
     <li>Fixed an issue on Debian where the route command (/sbin/route) is not on the default path by adding a check for this</li>
