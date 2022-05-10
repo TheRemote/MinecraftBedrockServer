@@ -15,7 +15,7 @@ else
     echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
 fi
 
-# Get an optional custom countdown time (in minutes)
+# Get whether command is automated
 Automated=0
 while getopts ":a:" opt; do
   case $opt in
