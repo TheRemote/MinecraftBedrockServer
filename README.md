@@ -3,7 +3,9 @@
 [日本語版 README はこちら](https://github.com/TheRemote/MinecraftBedrockServer/blob/master/README_jp.md)
 
 Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup<br>
-View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
+View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/<br>
+<br>
+If you are looking for a Docker containerized version of the Minecraft Bedrock Dedicated Server it is available here:  <a href="https://github.com/TheRemote/Legendary-Bedrock-Container">https://github.com/TheRemote/Legendary-Bedrock-Container</a>
 
 <h3>Features</h3>
 <ul>
