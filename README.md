@@ -15,7 +15,7 @@ If you are looking for a Docker containerized version of the Minecraft Bedrock D
   <li>Sets up Minecraft as a system service with option to autostart at boot</li>
   <li>Automatic backups when server restarts</li>
   <li>Supports multiple instances -- you can run multiple Bedrock servers on the same system</li>
-  <li>Updates automatically to the latest version when server is started</li>
+  <li>Updates automatically to the latest or user-defined version when server is started</li>
   <li>Easy control of server with start.sh, stop.sh and restart.sh scripts</li>
   <li>Adds logging with timestamps to "logs" directory</li>
   <li>Optional scheduled daily restart of server using cron</li>
@@ -69,6 +69,10 @@ To run the installation type:<br>
 
 <h2>Update History</h2>
 <ul>
+  <li>May 22nd 2022</li>
+    <ul>
+        <li>Added version_pin.txt to allow for manual override of running server version. Run ./revert.sh in your server folder to set version n-1 to run on next restart. Delete version_pin.txt when you want to resume automatic updates. (thanks smallsam)</li>
+    </ul>
   <li>May 15th 2022</li>
     <ul>
         <li>Added screen -wipe to beginning of start.sh to prevent a startup issue that could occur if there was a "dead" screen instance (thanks grimholme)</li>
