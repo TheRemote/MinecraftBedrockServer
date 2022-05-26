@@ -114,6 +114,7 @@ else
     if [[ "$PinFile" == *"zip" ]] && [[ "$InstalledFile" == "$PinFile" ]]; then
         echo "Requested version $PinFile is already installed"
         DownloadFile=$PinFile
+        DownloadURL="https://minecraft.azureedge.net/bin-linux/$PinFile"
     elif [ ! -z "$PinFile" ]; then
         echo "Installing $PinFile"
         DownloadFile=$PinFile
