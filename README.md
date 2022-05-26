@@ -69,7 +69,7 @@ To run the installation type:<br>
 
 <h2>Update History</h2>
 <ul>
-  <li>May 22nd 2022</li>
+  <li>May 25th 2022</li>
     <ul>
         <li>Added version_pin.txt to allow for manual override of running server version. Run ./revert.sh in your server folder to set version n-1 to run on next restart. Delete version_pin.txt when you want to resume automatic updates. (thanks smallsam)</li>
     </ul>
