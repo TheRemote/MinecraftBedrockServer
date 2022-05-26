@@ -43,7 +43,7 @@ function read_with_prompt {
 
 Update_Scripts() {
   # Remove existing scripts
-  rm -f start.sh stop.sh restart.sh fixpermissions.sh
+  rm -f start.sh stop.sh restart.sh fixpermissions.sh revert.sh
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
@@ -80,6 +80,15 @@ Update_Scripts() {
   sed -i "s:servername:$ServerName:g" fixpermissions.sh
   sed -i "s:userxname:$UserName:g" fixpermissions.sh
   sed -i "s<pathvariable<$PATH<g" fixpermissions.sh
+
+  # Download revert.sh from repository
+  echo "Grabbing revert.sh from repository..."
+  curl -H "Accept-Encoding: identity" -L -o revert.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/revert.sh
+  chmod +x revert.sh
+  sed -i "s:dirname:$DirName:g" revert.sh
+  sed -i "s:servername:$ServerName:g" revert.sh
+  sed -i "s:userxname:$UserName:g" revert.sh
+  sed -i "s<pathvariable<$PATH<g" revert.sh
 
   # Download update.sh from repository
   echo "Grabbing update.sh from repository..."
