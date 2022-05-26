@@ -13,8 +13,8 @@ fi
 
 # Check to make sure we aren't running as root
 if [[ $(id -u) = 0 ]]; then
-   echo "This script is not meant to be run as root. Please run ./start.sh as a non-root user, without sudo;  Exiting..."
-   exit 1
+    echo "This script is not meant to be run as root. Please run ./start.sh as a non-root user, without sudo;  Exiting..."
+    exit 1
 fi
 
 # Randomizer for user agent
@@ -49,14 +49,14 @@ else
     DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
 fi
 while [ -z "$DefaultRoute" ]; do
-    echo "Network interface not up, will try again in 1 second";
-    sleep 1;
+    echo "Network interface not up, will try again in 1 second"
+    sleep 1
     if [ -e '/sbin/route' ]; then
         DefaultRoute=$(/sbin/route -n | awk '$4 == "UG" {print $2}')
     else
         DefaultRoute=$(route -n | awk '$4 == "UG" {print $2}')
     fi
-    NetworkChecks=$((NetworkChecks+1))
+    NetworkChecks=$((NetworkChecks + 1))
     if [ $NetworkChecks -gt 20 ]; then
         echo "Waiting for network interface to come up timed out - starting server without network connection ..."
         break
@@ -69,7 +69,7 @@ Permissions=$(sudo bash dirname/minecraftbe/servername/fixpermissions.sh -a)
 # Create backup
 if [ -d "worlds" ]; then
     echo "Backing up server (to minecraftbe/servername/backups folder)"
-    if [ -n "`which pigz`" ]; then
+    if [ -n "$(which pigz)" ]; then
         echo "Backing up server (multiple cores) to minecraftbe/servername/backups folder"
         tar -I pigz -pvcf backups/$(date +%Y.%m.%d.%H.%M.%S).tar.gz worlds
     else
@@ -79,7 +79,11 @@ if [ -d "worlds" ]; then
 fi
 
 # Rotate backups -- keep most recent 10
-Rotate=$(pushd dirname/minecraftbe/servername/backups; ls -1tr | head -n -10 | xargs -d '\n' rm -f --; popd)
+Rotate=$(
+    pushd dirname/minecraftbe/servername/backups
+    ls -1tr | head -n -10 | xargs -d '\n' rm -f --
+    popd
+)
 
 # Retrieve latest version of Minecraft Bedrock dedicated server
 echo "Checking for the latest version of Minecraft Bedrock server ..."
@@ -99,7 +103,7 @@ else
     echo "Latest version online is $LatestFile"
     if [ -e version_pin.txt ]; then
         echo "version_pin.txt found with override version, using version specified: $(cat version_pin.txt)"
-            PinFile=$(cat version_pin.txt)
+        PinFile=$(cat version_pin.txt)
     fi
 
     if [ -e version_installed.txt ]; then
@@ -130,7 +134,7 @@ else
     if [ ! -z "$DownloadFile" ]; then
         unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
         Permissions=$(chmod u+x dirname/minecraftbe/servername/bedrock_server >/dev/null)
-        echo "$DownloadFile" > version_installed.txt
+        echo "$DownloadFile" >version_installed.txt
     fi
 fi
 
@@ -138,9 +142,9 @@ echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
 
 BASH_CMD="LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
-if command -v gawk &> /dev/null; then
-  BASH_CMD+=$' | gawk \'{ print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0 }\''
+if command -v gawk &>/dev/null; then
+    BASH_CMD+=$' | gawk \'{ print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0 }\''
 else
-  echo "gawk application was not found -- timestamps will not be available in the logs.  Please delete SetupMinecraft.sh and run the script the new recommended way!"
+    echo "gawk application was not found -- timestamps will not be available in the logs.  Please delete SetupMinecraft.sh and run the script the new recommended way!"
 fi
 screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "${BASH_CMD}"
