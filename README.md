@@ -58,6 +58,12 @@ To run the installation type:<br>
 <p>The individual server folder is determined by the "server name" you enter for your server.  If it's an existing server the scripts will be safely updated.  If it's a new server then a new folder will be created under $ROOTPATH/minecraftbe/newservername.</p>
 <p>Keep the installation the path the same for all servers and the script will manage all this for you.</p>
 
+<h2>Version Override</h2>
+You can revert to a previous version with the revert.sh script included in your directory like this: <pre>./revert.sh
+Set previous version in version_pin.txt: bedrock-server-1.19.10.20.zip</pre>
+If you have a specific version you would like to run you can also create version_pin.txt yourself like this: <pre>echo "bedrock-server-1.18.33.02.zip" > version_pin.txt</pre>
+The version hold can be removed by deleting version_pin.txt.  This will allow it to update to the latest version again!
+
 <h2>Buy A Coffee / Donate</h2>
 <p>People have expressed some interest in this (you are all saints, thank you, truly)</p>
 <ul>
@@ -72,6 +78,7 @@ To run the installation type:<br>
   <li>May 26th 2022</li>
     <ul>
         <li>Add revert.sh to SetupMinecraft.sh downloads</li>
+        <li>Add version override documentation</li>
     </ul>
   <li>May 25th 2022</li>
     <ul>
