@@ -125,7 +125,11 @@ else
 
         # Install version of Minecraft requested
         if [ ! -z "$DownloadFile" ]; then
-            unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
+            if [ ! -e dirname/minecraftbe/servername/server.properties ]; then
+                unzip -o "downloads/$DownloadFile" -x "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
+            else
+                unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
+            fi
             Permissions=$(chmod u+x dirname/minecraftbe/servername/bedrock_server >/dev/null)
             echo "$DownloadFile" >version_installed.txt
         fi
@@ -143,7 +147,11 @@ else
 
         # Install version of Minecraft requested
         if [ ! -z "$DownloadFile" ]; then
-            unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
+            if [ ! -e dirname/minecraftbe/servername/server.properties ]; then
+                unzip -o "downloads/$DownloadFile" -x "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
+            else
+                unzip -o "downloads/$DownloadFile" -x "*server.properties*" "*permissions.json*" "*whitelist.json*" "*valid_known_packs.json*" "*allowlist.json*"
+            fi
             Permissions=$(chmod u+x dirname/minecraftbe/servername/bedrock_server >/dev/null)
             echo "$DownloadFile" >version_installed.txt
         fi

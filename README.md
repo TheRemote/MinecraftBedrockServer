@@ -75,6 +75,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>May 31st 2022</li>
+    <ul>
+        <li>Add check to make sure server.properties exists when unzipping server as without it there will be a startup error</li>
+    </ul>
   <li>May 26th 2022</li>
     <ul>
         <li>Add revert.sh to SetupMinecraft.sh downloads</li>
