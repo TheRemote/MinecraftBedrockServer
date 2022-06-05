@@ -14,5 +14,5 @@ else
     echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
 fi
 
-ls -r1 dirname/minecraftbe/servername/downloads/ | grep bedrock-server | head -2 | tail -1 > version_pin.txt
+ls -r1 dirname/minecraftbe/servername/downloads/ | grep bedrock-server | head -2 | tail -1 >version_pin.txt
 echo "Set previous version in version_pin.txt: $(cat dirname/minecraftbe/servername/version_pin.txt)"

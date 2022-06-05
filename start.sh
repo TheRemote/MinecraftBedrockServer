@@ -22,7 +22,7 @@ RandNum=$(echo $((1 + $RANDOM % 5000)))
 
 # Check if server is already started
 ScreenWipe=$(screen -wipe 2>&1)
-if screen -list | grep -q "\.servername"; then
+if screen -list | grep -q '\.servername\s'; then
     echo "Server is already started!  Press screen -r servername to open it"
     exit 1
 fi

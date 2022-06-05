@@ -23,16 +23,16 @@ function read_with_prompt {
   default="${3-}"
   unset $variable_name
   while [[ ! -n ${!variable_name} ]]; do
-    read -p "$prompt: " $variable_name < /dev/tty
-    if [ ! -n "`which xargs`" ]; then
+    read -p "$prompt: " $variable_name </dev/tty
+    if [ ! -n "$(which xargs)" ]; then
       declare -g $variable_name=$(echo "${!variable_name}" | xargs)
     fi
     declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}')
-    if [[ -z ${!variable_name} ]] && [[ -n "$default" ]] ; then
+    if [[ -z ${!variable_name} ]] && [[ -n "$default" ]]; then
       declare -g $variable_name=$default
     fi
     echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
-    read answer < /dev/tty
+    read answer </dev/tty
     if [[ "$answer" == "${answer#[Yy]}" ]]; then
       unset $variable_name
     else
@@ -107,9 +107,9 @@ Update_Service() {
   sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
   sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
   sudo systemctl daemon-reload
-  
+
   echo -n "Start Minecraft server at startup automatically (y/n)?"
-  read answer < /dev/tty
+  read answer </dev/tty
   if [[ "$answer" != "${answer#[Yy]}" ]]; then
     sudo systemctl enable $ServerName.service
     # Automatic reboot at 4am configuration
@@ -118,11 +118,14 @@ Update_Service() {
     echo "Your time zone is currently set to $TimeZone.  Current system time: $CurrentTime"
     echo "You can adjust/remove the selected reboot time later by typing crontab -e or running SetupMinecraft.sh again."
     echo -n "Automatically restart and backup server at 4am daily (y/n)?"
-    read answer < /dev/tty
+    read answer </dev/tty
     if [[ "$answer" != "${answer#[Yy]}" ]]; then
       croncmd="$DirName/minecraftbe/$ServerName/restart.sh 2>&1"
       cronjob="0 4 * * * $croncmd"
-      ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
+      (
+        crontab -l | grep -v -F "$croncmd"
+        echo "$cronjob"
+      ) | crontab -
       echo "Daily restart scheduled.  To change time or remove automatic restart type crontab -e"
     fi
   fi
@@ -130,24 +133,24 @@ Update_Service() {
 
 Fix_Permissions() {
   echo "Setting server file permissions..."
-  sudo ./fixpermissions.sh -a > /dev/null
+  sudo ./fixpermissions.sh -a >/dev/null
 }
 
 Check_Dependencies() {
   # Install dependencies required to run Minecraft server in the background
-  if command -v apt-get &> /dev/null; then
+  if command -v apt-get &>/dev/null; then
     echo "Updating apt.."
     sudo apt-get update
 
     echo "Checking and installing dependencies.."
-    if ! command -v curl &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
-    if ! command -v unzip &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install unzip -yqq; fi
-    if ! command -v screen &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install screen -yqq; fi
-    if ! command -v route &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools -yqq; fi
-    if ! command -v gawk &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install gawk -yqq; fi
-    if ! command -v openssl &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install openssl -yqq; fi
-    if ! command -v xargs &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install xargs -yqq; fi
-    if ! command -v pigz &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install pigz -yqq; fi
+    if ! command -v curl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
+    if ! command -v unzip &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install unzip -yqq; fi
+    if ! command -v screen &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install screen -yqq; fi
+    if ! command -v route &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools -yqq; fi
+    if ! command -v gawk &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install gawk -yqq; fi
+    if ! command -v openssl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install openssl -yqq; fi
+    if ! command -v xargs &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install xargs -yqq; fi
+    if ! command -v pigz &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install pigz -yqq; fi
 
     CurlVer=$(apt-cache show libcurl4 | grep Version | awk 'NR==1{ print $2 }')
     if [[ "$CurlVer" ]]; then
@@ -169,7 +172,7 @@ Check_Dependencies() {
       CPUArch=$(uname -m)
       if [[ "$CPUArch" == *"x86_64"* ]]; then
         echo "No libssl1.1 available in repositories -- attempting manual install"
-        
+
         sudo curl -o libssl.deb -k -L http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.3_amd64.deb
         sudo dpkg -i libssl.deb
         sudo rm libssl.deb
@@ -183,7 +186,7 @@ Check_Dependencies() {
     fi
 
     # Double check curl since libcurl dependency issues can sometimes remove it
-    if ! command -v curl &> /dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
+    if ! command -v curl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
     echo "Dependency installation completed"
   else
     echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
@@ -206,7 +209,7 @@ Update_Server() {
   unzip -o "downloads/$DownloadFile"
 }
 
-Check_Architecture () {
+Check_Architecture() {
   # Check CPU archtecture to see if we need to do anything special for the platform the server is running on
   echo "Getting system CPU architecture..."
   CPUArch=$(uname -m)
@@ -226,7 +229,7 @@ Check_Architecture () {
       sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
     fi
 
-    if [ -n "`which qemu-x86_64-static`" ]; then
+    if [ -n "$(which qemu-x86_64-static)" ]; then
       echo "QEMU-x86_64-static installed successfully"
     else
       echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
@@ -267,8 +270,8 @@ Update_Sudoers() {
 
 # Check to make sure we aren't running as root
 if [[ $(id -u) = 0 ]]; then
-   echo "This script is not meant to be run as root. Please run ./SetupMinecraft.sh as a non-root user, without sudo; the script will call sudo when it is needed. Exiting..."
-   exit 1
+  echo "This script is not meant to be run as root. Please run ./SetupMinecraft.sh as a non-root user, without sudo; the script will call sudo when it is needed. Exiting..."
+  exit 1
 fi
 
 if [ -e "SetupMinecraft.sh" ]; then
@@ -281,8 +284,7 @@ fi
 Check_Dependencies
 
 # Get directory path (default ~)
-until [ -d "$DirName" ]
-do
+until [ -d "$DirName" ]; do
   echo "Enter root installation path for Minecraft BE (this is the same for ALL servers and should be ~, the subfolder will be chosen from the server name you provide). Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
   read_with_prompt DirName "Directory Path" ~
   DirName=$(eval echo "$DirName")
@@ -351,7 +353,7 @@ if [ -d "$ServerName" ]; then
   # Setup completed
   echo "Setup is complete.  Starting Minecraft $ServerName server.  To view the console use the command screen -r or check the logs folder if the server fails to start"
   sudo systemctl daemon-reload
-  sudo systemctl start $ServerName.service
+  sudo systemctl start "$ServerName.service"
 
   exit 0
 fi
@@ -386,22 +388,21 @@ Fix_Permissions
 # Finished!
 echo "Setup is complete.  Starting Minecraft server. To view the console use the command screen -r or check the logs folder if the server fails to start."
 sudo systemctl daemon-reload
-sudo systemctl start $ServerName.service
+sudo systemctl start "$ServerName.service"
 
 # Wait up to 20 seconds for server to start
 StartChecks=0
 while [[ $StartChecks -lt 20 ]]; do
-  if screen -list | grep -q "\.$ServerName"; then
+  if screen -list | grep -q "\.$ServerName\s"; then
     break
   fi
-  sleep 1;
-  StartChecks=$((StartChecks+1))
+  sleep 1
+  StartChecks=$((StartChecks + 1))
 done
 
 # Force quit if server is still open
-if ! screen -list | grep -q "\.$ServerName"; then
+if ! screen -list | "\.$ServerName\s"; then
   echo "Minecraft server failed to start after 20 seconds."
 else
   echo "Minecraft server has started.  Type screen -r $ServerName to view the running server!"
 fi
-

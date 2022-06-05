@@ -75,6 +75,11 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>June 5th 2022</li>
+    <ul>
+        <li>Added additional escaping to screen -list commands to prevent similar names from matching the grep query (thanks wheelibin)</li>
+        <li>Changed grep -q command to use single quotes to prevent expansion of additional characters (I still recommend only letters and numbers for the server label/name for the least amount of trouble)</li>
+    </ul>
   <li>May 31st 2022</li>
     <ul>
         <li>Add check to make sure server.properties exists when unzipping server as without it there will be a startup error</li>

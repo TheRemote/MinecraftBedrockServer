@@ -10,50 +10,50 @@
 USERPATH="pathvariable"
 PathLength=${#USERPATH}
 if [[ "$PathLength" -gt 12 ]]; then
-    PATH="$USERPATH"
+  PATH="$USERPATH"
 else
-    echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
+  echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
 fi
 
 # Get whether command is automated
 Automated=0
 while getopts ":a:" opt; do
   case $opt in
-    t)
-      case $OPTARG in
-        ''|*[!0-9]*)
-          Automated=1
-          ;;
-        *)
-          Automated=1
-          ;;
-      esac
+  t)
+    case $OPTARG in
+    '' | *[!0-9]*)
+      Automated=1
       ;;
-    \?)
-      echo "Invalid option: -$OPTARG; countdown time must be a whole number in minutes." >&2
+    *)
+      Automated=1
       ;;
+    esac
+    ;;
+  \?)
+    echo "Invalid option: -$OPTARG; countdown time must be a whole number in minutes." >&2
+    ;;
   esac
 done
 
 echo "Taking ownership of all server files/folders in dirname/minecraftbe/servername..."
 if [[ $Automated == 1 ]]; then
-    sudo -n chown -R userxname dirname/minecraftbe/servername
-    sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
-    sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
-    sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
+  sudo -n chown -R userxname dirname/minecraftbe/servername
+  sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
+  sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
+  sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
 else
-    sudo chown -Rv userxname dirname/minecraftbe/servername
-    sudo chmod -Rv 755 dirname/minecraftbe/servername/*.sh
-    sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
-    sudo chmod +x dirname/minecraftbe/servername/bedrock_server
+  sudo chown -Rv userxname dirname/minecraftbe/servername
+  sudo chmod -Rv 755 dirname/minecraftbe/servername/*.sh
+  sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
+  sudo chmod +x dirname/minecraftbe/servername/bedrock_server
 
-    NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
-    if [ -z "$NewestLog" ]; then
-      echo "No log files were found"
-    else
-      echo "Displaying last 10 lines from log file $NewestLog in /logs folder:"
-      tail -10 "$NewestLog"
-    fi
+  NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
+  if [ -z "$NewestLog" ]; then
+    echo "No log files were found"
+  else
+    echo "Displaying last 10 lines from log file $NewestLog in /logs folder:"
+    tail -10 "$NewestLog"
+  fi
 fi
 
 echo "Complete"
