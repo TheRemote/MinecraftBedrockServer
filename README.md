@@ -75,6 +75,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>June 10th 2022</li>
+    <ul>
+        <li>Fixed problem in escaping screen command in SetupMinecraft.sh (on the startup check)</li>
+    </ul>
   <li>June 5th 2022</li>
     <ul>
         <li>Added additional escaping to screen -list commands to prevent similar names from matching the grep query (thanks wheelibin)</li>
