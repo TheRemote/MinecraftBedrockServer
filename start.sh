@@ -158,6 +158,15 @@ else
     fi
 fi
 
+if [ ! -e dirname/minecraftbe/servername/allowlist.json ]; then
+    echo "Creating default allowlist.json..."
+    echo '[]' > dirname/minecraftbe/servername/allowlist.json
+fi
+if [ ! -e dirname/minecraftbe/servername/permissions.json ]; then
+    echo "Creating default permissions.json..."
+    echo '[]' > dirname/minecraftbe/servername/permissions.json
+fi
+
 echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
 

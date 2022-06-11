@@ -75,6 +75,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>June 11th 2022</li>
+    <ul>
+        <li>Added allowlist.json and permissions.json default template files to prevent crashes when they are missing (thanks Eike)</li>
+    </ul>
   <li>June 10th 2022</li>
     <ul>
         <li>Fixed problem in escaping screen command in SetupMinecraft.sh (on the startup check)</li>
