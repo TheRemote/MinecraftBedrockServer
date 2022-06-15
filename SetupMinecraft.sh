@@ -282,9 +282,9 @@ if [[ $(id -u) = 0 ]]; then
 fi
 
 if [ -e "SetupMinecraft.sh" ]; then
-  rm -f "SetupMinecraft.sh"
+  # rm -f "SetupMinecraft.sh"
   echo "Local copy of SetupMinecraft.sh running.  Exiting and running online version..."
-  curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
+  curl https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
   exit 1
 fi
 
