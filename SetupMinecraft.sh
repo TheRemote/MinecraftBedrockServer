@@ -97,7 +97,7 @@ Update_Scripts() {
 
   # Download autocommand.sh from repository
   echo "Grabbing autocommand.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/autocommand.sh
+  curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/autocommand.sh
   chmod +x autocommand.sh
   sed -i "s:dirname:$DirName:g" autocommand.sh
   sed -i "s:servername:$ServerName:g" autocommand.sh
