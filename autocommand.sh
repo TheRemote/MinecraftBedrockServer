@@ -19,16 +19,26 @@ fi
 
 echo "Sending commands to server...";
 
-# execute commands on startup  
-screen -Rd servername -X stuff "gamerule commandblocksenabled false $(printf '\r')";
-# screen -Rd servername -X stuff "example command $(printf '\r')";
+# execute commands on startup 
+
+    # set gamerule commandblocksenabled to false this disables comandblocks and comandblock minecarts
+    screen -Rd servername -X stuff "gamerule commandblocksenabled false $(printf '\r')";
+
+    # example
+    # screen -Rd servername -X stuff "example command $(printf '\r')";
+
 sleep 1;
 
-# execute commands in loop
+# execute commands in loop if server is running
 while screen -list | grep -q "\.servername"; do
+    # kills all the npc's when they are spawned in.
     screen -Rd servername -X stuff "Kill @e[type=npc] $(printf '\r')";
+    
+    # example
     # screen -Rd servername -X stuff "example command $(printf '\r')";
 
     # the speed can be changed if you need the loop to be slower.
     sleep 0.1;
 done
+
+echo "auto command is stopt";
