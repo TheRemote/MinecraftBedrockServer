@@ -64,7 +64,7 @@ if screen -list | grep -q '\.servername\s'; then
 fi
 
 # kill autocommand.sh
-pkill autocommand.sh
+# pkill autocommand.sh
 
 # Start server (start.sh) - comment out if you want to use systemd and have added a line to your sudoers allowing passwordless sudo for the start command using 'sudo visudo' and insert the example line below with the correct username
 #/bin/bash dirname/minecraftbe/servername/start.sh

@@ -88,4 +88,4 @@ fi
 echo "Minecraft server servername stopped."
 
 # kill autocommand.sh
-pkill autocommand.sh
+# pkill autocommand.sh
