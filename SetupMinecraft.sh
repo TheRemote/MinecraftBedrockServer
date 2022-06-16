@@ -13,6 +13,9 @@ echo "Minecraft Bedrock Server installation script by James A. Chambers"
 echo "Latest version always at https://github.com/TheRemote/MinecraftBedrockServer"
 echo "Don't forget to set up port forwarding on your router!  The default port is 19132"
 
+# raw github user content
+raw_github_user_content = "https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand";
+
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
 
@@ -47,7 +50,7 @@ Update_Scripts() {
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o start.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/start.sh
+  curl -H "Accept-Encoding: identity" -L -o start.sh $raw_github_user_content/start.sh
   chmod +x start.sh
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
@@ -56,7 +59,7 @@ Update_Scripts() {
 
   # Download stop.sh from repository
   echo "Grabbing stop.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o stop.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/stop.sh
+  curl -H "Accept-Encoding: identity" -L -o stop.sh $raw_github_user_content/stop.sh
   chmod +x stop.sh
   sed -i "s:dirname:$DirName:g" stop.sh
   sed -i "s:servername:$ServerName:g" stop.sh
@@ -65,7 +68,7 @@ Update_Scripts() {
 
   # Download restart.sh from repository
   echo "Grabbing restart.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o restart.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/restart.sh
+  curl -H "Accept-Encoding: identity" -L -o restart.sh $raw_github_user_content/restart.sh
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
@@ -74,7 +77,7 @@ Update_Scripts() {
 
   # Download fixpermissions.sh from repository
   echo "Grabbing fixpermissions.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o fixpermissions.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/fixpermissions.sh
+  curl -H "Accept-Encoding: identity" -L -o fixpermissions.sh $raw_github_user_content/fixpermissions.sh
   chmod +x fixpermissions.sh
   sed -i "s:dirname:$DirName:g" fixpermissions.sh
   sed -i "s:servername:$ServerName:g" fixpermissions.sh
@@ -83,7 +86,7 @@ Update_Scripts() {
 
   # Download revert.sh from repository
   echo "Grabbing revert.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o revert.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/revert.sh
+  curl -H "Accept-Encoding: identity" -L -o revert.sh $raw_github_user_content/revert.sh
   chmod +x revert.sh
   sed -i "s:dirname:$DirName:g" revert.sh
   sed -i "s:servername:$ServerName:g" revert.sh
@@ -92,12 +95,12 @@ Update_Scripts() {
 
   # Download update.sh from repository
   echo "Grabbing update.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/update.sh
+  curl -H "Accept-Encoding: identity" -L -o update.sh $raw_github_user_content/update.sh
   chmod +x update.sh
 
   # Download autocommand.sh from repository
   echo "Grabbing autocommand.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o autocommand.sh https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/autocommand.sh
+  curl -H "Accept-Encoding: identity" -L -o autocommand.sh $raw_github_user_content/autocommand.sh
   chmod +x autocommand.sh
   sed -i "s:dirname:$DirName:g" autocommand.sh
   sed -i "s:servername:$ServerName:g" autocommand.sh
@@ -109,7 +112,7 @@ Update_Scripts() {
 Update_Service() {
   # Update minecraft server service
   echo "Configuring Minecraft $ServerName service..."
-  sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/minecraftbe.service
+  sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service $raw_github_user_content/minecraftbe.service
   sudo chmod +x /etc/systemd/system/$ServerName.service
   sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
@@ -244,7 +247,7 @@ Check_Architecture () {
     fi
 
     # Retrieve depends.zip from GitHub repository
-    curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/wertie3020/MinecraftBedrockServer/autocommand/depends.zip
+    curl -H "Accept-Encoding: identity" -L -o depends.zip $raw_github_user_content/depends.zip
     unzip depends.zip
     sudo mkdir /lib64
     # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
