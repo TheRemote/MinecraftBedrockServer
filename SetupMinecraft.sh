@@ -286,12 +286,12 @@ if [[ $(id -u) = 0 ]]; then
    exit 1
 fi
 
-# if [ -e "SetupMinecraft.sh" ]; then
-#   rm -f "SetupMinecraft.sh"
-#   echo "Local copy of SetupMinecraft.sh running.  Exiting and running online version..."
-#   curl https://raw.githubusercontent.com/$github_user/MinecraftBedrockServer/$github_branch/SetupMinecraft.sh | bash
-#   exit 1
-# fi
+if [ -e "SetupMinecraft.sh" ]; then
+  # rm -f "SetupMinecraft.sh"
+  echo "Local copy of SetupMinecraft.sh running.  Exiting and running online version..."
+  curl https://raw.githubusercontent.com/$github_user/MinecraftBedrockServer/$github_branch/SetupMinecraft.sh | bash
+  exit 1
+fi
 
 Check_Dependencies
 
