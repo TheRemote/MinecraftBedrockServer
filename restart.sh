@@ -71,3 +71,5 @@ fi
 
 # If you have added the above example sudo line to your sudoers file with 'sudo visudo' and the correct username uncomment the line below (make sure you comment out the /bin/bash dirname/minecraftbe/servername/start.sh line)
 sudo -n systemctl start servername
+
+sudo -n systemctl autocommand servername
