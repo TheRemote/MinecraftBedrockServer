@@ -179,4 +179,5 @@ fi
 screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "${BASH_CMD}"
 
 
-sudo -n systemctl autocommand servername
+# start autocommand
+./autocommand.sh &

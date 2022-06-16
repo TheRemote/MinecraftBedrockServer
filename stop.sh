@@ -86,3 +86,6 @@ if screen -list | grep -q '\.servername\s'; then
 fi
 
 echo "Minecraft server servername stopped."
+
+# kill autocommand.sh
+pkill autocommand.sh
