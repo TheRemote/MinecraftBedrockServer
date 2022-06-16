@@ -23,6 +23,7 @@ echo "Sending commands to server...";
 
     # set gamerule commandblocksenabled to false this disables comandblocks and comandblock minecarts
     screen -Rd servername -X stuff "gamerule commandblocksenabled false $(printf '\r')";
+    screen -Rd servername -X stuff "gamerule commandblockoutput false $(printf '\r')";
 
     # example
     # screen -Rd servername -X stuff "example command $(printf '\r')";
