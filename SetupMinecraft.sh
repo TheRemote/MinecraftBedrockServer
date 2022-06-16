@@ -50,7 +50,7 @@ Update_Scripts() {
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o start.sh $raw_github_user_content/start.sh
+  curl -H "Accept-Encoding: identity" -L -o start.sh $raw_github_user_content < /start.sh
   chmod +x start.sh
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
