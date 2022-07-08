@@ -75,6 +75,11 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>July 7th 2022</li>
+    <ul>
+        <li>Updated curl fallback installation URL to newest package</li>
+        <li>Punctuation / grammar fixes to README (thanks TheWilbo, <a href="https://github.com/TheRemote/MinecraftBedrockServer/pull/128">pull request #128</a></li>
+    </ul>
   <li>June 11th 2022</li>
     <ul>
         <li>Added allowlist.json and permissions.json default template files to prevent crashes when they are missing (thanks Eike)</li>
