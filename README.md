@@ -2,10 +2,10 @@
 
 [日本語版 README はこちら](https://github.com/TheRemote/MinecraftBedrockServer/blob/master/README_jp.md)
 
-Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup<br>
+Sets up a Minecraft Bedrock dedicated server on Ubuntu / Debian with options for automatic updates, backups and running automatically at startup.<br>
 View installation instructions at: https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/<br>
 <br>
-If you are looking for a Docker containerized version of the Minecraft Bedrock Dedicated Server it is available here:  <a href="https://github.com/TheRemote/Legendary-Bedrock-Container">https://github.com/TheRemote/Legendary-Bedrock-Container</a>
+If you are looking for a Docker containerized version of the Minecraft Bedrock Dedicated Server, it is available here:  <a href="https://github.com/TheRemote/Legendary-Bedrock-Container">https://github.com/TheRemote/Legendary-Bedrock-Container</a>
 
 <h2>Features</h2>
 <ul>
@@ -29,7 +29,7 @@ To run the installation type:<br>
 <a href="https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/">Minecraft Bedrock Dedicated Server Script Installation / Configuration Guide</a>
 
 <h2>Installing Resource Packs / RTX Support</h2>
-<p>For instructions on how to install resource packs (including optional RTX support) view my <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step by step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
+<p>For instructions on how to install resource packs (including optional RTX support), view my <a href="https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/" target="_blank" rel="noopener">step-by-step Minecraft Bedrock Dedicated Server Resource Packs / Optional RTX guide here</a>.</p>
 
 <h2>Tested Distributions</h2>
 <ul>
@@ -54,14 +54,14 @@ To run the installation type:<br>
 </ul>
 
 <h2>Multiple Servers and Installation Paths</h2>
-<p>The server supports multiple servers at once.  When you run SetupMinecraft.sh again pick the identical root path as any previous servers.  The path structure of the scripts is $ROOTPATH/minecraftbe/yourservername which is why the "root" path SetupMinecraft.sh asks you for should always be the same.</p>
-<p>The individual server folder is determined by the "server name" you enter for your server.  If it's an existing server the scripts will be safely updated.  If it's a new server then a new folder will be created under $ROOTPATH/minecraftbe/newservername.</p>
-<p>Keep the installation the path the same for all servers and the script will manage all this for you.</p>
+<p>The server supports multiple servers at once.  When you run SetupMinecraft.sh again, pick the identical root path as any previous servers.  The path structure of the scripts is $ROOTPATH/minecraftbe/yourservername, which is why the "root" path SetupMinecraft.sh asks you for should always be the same.</p>
+<p>The individual server folder is determined by the "server name" you enter for your server.  If it's an existing server, the scripts will be safely updated.  If it's a new server, then a new folder will be created under $ROOTPATH/minecraftbe/newservername.</p>
+<p>Keep the installation path the same for all servers and the script will manage all this for you.</p>
 
 <h2>Version Override</h2>
 You can revert to a previous version with the revert.sh script included in your directory like this: <pre>./revert.sh
 Set previous version in version_pin.txt: bedrock-server-1.19.10.20.zip</pre>
-If you have a specific version you would like to run you can also create version_pin.txt yourself like this: <pre>echo "bedrock-server-1.18.33.02.zip" > version_pin.txt</pre>
+If you have a specific version you would like to run, you can also create version_pin.txt yourself like this: <pre>echo "bedrock-server-1.18.33.02.zip" > version_pin.txt</pre>
 The version hold can be removed by deleting version_pin.txt.  This will allow it to update to the latest version again!
 
 <h2>Buy A Coffee / Donate</h2>
