@@ -162,6 +162,12 @@ Check_Dependencies() {
       if [[ "$CurlVer" ]]; then sudo DEBIAN_FRONTEND=noninteractive apt-get install libcurl3 -yqq; fi
     fi
 
+    # Install libssl3 dependency as Bedrock server is linking to both
+    CurlVer=$(apt-cache show libssl3 | grep Version | awk 'NR==1{ print $2 }')
+    if [[ "$CurlVer" ]]; then
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install libssl3 -yqq
+    else
+
     sudo DEBIAN_FRONTEND=noninteractive apt-get install libc6 -yqq
     sudo DEBIAN_FRONTEND=noninteractive apt-get install libcrypt1 -yqq
 

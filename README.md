@@ -75,6 +75,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>July 14th 2022</li>
+    <ul>
+        <li>Add libssl3 to dependencies</li>
+    </ul>
   <li>July 7th 2022</li>
     <ul>
         <li>Updated curl fallback installation URL to newest package</li>
