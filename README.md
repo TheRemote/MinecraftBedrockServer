@@ -78,6 +78,7 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
   <li>July 14th 2022</li>
     <ul>
         <li>Fix syntax error in new libssl3 install</li>
+        <li>Updated depends.zip for ARM devices (the Docker version is strongly recommended for ARM devices)</li>
     </ul>
   <li>July 14th 2022</li>
     <ul>

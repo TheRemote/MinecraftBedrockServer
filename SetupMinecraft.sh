@@ -245,9 +245,11 @@ Check_Architecture() {
     curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
     unzip depends.zip
     sudo mkdir /lib64
-    # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so
+    # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so, ld-2.33.so, ld-2,35.so
     sudo rm -rf /lib64/ld-linux-x86-64.so.2
     sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
+    sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.33.so /lib64/ld-linux-x86-64.so.2
+    sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.35.so /lib64/ld-linux-x86-64.so.2
   fi
 
   # Check for x86 (32 bit) architecture
