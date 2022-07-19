@@ -12,7 +12,7 @@ else
 fi
 
 # Check to make sure we aren't running as root
-if [[ $(id -u) = 0 ]]; then
+if [ $(id -u) = 0 ]; then
    echo "This script is not meant to be run as root. Please run ./update.sh as a non-root user, without sudo;  Exiting..."
    exit 1
 fi

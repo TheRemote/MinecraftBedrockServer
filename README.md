@@ -75,6 +75,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>July 19th 2022</li>
+    <ul>
+        <li>Fix minor syntax error in update.sh</li>
+    </ul>
   <li>July 14th 2022</li>
     <ul>
         <li>Fix syntax error in new libssl3 install</li>
