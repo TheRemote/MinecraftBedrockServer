@@ -9,7 +9,7 @@ Type=forking
 ExecStart=/bin/bash dirname/minecraftbe/servername/start.sh
 ExecStop=/bin/bash dirname/minecraftbe/servername/stop.sh
 GuessMainPID=no
-TimeoutStartSec=600
+TimeoutStartSec=1800
 
 [Install]
 WantedBy=multi-user.target
