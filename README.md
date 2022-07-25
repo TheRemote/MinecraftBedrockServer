@@ -75,6 +75,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>July 24th 2022</li>
+    <ul>
+        <li>Use libssl1.1 from repository instead of Ubuntu servers due to it changing every week or two (thanks theblujuice, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/129">issue #129)</a></li>
+    </ul>
   <li>July 21st 2022</li>
     <ul>
         <li>Increase timeout in minecraftbe.service to help servers with longer backup times from having startup issues</li>
