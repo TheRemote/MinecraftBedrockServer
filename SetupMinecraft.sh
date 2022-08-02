@@ -141,7 +141,7 @@ Check_Dependencies() {
   # Install dependencies required to run Minecraft server in the background
   if command -v apt-get &>/dev/null; then
     echo "Updating apt.."
-    sudo apt-get update
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yqq;
 
     echo "Checking and installing dependencies.."
     if ! command -v curl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
@@ -224,8 +224,8 @@ Check_Architecture() {
   if [[ "$CPUArch" == *"aarch"* ]]; then
     # ARM architecture detected -- download QEMU and dependency libraries
     echo "aarch64 platform detected -- installing box64..."
-    sudo curl -k -L -o /etc/apt/sources.list.d/box64.list https://ryanfortner.github.io/box64-debs/box64.list
-    sudo curl -k -L https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg
+    GetList=$(sudo curl -k -L -o /etc/apt/sources.list.d/box64.list https://ryanfortner.github.io/box64-debs/box64.list)
+    GetKey=$(sudo curl -k -L https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg)
     sudo apt-get update && sudo apt-get install box64 -y
 
     if [ -n "$(which box64)" ]; then
