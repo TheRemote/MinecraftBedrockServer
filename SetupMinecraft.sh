@@ -105,8 +105,11 @@ Update_Service() {
   sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:servername:$ServerName:g" /etc/systemd/system/$ServerName.service
-  sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
-  sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
+  if [ -e server.properties ]; then
+    sed -i "/server-port=/c\server-port=$PortIPV4" server.properties
+    sed -i "/server-portv6=/c\server-portv6=$PortIPV6" server.properties
+  fi
+
   sudo systemctl daemon-reload
 
   echo -n "Start Minecraft server at startup automatically (y/n)?"
@@ -141,7 +144,7 @@ Check_Dependencies() {
   # Install dependencies required to run Minecraft server in the background
   if command -v apt-get &>/dev/null; then
     echo "Updating apt.."
-    sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yqq;
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -yqq
 
     echo "Checking and installing dependencies.."
     if ! command -v curl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi

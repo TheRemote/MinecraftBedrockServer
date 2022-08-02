@@ -39,13 +39,17 @@ echo "Taking ownership of all server files/folders in dirname/minecraftbe/server
 if [[ $Automated == 1 ]]; then
   sudo -n chown -R userxname dirname/minecraftbe/servername
   sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
-  sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
-  sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
+  if [ -e dirname/minecraftbe/servername/bedrock_server ]; then
+    sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
+    sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
+  fi
 else
   sudo chown -Rv userxname dirname/minecraftbe/servername
   sudo chmod -Rv 755 dirname/minecraftbe/servername/*.sh
-  sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
-  sudo chmod +x dirname/minecraftbe/servername/bedrock_server
+  if [ -e dirname/minecraftbe/servername/bedrock_server ]; then
+    sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
+    sudo chmod +x dirname/minecraftbe/servername/bedrock_server
+  fi
 
   NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
   if [ -z "$NewestLog" ]; then
