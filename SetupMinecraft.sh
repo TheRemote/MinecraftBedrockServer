@@ -226,7 +226,7 @@ Check_Architecture() {
     echo "aarch64 platform detected -- installing box64..."
     GetList=$(sudo curl -k -L -o /etc/apt/sources.list.d/box64.list https://ryanfortner.github.io/box64-debs/box64.list)
     GetKey=$(sudo curl -k -L https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg)
-    sudo apt-get update && sudo apt-get install box64 -y
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install box64 -y
 
     if [ -n "$(which box64)" ]; then
       echo "box64 installed successfully"
@@ -241,7 +241,7 @@ Check_Architecture() {
       echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
       exit 1
     else
-      sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
+      sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
     fi
 
     if [ -n "$(which qemu-x86_64-static)" ]; then
@@ -271,7 +271,7 @@ Check_Architecture() {
       echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
       exit
     else
-      sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
+      sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
     fi
 
     if [ -n "$(which qemu-x86_64-static)" ]; then
