@@ -440,9 +440,9 @@ echo "Setup is complete.  Starting Minecraft server. To view the console use the
 sudo systemctl daemon-reload
 sudo systemctl start "$ServerName.service"
 
-# Wait up to 20 seconds for server to start
+# Wait up to 30 seconds for server to start
 StartChecks=0
-while [[ $StartChecks -lt 20 ]]; do
+while [[ $StartChecks -lt 30 ]]; do
   if screen -list | grep -q "\.$ServerName\s"; then
     break
   fi
