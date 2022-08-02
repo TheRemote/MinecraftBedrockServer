@@ -160,17 +160,28 @@ fi
 
 if [ ! -e dirname/minecraftbe/servername/allowlist.json ]; then
     echo "Creating default allowlist.json..."
-    echo '[]' > dirname/minecraftbe/servername/allowlist.json
+    echo '[]' >dirname/minecraftbe/servername/allowlist.json
 fi
 if [ ! -e dirname/minecraftbe/servername/permissions.json ]; then
     echo "Creating default permissions.json..."
-    echo '[]' > dirname/minecraftbe/servername/permissions.json
+    echo '[]' >dirname/minecraftbe/servername/permissions.json
 fi
 
 echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
 
-BASH_CMD="LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
+CPUArch=$(uname -m)
+if [[ "$CPUArch" == *"aarch64"* ]]; then
+    cd dirname/minecraftbe/servername
+    if [ -n "$(which box64)" ]; then
+        BASH_CMD="box64 bedrock_server"
+    else
+        BASH_CMD="LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
+    fi
+else
+    BASH_CMD="LD_LIBRARY_PATH=dirname/minecraftbe/servername dirname/minecraftbe/servername/bedrock_server"
+fi
+
 if command -v gawk &>/dev/null; then
     BASH_CMD+=$' | gawk \'{ print strftime(\"[%Y-%m-%d %H:%M:%S]\"), $0 }\''
 else

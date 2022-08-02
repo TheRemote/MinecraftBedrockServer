@@ -221,9 +221,49 @@ Check_Architecture() {
   echo "System Architecture: $CPUArch"
 
   # Check for ARM architecture
-  if [[ "$CPUArch" == *"aarch"* || "$CPUArch" == *"arm"* ]]; then
+  if [[ "$CPUArch" == *"aarch"* ]]; then
     # ARM architecture detected -- download QEMU and dependency libraries
-    echo "ARM platform detected -- installing dependencies..."
+    echo "aarch64 platform detected -- installing box64..."
+    sudo curl -k -L -o /etc/apt/sources.list.d/box64.list https://ryanfortner.github.io/box64-debs/box64.list
+    sudo curl -k -L https://ryanfortner.github.io/box64-debs/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/box64-debs-archive-keyring.gpg
+    sudo apt-get update && sudo apt-get install box64 -y
+
+    if [ -n "$(which box64)" ]; then
+      echo "box64 installed successfully"
+    else
+      echo "box64 did not install successfully -- please check the above output to see what went wrong."
+    fi
+
+    # Check if latest available QEMU version is at least 3.0 or higher
+    echo "Installing QEMU..."
+    QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)
+    if [[ "$QEMUVer" -lt "3" ]]; then
+      echo "Available QEMU version is not high enough to emulate x86_64.  Please update your QEMU version."
+      exit 1
+    else
+      sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install qemu-user-static binfmt-support -yqq
+    fi
+
+    if [ -n "$(which qemu-x86_64-static)" ]; then
+      echo "QEMU-x86_64-static installed successfully"
+    else
+      echo "QEMU-x86_64-static did not install successfully -- please check the above output to see what went wrong."
+      exit 1
+    fi
+
+    # Retrieve depends.zip from GitHub repository
+    curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/depends.zip
+    unzip depends.zip
+    sudo mkdir /lib64
+    # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so, ld-2.33.so, ld-2,35.so
+    sudo rm -rf /lib64/ld-linux-x86-64.so.2
+    sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.31.so /lib64/ld-linux-x86-64.so.2
+    sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.33.so /lib64/ld-linux-x86-64.so.2
+    sudo ln -s $DirName/minecraftbe/$ServerName/ld-2.35.so /lib64/ld-linux-x86-64.so.2
+  elif [[ "$CPUArch" == *"arm"* ]]; then
+    # ARM architecture detected -- download QEMU and dependency libraries
+    echo "WARNING: ARM 32 platform detected -- This is not recommended.  64 bit ARM (aarch64) can use Box64 for emulation.  It is recommended to upgrade to a 64 bit OS."
+    echo "Installing dependencies..."
 
     # Check if latest available QEMU version is at least 3.0 or higher
     QEMUVer=$(apt-cache show qemu-user-static | grep Version | awk 'NR==1{ print $2 }' | cut -c3-3)

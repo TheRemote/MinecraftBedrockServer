@@ -19,6 +19,7 @@ If you are looking for a Docker containerized version of the Minecraft Bedrock D
   <li>Easy control of server with start.sh, stop.sh and restart.sh scripts</li>
   <li>Adds logging with timestamps to "logs" directory</li>
   <li>Optional scheduled daily restart of server using cron</li>
+  <li>*NEW* Box64 support for 64 bit ARM (aarch64) which greatly improves emulation speed over QEMU by translating some system calls to native system calls</li>
 </ul>
 
 <h2>Quick Installation Instuctions</h2>
@@ -45,10 +46,11 @@ To run the installation type:<br>
  <li><a href="https://jamesachambers.com/udoo-x86-microboard-breakdown/">Udoo X86 (WORKING)</a></li>
  <li><a href="https://jamesachambers.com/install-ubuntu-server-18-04-on-intel-compute-stick-guide/">Intel Compute Stick (WORKING)</a></li>
  <li>Other X86_64 platforms (WORKING)</li>
-  <ul><li>ARM 64bit (WORKING -- needs linker and other binaries used for emulation to be updated)</li>
+  <ul><li>ARM 64bit (WORKING -- speed improved with Box64)</li>
     <ul>
-      <li>Raspberry Pi (WORKING, SLOW, Ubuntu required, not working on Pi OS 64 bit and has segfaults)</li>
-      <li>Tinkerboard (WORKING, SLOW)</li>
+      <li>Raspberry Pi 64 bit (WORKING -- Box64)</li>
+      <li>Raspberry Pi 32 bit (WORKING -- VERY SLOW -- 64 bit recommended!)</li>
+      <li>Tinkerboard (WORKING, 32 bit is slow, 64 bit uses Box64)</li>
     </ul>
   </ul>
 </ul>
@@ -75,6 +77,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>August 2nd 2022</li>
+    <ul>
+        <li>Add Box64 support for 64 bit ARM (aarch64).  32 bit ARM is not recommended as it cannot use Box64.</li>
+    </ul>
   <li>July 24th 2022</li>
     <ul>
         <li>Use libssl1.1 from repository instead of Ubuntu servers due to it changing every week or two (thanks theblujuice, <a href="https://github.com/TheRemote/MinecraftBedrockServer/issues/129">issue #129)</a></li>
