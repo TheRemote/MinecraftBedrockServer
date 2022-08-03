@@ -79,7 +79,9 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 <ul>
   <li>August 2nd 2022</li>
     <ul>
-        <li>Add Box64 support for 64 bit ARM (aarch64).  32 bit ARM is not recommended as it cannot use Box64.</li>
+      <li>Add Box64 support for 64 bit ARM (aarch64).  32 bit ARM is not recommended as it cannot use Box64 so it will be much slower than if you install a 64-bit version of your OS on the device.</li>
+      <li>You must be running a 64-bit OS to benefit from the Box64 increased speeds (both Ubuntu and Raspberry Pi OS have 64-bit versions)</li>
+      <li>An easy way to check and make sure you are running 64 bit is to use <pre>uname -m</pre> which will return "aarch64" if you are on 64-bit ARM</li>
     </ul>
   <li>July 24th 2022</li>
     <ul>
