@@ -77,6 +77,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>August 4th 2022</li>
+  <ul>
+    <li>Script now removes non-alphanumeric characters from the servername variable (to prevent using quotes and other symbols that will break it)</li>
+  </ul>
   <li>August 2nd 2022</li>
     <ul>
       <li>Add Box64 support for 64 bit ARM (aarch64).  32 bit ARM is not recommended as it cannot use Box64 so it will be much slower than if you install a 64-bit version of your OS on the device.</li>

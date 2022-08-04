@@ -367,6 +367,9 @@ echo "It will be used in the folder name and service name..."
 
 read_with_prompt ServerName "Server Label"
 
+# Remove non-alphanumeric characters from ServerName
+ServerName=$(echo "$ServerName" | tr -cd '[a-zA-Z0-9]._-')
+
 if [[ "$ServerName" == *"minecraftbe"* ]]; then
   echo "Server label of minecraftbe is not allowed.  Please choose a different server label!"
   exit 1
