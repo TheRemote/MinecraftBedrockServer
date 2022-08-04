@@ -27,7 +27,7 @@ function read_with_prompt {
     if [ ! -n "$(which xargs)" ]; then
       declare -g $variable_name=$(echo "${!variable_name}" | xargs)
     fi
-    declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}')
+    declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}' | tr -cd '[a-zA-Z0-9]._-')
     if [[ -z ${!variable_name} ]] && [[ -n "$default" ]]; then
       declare -g $variable_name=$default
     fi
