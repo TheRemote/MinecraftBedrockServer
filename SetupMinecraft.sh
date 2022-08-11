@@ -16,6 +16,12 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
 
+# You can override this for a custom installation directory but I only recommend it if you are using a separate drive for the server
+# It is meant to point to the root folder that holds all servers
+# For example if you had a separate drive mounted at /newdrive you would use DirName='/newdrive' for all servers
+# The servers will be separated by their name/label into folders
+DirName="~"
+
 # Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
@@ -332,16 +338,6 @@ if [ -e "SetupMinecraft.sh" ]; then
 fi
 
 Check_Dependencies
-
-# Get directory path (default ~)
-until [ -d "$DirName" ]; do
-  echo "Enter root installation path for Minecraft BE (this is the same for ALL servers and should be ~, the subfolder will be chosen from the server name you provide). Almost nobody should change this unless you're installing to a different disk altogether. (default ~): "
-  read_with_prompt DirName "Directory Path" ~
-  DirName=$(eval echo "$DirName")
-  if [ ! -d "$DirName" ]; then
-    echo "Invalid directory.  Please use the default path of ~ or you're going to have errors.  This should be the same for ALL servers as it is your ROOT install directory."
-  fi
-done
 
 # Check to see if Minecraft server main directory already exists
 cd $DirName

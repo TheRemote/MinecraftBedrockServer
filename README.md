@@ -77,6 +77,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>August 10th 2022</li>
+  <ul>
+    <li>Moved DirName variable to a custom variable at the top of SetupMinecraft.sh</li>
+  </ul>
   <li>August 4th 2022</li>
   <ul>
     <li>Script now removes non-alphanumeric characters from the servername variable (to prevent using quotes and other symbols that will break it)</li>
