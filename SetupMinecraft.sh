@@ -20,7 +20,10 @@ RandNum=$(echo $((1 + $RANDOM % 5000)))
 # It is meant to point to the root folder that holds all servers
 # For example if you had a separate drive mounted at /newdrive you would use DirName='/newdrive' for all servers
 # The servers will be separated by their name/label into folders
-DirName="~"
+DirName=$(readlink -e ~)
+if [ -z "$DirName" ]; then
+  DirName=~
+fi
 
 # Function to read input from user with a prompt
 function read_with_prompt {
