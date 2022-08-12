@@ -77,6 +77,10 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
 
 <h2>Update History</h2>
 <ul>
+  <li>August 12th 2022</li>
+  <ul>
+    <li>Add clean.sh utility script to clean up downloads folder, remove version pinning and force reinstall of current version</li>
+  </ul>
   <li>August 10th 2022</li>
   <ul>
     <li>Moved DirName variable to a custom variable at the top of SetupMinecraft.sh</li>

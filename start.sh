@@ -18,7 +18,7 @@ if [[ $(id -u) = 0 ]]; then
 fi
 
 # Randomizer for user agent
-RandNum=$(echo $((1 + $RANDOM % 5000)))
+RandNum=$((1 + $RANDOM % 5000))
 
 # Check if server is already started
 ScreenWipe=$(screen -wipe 2>&1)

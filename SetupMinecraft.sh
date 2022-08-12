@@ -99,6 +99,15 @@ Update_Scripts() {
   sed -i "s:userxname:$UserName:g" revert.sh
   sed -i "s<pathvariable<$PATH<g" revert.sh
 
+  # Download clean.sh from repository
+  echo "Grabbing clean.sh from repository..."
+  curl -H "Accept-Encoding: identity" -L -o clean.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/clean.sh
+  chmod +x clean.sh
+  sed -i "s:dirname:$DirName:g" clean.sh
+  sed -i "s:servername:$ServerName:g" clean.sh
+  sed -i "s:userxname:$UserName:g" clean.sh
+  sed -i "s<pathvariable<$PATH<g" clean.sh
+
   # Download update.sh from repository
   echo "Grabbing update.sh from repository..."
   curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/update.sh
