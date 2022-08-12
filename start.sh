@@ -166,6 +166,12 @@ if [ ! -e dirname/minecraftbe/servername/permissions.json ]; then
     echo "Creating default permissions.json..."
     echo '[]' >dirname/minecraftbe/servername/permissions.json
 fi
+ContentLogging=$(grep "content-log-file-enabled" dirname/minecraftbe/servername/server.properties)
+if [ -z "$ContentLogging" ]; then
+    echo "" >> dirname/minecraftbe/servername/server.properties
+    echo "content-log-file-enabled=true" >> dirname/minecraftbe/servername/server.properties
+    echo "# Enables logging content errors to a file" >> dirname/minecraftbe/servername/server.properties
+fi
 
 echo "Starting Minecraft server.  To view window type screen -r servername"
 echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"

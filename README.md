@@ -80,6 +80,7 @@ The version hold can be removed by deleting version_pin.txt.  This will allow it
   <li>August 12th 2022</li>
   <ul>
     <li>Add clean.sh utility script to clean up downloads folder, remove version pinning and force reinstall of current version</li>
+    <li>Enable content log by default which shows errors related to resource/behavior packs</li>
   </ul>
   <li>August 10th 2022</li>
   <ul>
