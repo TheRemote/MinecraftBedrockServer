@@ -15,49 +15,12 @@ else
   echo "Unable to set path variable.  You likely need to download an updated version of SetupMinecraft.sh from GitHub!"
 fi
 
-# Get whether command is automated
-Automated=0
-while getopts ":a:" opt; do
-  case $opt in
-  t)
-    case $OPTARG in
-    '' | *[!0-9]*)
-      Automated=1
-      ;;
-    *)
-      Automated=1
-      ;;
-    esac
-    ;;
-  \?)
-    echo "Invalid option: -$OPTARG; countdown time must be a whole number in minutes." >&2
-    ;;
-  esac
-done
-
 echo "Taking ownership of all server files/folders in dirname/minecraftbe/servername..."
-if [[ $Automated == 1 ]]; then
-  sudo -n chown -R userxname dirname/minecraftbe/servername
-  sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
-  if [ -e dirname/minecraftbe/servername/bedrock_server ]; then
-    sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
-    sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
-  fi
-else
-  sudo chown -Rv userxname dirname/minecraftbe/servername
-  sudo chmod -Rv 755 dirname/minecraftbe/servername/*.sh
-  if [ -e dirname/minecraftbe/servername/bedrock_server ]; then
-    sudo chmod 755 dirname/minecraftbe/servername/bedrock_server
-    sudo chmod +x dirname/minecraftbe/servername/bedrock_server
-  fi
-
-  NewestLog=$(find dirname/minecraftbe/servername/logs -type f -exec stat -c "%y %n" {} + | sort -r | head -n1 | cut -d " " -f 4-)
-  if [ -z "$NewestLog" ]; then
-    echo "No log files were found"
-  else
-    echo "Displaying last 10 lines from log file $NewestLog in /logs folder:"
-    tail -10 "$NewestLog"
-  fi
+sudo -n chown -R userxname dirname/minecraftbe/servername
+sudo -n chmod -R 755 dirname/minecraftbe/servername/*.sh
+if [ -e dirname/minecraftbe/servername/bedrock_server ]; then
+  sudo -n chmod 755 dirname/minecraftbe/servername/bedrock_server
+  sudo -n chmod +x dirname/minecraftbe/servername/bedrock_server
 fi
 
 echo "Complete"
