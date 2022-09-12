@@ -66,6 +66,32 @@ Set previous version in version_pin.txt: bedrock-server-1.19.10.20.zip</pre>
 If you have a specific version you would like to run, you can also create version_pin.txt yourself like this: <pre>echo "bedrock-server-1.18.33.02.zip" > version_pin.txt</pre>
 The version hold can be removed by deleting version_pin.txt.  This will allow it to update to the latest version again!
 
+<h2>Troubleshooting Note - Oracle Virtual Machines</h2>
+A very common problem people have with the Oracle Virtual Machine tutorials out there that typically show you how to use a free VM is that the VM is much more difficult to configure than just about any other product / offering out there.<br>
+The symptom you will have is that nobody will be able to connect.  This is not because of the second set of ports that it shows after startup (that is a nearly 3-4 years now old Bedrock bug and all servers do it).<br>
+It is because there are several steps you need to take to open the ports on the Oracle VM.  You need to both:<br>
+<ul>
+  <li>Set the ingress ports (TCP/UDP) in the Virtual Cloud Network (VCN) security list</li>
+  <li>*and* set the ingress ports in a Network Security Group assigned to your instance</li>
+</ul><br>
+Both of these settings are typically required before you will be able to connect to your VM instance.  This is purely configuration related and has nothing to do with the script or the Minecraft server itself.<br>
+I do not recommend this platform due to the configuration difficulty but the people who have gone through the pain of configuring an Oracle VM have had good experiences with it after that point.  Just keep in mind it's going to be a rough ride through the configuration for most people.
+Here are some additional links:<br>
+<ul>
+<li>https://jamesachambers.com/official-minecraft-bedrock-dedicated-server-on-raspberry-pi/comment-page-8/#comment-13946</li>
+<li>https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/comment-page-53/#comment-13936</li>
+<li>https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/comment-page-49/#comment-13377</li>
+<li>https://jamesachambers.com/legendary-minecraft-bedrock-container/comment-page-2/#comment-13706</li>
+</ul>
+
+<h2>Troubleshooting Note - Hyper-V</h2>
+There is a weird bug in Hyper-V that breaks UDP connections on the Minecraft server.  The fix for this is that you have to use a Generation 1 VM with the Legacy LAN network driver.<br>
+See the following links:<br>
+<ul>
+<li>https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/comment-page-54/#comment-13863</li>
+<li>https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/comment-page-56/#comment-14207</li>
+</ul>
+
 <h2>Buy A Coffee / Donate</h2>
 <p>People have expressed some interest in this (you are all saints, thank you, truly)</p>
 <ul>
