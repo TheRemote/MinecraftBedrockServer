@@ -74,8 +74,8 @@ It is because there are several steps you need to take to open the ports on the 
   <li>Set the ingress ports (TCP/UDP) in the Virtual Cloud Network (VCN) security list</li>
   <li>*and* set the ingress ports in a Network Security Group assigned to your instance</li>
 </ul><br>
-Both of these settings are typically required before you will be able to connect to your VM instance.  This is purely configuration related and has nothing to do with the script or the Minecraft server itself.<br>
-I do not recommend this platform due to the configuration difficulty but the people who have gone through the pain of configuring an Oracle VM have had good experiences with it after that point.  Just keep in mind it's going to be a rough ride through the configuration for most people.
+Both of these settings are typically required before you will be able to connect to your VM instance.  This is purely configuration related and has nothing to do with the script or the Minecraft server itself.<br><br>
+I do not recommend this platform due to the configuration difficulty but the people who have gone through the pain of configuring an Oracle VM have had good experiences with it after that point.  Just keep in mind it's going to be a rough ride through the configuration for most people.<br><br>
 Here are some additional links:<br>
 <ul>
 <li>https://jamesachambers.com/official-minecraft-bedrock-dedicated-server-on-raspberry-pi/comment-page-8/#comment-13946</li>
