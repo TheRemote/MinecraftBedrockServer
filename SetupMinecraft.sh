@@ -345,7 +345,7 @@ fi
 if [ -e "SetupMinecraft.sh" ]; then
   rm -f "SetupMinecraft.sh"
   echo "Local copy of SetupMinecraft.sh running.  Exiting and running online version..."
-  curl https://raw.githubusercontent.com/TheRemote/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
+  curl https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/master/SetupMinecraft.sh | bash
   exit 1
 fi
 
