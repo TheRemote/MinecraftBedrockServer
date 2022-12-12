@@ -20,7 +20,7 @@ RandNum=$(echo $((1 + $RANDOM % 5000)))
 # It is meant to point to the root folder that holds all servers
 # For example if you had a separate drive mounted at /newdrive you would use DirName='/newdrive' for all servers
 # The servers will be separated by their name/label into folders
-DirName='/media/sda1'
+DirName=/media/sda1
 if [ -z "$DirName" ]; then
   DirName=~
 fi
@@ -376,7 +376,7 @@ fi
 #read_with_prompt ServerName "Server Label"
 
 # Remove non-alphanumeric characters from ServerName
-$ServerName='AcePlaceMC'
+ServerName=AcePlaceMC
 
 if [[ "$ServerName" == *"minecraftbe"* ]]; then
   echo "Server label of minecraftbe is not allowed.  Please choose a different server label!"
@@ -385,10 +385,10 @@ fi
 
 #echo "Enter server IPV4 port (default 19132): "
 #read_with_prompt PortIPV4 "Server IPV4 Port" 19132
-$PortIPV4=19137
+PortIPV4=19137
 #echo "Enter server IPV6 port (default 19133): "
 #read_with_prompt PortIPV6 "Server IPV6 Port" 19133
-$PortIPV6=19138
+PortIPV6=19138
 
 if [ -d "$ServerName" ]; then
   echo "Directory minecraftbe/$ServerName already exists!  Updating scripts and configuring service ..."
