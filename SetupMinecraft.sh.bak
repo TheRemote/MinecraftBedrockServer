@@ -5,7 +5,7 @@
 # Resource Pack Guide: https://jamesachambers.com/minecraft-bedrock-server-resource-pack-guide/
 #
 # To run the setup script use:
-# curl https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/SetupMinecraft.sh | bash
+# curl https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/SetupMinecraft.sh | bash
 #
 # GitHub Repository: https://github.com/TheRemote/MinecraftBedrockServer
 
@@ -56,7 +56,7 @@ Update_Scripts() {
 
   # Download start.sh from repository
   echo "Grabbing start.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o start.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/start.sh
+  curl -H "Accept-Encoding: identity" -L -o start.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/start.sh
   chmod +x start.sh
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
@@ -65,7 +65,7 @@ Update_Scripts() {
 
   # Download stop.sh from repository
   echo "Grabbing stop.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o stop.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/stop.sh
+  curl -H "Accept-Encoding: identity" -L -o stop.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/stop.sh
   chmod +x stop.sh
   sed -i "s:dirname:$DirName:g" stop.sh
   sed -i "s:servername:$ServerName:g" stop.sh
@@ -74,7 +74,7 @@ Update_Scripts() {
 
   # Download restart.sh from repository
   echo "Grabbing restart.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o restart.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/restart.sh
+  curl -H "Accept-Encoding: identity" -L -o restart.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/restart.sh
   chmod +x restart.sh
   sed -i "s:dirname:$DirName:g" restart.sh
   sed -i "s:servername:$ServerName:g" restart.sh
@@ -83,7 +83,7 @@ Update_Scripts() {
 
   # Download fixpermissions.sh from repository
   echo "Grabbing fixpermissions.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o fixpermissions.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/fixpermissions.sh
+  curl -H "Accept-Encoding: identity" -L -o fixpermissions.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/fixpermissions.sh
   chmod +x fixpermissions.sh
   sed -i "s:dirname:$DirName:g" fixpermissions.sh
   sed -i "s:servername:$ServerName:g" fixpermissions.sh
@@ -92,7 +92,7 @@ Update_Scripts() {
 
   # Download revert.sh from repository
   echo "Grabbing revert.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o revert.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/revert.sh
+  curl -H "Accept-Encoding: identity" -L -o revert.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/revert.sh
   chmod +x revert.sh
   sed -i "s:dirname:$DirName:g" revert.sh
   sed -i "s:servername:$ServerName:g" revert.sh
@@ -101,7 +101,7 @@ Update_Scripts() {
 
   # Download clean.sh from repository
   echo "Grabbing clean.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o clean.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/clean.sh
+  curl -H "Accept-Encoding: identity" -L -o clean.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/clean.sh
   chmod +x clean.sh
   sed -i "s:dirname:$DirName:g" clean.sh
   sed -i "s:servername:$ServerName:g" clean.sh
@@ -110,7 +110,7 @@ Update_Scripts() {
 
   # Download update.sh from repository
   echo "Grabbing update.sh from repository..."
-  curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/update.sh
+  curl -H "Accept-Encoding: identity" -L -o update.sh https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/update.sh
   chmod +x update.sh
   sed -i "s<pathvariable<$PATH<g" update.sh
 }
@@ -118,7 +118,7 @@ Update_Scripts() {
 Update_Service() {
   # Update minecraft server service
   echo "Configuring Minecraft $ServerName service..."
-  sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/minecraftbe.service
+  sudo curl -H "Accept-Encoding: identity" -L -o /etc/systemd/system/$ServerName.service https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/minecraftbe.service
   sudo chmod +x /etc/systemd/system/$ServerName.service
   sudo sed -i "s:userxname:$UserName:g" /etc/systemd/system/$ServerName.service
   sudo sed -i "s:dirname:$DirName:g" /etc/systemd/system/$ServerName.service
@@ -273,7 +273,7 @@ Check_Architecture() {
     fi
 
     # Retrieve depends.zip from GitHub repository
-    curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/depends.zip
+    curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/depends.zip
     unzip depends.zip
     sudo mkdir /lib64
     # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so, ld-2.33.so, ld-2,35.so
@@ -303,7 +303,7 @@ Check_Architecture() {
     fi
 
     # Retrieve depends.zip from GitHub repository
-    curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/depends.zip
+    curl -H "Accept-Encoding: identity" -L -o depends.zip https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/depends.zip
     unzip depends.zip
     sudo mkdir /lib64
     # Create soft link ld-linux-x86-64.so.2 mapped to ld-2.31.so, ld-2.33.so, ld-2,35.so
@@ -345,7 +345,7 @@ fi
 if [ -e "SetupMinecraft.sh" ]; then
   rm -f "SetupMinecraft.sh"
   echo "Local copy of SetupMinecraft.sh running.  Exiting and running online version..."
-  curl https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/master/SetupMinecraft.sh | bash
+  curl https://raw.githubusercontent.com/f43r05/MinecraftBedrockServer/tree/AcePlaceMC/SetupMinecraft.sh | bash
   exit 1
 fi
 
