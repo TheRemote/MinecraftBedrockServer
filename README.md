@@ -103,6 +103,10 @@ See the following links:<br>
 
 <h2>Update History</h2>
 <ul>
+  <li>January 14th 2023</li>
+  <ul>
+    <li>Change connectivity check from google.com to minecraft.net to prevent blocking in some countries</li>
+  </ul>
   <li>September 4th 2022</li>
   <ul>
     <li>Remove unnecessary code from fixpermissions.sh</li>
