@@ -103,6 +103,10 @@ See the following links:<br>
 
 <h2>Update History</h2>
 <ul>
+  <li>October 1st 2023</li>
+  <ul>
+    <li>Fix gpg key import for ARM64 builds</li>
+  </ul>
   <li>January 14th 2023</li>
   <ul>
     <li>Change connectivity check from google.com to minecraft.net to prevent blocking in some countries</li>
