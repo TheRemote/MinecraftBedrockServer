@@ -16,39 +16,48 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
 
-# You can override this for a custom installation directory but I only recommend it if you are using a separate drive for the server
-# It is meant to point to the root folder that holds all servers
-# For example if you had a separate drive mounted at /newdrive you would use DirName='/newdrive' for all servers
-# The servers will be separated by their name/label into folders
-DirName=$(readlink -e ~)
-if [ -z "$DirName" ]; then
-  DirName=~
-fi
-
 # Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
   prompt="$2"
   default="${3-}"
-  unset $variable_name
+  unset "$variable_name"
   while [[ ! -n ${!variable_name} ]]; do
-    read -p "$prompt: " $variable_name </dev/tty
-    if [ ! -n "$(which xargs)" ]; then
-      declare -g $variable_name=$(echo "${!variable_name}" | xargs)
+    read -p "$prompt: " raw_input </dev/tty
+    eval "$variable_name=\"\$raw_input\""
+    eval "$variable_name=\$(eval echo \$$variable_name)"
+    if [ -z "$(command -v xargs)" ]; then
+      declare -g "$variable_name"=$(echo "${!variable_name}" | xargs)
     fi
-    declare -g $variable_name=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}' | tr -cd '[a-zA-Z0-9]._-')
+    declare -g "$variable_name"=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}' | tr -cd '[a-zA-Z0-9]._/')
     if [[ -z ${!variable_name} ]] && [[ -n "$default" ]]; then
-      declare -g $variable_name=$default
+      declare -g "$variable_name"="$default"
     fi
     echo -n "$prompt : ${!variable_name} -- accept (y/n)?"
     read answer </dev/tty
     if [[ "$answer" == "${answer#[Yy]}" ]]; then
-      unset $variable_name
+      unset "$variable_name"
     else
       echo "$prompt: ${!variable_name}"
     fi
   done
 }
+
+# You can override this for a custom installation directory but I only recommend it if you are using a separate drive for the server
+# It is meant to point to the root folder that holds all servers
+# For example if you had a separate drive mounted at /newdrive you would use DirName='/newdrive' for all servers
+# The servers will be separated by their name/label into folders
+echo "Enter directory path to install Minecraft BE Server to (default ~): "
+read_with_prompt DirName "Directory Path" ~
+# If DirName is not an absolute path, prepend the home directory
+if [[ "$DirName" != /* ]]; then
+    DirName=~/"$DirName"
+fi
+DirName=$(readlink -e "$DirName")
+if [ ! -d "$DirName" ]; then
+  echo "Directory does not exist. Falling back to the home directory."
+  DirName=~
+fi
 
 Update_Scripts() {
   # Remove existing scripts
