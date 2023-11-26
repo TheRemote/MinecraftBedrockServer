@@ -58,8 +58,6 @@ if [ ! -d "$DirName" ]; then
   echo "Directory does not exist. Falling back to the home directory."
   DirName=~
 fi
-echo "$DirName"
-sleep 30
 
 Update_Scripts() {
   # Remove existing scripts
