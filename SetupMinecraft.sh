@@ -16,15 +16,6 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
 
-# Function to get the absolute path of a directory
-get_abs_path() {
-  if [[ "${1}" == ~* ]]; then
-    echo "$(cd "${HOME}${1:1}" && pwd)"
-  else
-    echo "$(cd "${1}" && pwd)"
-  fi
-}
-
 # Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
@@ -61,7 +52,7 @@ read_with_prompt DirName "Directory Path" ~
 if [[ "$DirName" != /* ]]; then
     DirName=~/"$DirName"
 fi
-DirName=$(get_abs_path "$DirName")
+DirName=$(readlink -e "$DirName")
 if [ ! -d "$DirName" ]; then
   echo "Directory does not exist. Falling back to the home directory."
   DirName=~
