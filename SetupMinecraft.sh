@@ -16,6 +16,11 @@ echo "Don't forget to set up port forwarding on your router!  The default port i
 # Randomizer for user agent
 RandNum=$(echo $((1 + $RANDOM % 5000)))
 
+# Function to get the absolute path of a directory
+get_abs_path() {
+  echo "$(cd "${1}" && pwd)"
+}
+
 # Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
@@ -24,12 +29,11 @@ function read_with_prompt {
   unset "$variable_name"
   while [[ ! -n ${!variable_name} ]]; do
     read -p "$prompt: " raw_input </dev/tty
-    # Use indirect reference instead of eval
     declare -g "$variable_name=$raw_input"
     if [ -z "$(command -v xargs)" ]; then
       declare -g "$variable_name"=$(echo "${!variable_name}" | xargs)
     fi
-    declare -g "$variable_name"=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}' | tr -cd '[a-zA-Z0-9]._/')
+    declare -g "$variable_name"=$(echo "${!variable_name}" | head -n1 | awk '{print $1;}' | tr -cd '[a-zA-Z0-9]._/-')
     if [[ -z ${!variable_name} ]] && [[ -n "$default" ]]; then
       declare -g "$variable_name"="$default"
     fi
@@ -53,7 +57,7 @@ read_with_prompt DirName "Directory Path" ~
 if [[ "$DirName" != /* ]]; then
     DirName=~/"$DirName"
 fi
-DirName=$(readlink -e "$DirName")
+DirName=$(get_abs_path "$DirName")
 if [ ! -d "$DirName" ]; then
   echo "Directory does not exist. Falling back to the home directory."
   DirName=~
