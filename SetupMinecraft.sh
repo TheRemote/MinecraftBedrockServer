@@ -24,8 +24,8 @@ function read_with_prompt {
   unset "$variable_name"
   while [[ ! -n ${!variable_name} ]]; do
     read -p "$prompt: " raw_input </dev/tty
-    eval "$variable_name=\"\$raw_input\""
-    eval "$variable_name=\$(eval echo \$$variable_name)"
+    # Use indirect reference instead of eval
+    declare -g "$variable_name=$raw_input"
     if [ -z "$(command -v xargs)" ]; then
       declare -g "$variable_name"=$(echo "${!variable_name}" | xargs)
     fi
