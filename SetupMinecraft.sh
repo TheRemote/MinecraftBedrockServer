@@ -18,7 +18,11 @@ RandNum=$(echo $((1 + $RANDOM % 5000)))
 
 # Function to get the absolute path of a directory
 get_abs_path() {
-  echo "$(cd "${1}" && pwd)"
+  if [[ "${1}" == ~* ]]; then
+    echo "$(cd "${HOME}${1:1}" && pwd)"
+  else
+    echo "$(cd "${1}" && pwd)"
+  fi
 }
 
 # Function to read input from user with a prompt
