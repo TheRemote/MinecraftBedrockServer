@@ -26,7 +26,6 @@ get_abs_path() {
 }
 
 # Function to read input from user with a prompt
-# Function to read input from user with a prompt
 function read_with_prompt {
   variable_name="$1"
   prompt="$2"
