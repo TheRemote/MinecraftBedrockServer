@@ -21,7 +21,6 @@ fi
 RandNum=$((1 + $RANDOM % 5000))
 
 # Check if server is already started
-
 if [ viewmanager == screen ]; then
   ScreenWipe=$(screen -wipe 2>&1)
   if screen -list | grep -q '\.servername\s'; then
