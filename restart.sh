@@ -100,7 +100,14 @@ if [ viewmanager == screen ]; then
     screen -S servername -X quit
     sleep 10
   fi
-elif [ viewmanager 
+elif [ viewmanager == tmux ]; then
+  if tmux list-sessions -F "#{session_name} #{window_name} (created #{session_created})" | awk -F " " '{printf "%s: %s (%s)\n", $1, $2, strftime("%Y-%m-%d %H:%M:%S", $4)}' | sed 's/ (created [0-9]*)//' | tr -s ' ' | grep -q "^MinecraftBedrockServer: servername"; then
+    # Server still hasn't stopped after 30s, tell Tmux to close it
+    echo "Minecraft server still hasn't closed after 30 seconds, closing tmux manually"
+    tmux kill-session -t MinecraftBedrockServer
+    sleep 10
+  fi
+fi
 
 # Start server (start.sh) - comment out if you want to use systemd and have added a line to your sudoers allowing passwordless sudo for the start command using 'sudo visudo' and insert the example line below with the correct username
 #/bin/bash dirname/minecraftbe/servername/start.sh
