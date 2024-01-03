@@ -69,6 +69,27 @@ if [ ! -d "$DirName" ]; then
   DirName=~
 fi
 
+while true; do
+  echo "Do you want to use 'screen' or 'tmux'? (default 'screen'): "
+  echo "Type 'screen' or 'tmux' to choose between one or the other. Leave the input blank to default back to 'screen'"
+  read_with_prompt ViewManager "View Manager" screen
+
+  # Installing the chosen Terminal ViewManager
+  if [ "$ViewManager" == "screen" ]; then
+    if ! command -v screen &>/dev/null; then
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install screen -yqq
+    fi
+    break
+  elif [ "$ViewManager" == "tmux" ]; then
+    if ! command -v tmux &>/dev/null; then
+      sudo DEBIAN_FRONTEND=noninteractive apt-get install tmux -yqq
+    fi
+    break
+  else
+    echo "Invalid choice. Please enter 'screen', 'tmux' or hit enter to default back to 'screen'."
+  fi
+done
+
 Update_Scripts() {
   # Remove existing scripts
   rm -f start.sh stop.sh restart.sh fixpermissions.sh revert.sh
@@ -80,6 +101,7 @@ Update_Scripts() {
   sed -i "s:dirname:$DirName:g" start.sh
   sed -i "s:servername:$ServerName:g" start.sh
   sed -i "s:userxname:$UserName:g" start.sh
+  sed -i "s:viewmanager:$ViewManager:g" start.sh
   sed -i "s<pathvariable<$PATH<g" start.sh
 
   # Download stop.sh from repository
@@ -186,7 +208,6 @@ Check_Dependencies() {
     echo "Checking and installing dependencies.."
     if ! command -v curl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
     if ! command -v unzip &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install unzip -yqq; fi
-    if ! command -v screen &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install screen -yqq; fi
     if ! command -v route &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install net-tools -yqq; fi
     if ! command -v gawk &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install gawk -yqq; fi
     if ! command -v openssl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install openssl -yqq; fi
@@ -234,7 +255,7 @@ Check_Dependencies() {
     if ! command -v curl &>/dev/null; then sudo DEBIAN_FRONTEND=noninteractive apt-get install curl -yqq; fi
     echo "Dependency installation completed"
   else
-    echo "Warning: apt was not found.  You may need to install curl, screen, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
+    echo "Warning: apt was not found.  You may need to install curl, screen, tmux, unzip, libcurl4, openssl, libc6 and libcrypt1 with your package manager for the server to start properly!"
   fi
 }
 
@@ -430,8 +451,17 @@ if [ -d "$ServerName" ]; then
   # Fix server files/folders permissions
   Fix_Permissions
 
+  if [ "$ViewManager" == "screen" ]; then
+    console_command="screen -r $ServerName"
+  elif [ "$ViewManager" == "tmux" ]; then
+    console_command="tmux attach -t $ServerName"
+  fi
+
   # Setup completed
-  echo "Setup is complete.  Starting Minecraft $ServerName server.  To view the console use the command screen -r or check the logs folder if the server fails to start"
+  echo "Setup is complete.  Starting Minecraft $ServerName server."
+  echo "To view the console either use the following command:"
+  echo "$console_command"
+  echo "or check the logs folder if the server fails to start"
   sudo systemctl daemon-reload
   sudo systemctl start "$ServerName.service"
 
@@ -466,7 +496,10 @@ Update_Sudoers
 Fix_Permissions
 
 # Finished!
-echo "Setup is complete.  Starting Minecraft server. To view the console use the command screen -r or check the logs folder if the server fails to start."
+echo "Setup is complete.  Starting Minecraft $ServerName server." 
+echo "To view the console either use the following command:"
+echo "$console_command"
+echo "or check the logs folder if the server fails to start."
 sudo systemctl daemon-reload
 sudo systemctl start "$ServerName.service"
 
