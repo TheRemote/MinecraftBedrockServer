@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: James Chambers - https://jamesachambers.com/minecraft-bedrock-edition-ubuntu-dedicated-server-guide/
-# Minecraft Bedrock server startup script using screen
+# Minecraft Bedrock server startup script using screen or tmux
 
 # Set path variable
 USERPATH="pathvariable"
@@ -21,10 +21,22 @@ fi
 RandNum=$((1 + $RANDOM % 5000))
 
 # Check if server is already started
-ScreenWipe=$(screen -wipe 2>&1)
-if screen -list | grep -q '\.servername\s'; then
-    echo "Server is already started!  Press screen -r servername to open it"
+
+if [ viewmanager == screen ]; then
+  ScreenWipe=$(screen -wipe 2>&1)
+  if screen -list | grep -q '\.servername\s'; then
+    echo "Server is already started!"
+    echo "Press screen -r servername to open it"
     exit 1
+  fi
+elif [ viewmanager == tmux ]; then
+  TmuxWipe=$(tmux list-sessions 2>&1)
+  nohup tmux attach -t MinecraftBedrockServer:0 > /dev/null 2>&1 && tmux detach
+  if tmux list-sessions -F "#{session_name} #{window_name} (created #{session_created})" | awk -F " " '{printf "%s: %s (%s)\n", $1, $2, strftime("%Y-%m-%d %H:%M:%S", $4)}' | sed 's/ (created [0-9]*)//' | tr -s ' ' | grep -q "^MinecraftBedrockServer: servername"; then
+    echo "Server is already started!"
+    echo "Press tmux attach -t MinecraftBedrockServer -c servername to open it"
+    exit 1
+  fi
 fi
 
 # Change directory to server directory
@@ -173,8 +185,12 @@ if [ -z "$ContentLogging" ]; then
     echo "# Enables logging content errors to a file" >> dirname/minecraftbe/servername/server.properties
 fi
 
-echo "Starting Minecraft server.  To view window type screen -r servername"
-echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
+if [ viewmanager == screen ]; then
+  echo "Starting Minecraft server. To view window type screen -r servername"
+  echo "To minimize the window and let the server run in the background, press Ctrl+A then Ctrl+D"
+elif [ viewmanager == tmux ]; then
+  echo "Starting Minecraft server. To view window type screen attach -t MinecraftBedrockServer -c servername"
+  echo "To minimize the window and let the server run in the background, press Ctrl+B+D"
 
 CPUArch=$(uname -m)
 if [[ "$CPUArch" == *"aarch64"* ]]; then
@@ -193,4 +209,20 @@ if command -v gawk &>/dev/null; then
 else
     echo "gawk application was not found -- timestamps will not be available in the logs.  Please delete SetupMinecraft.sh and run the script the new recommended way!"
 fi
-screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "${BASH_CMD}"
+
+if [ viewmanager == screen ]; then
+  screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "${BASH_CMD}"
+elif [ viewmanager == tmux ]; then
+  (
+    export LOG_FILE="logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log"
+    while [ ! -e "$LOG_FILE" ]; do sleep 1; done
+    tmux detach
+  ) &
+  
+  tmux new-session -d -s MinecraftBedrockServer -n servername
+  tmux attach -t MinecraftBedrockServer \; \
+    send-keys 'tmux set -g status-left ""' C-m \; \
+    send-keys 'export LOG_FILE=logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log' C-m \; \
+    send-keys 'clear' C-m \; \
+    send-keys '/bin/bash -c "${BASH_CMD}" > >(tee -a $LOG_FILE) 2>&1' C-m  
+fi
