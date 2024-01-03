@@ -18,7 +18,14 @@ if [[ $(id -u) = 0 ]]; then
 fi
 
 # Check if server is running
-if ! screen -list | grep -q '\.servername\s'; then
+if [ viewmanager == screen ]; then
+  if ! screen -list | grep -q '\.servername\s'; then
+  echo "Server is not currently running!"
+  exit 1
+  fi
+elif [ viewmanager == tmux ]; then
+  nohup tmux attach -t MinecraftBedrockServer:0 > /dev/null 2>&1 && tmux detach
+  if ! tmux list-sessions -F "#{session_name} #{window_name} (created #{session_created})" | awk -F " " '{printf "%s: %s (%s)\n", $1, $2, strftime("%Y-%m-%d %H:%M:%S", $4)}' | sed 's/ (created [0-9]*)//' | tr -s ' ' | grep -q "^MinecraftBedrockServer: servername"; then
   echo "Server is not currently running!"
   exit 1
 fi
@@ -47,42 +54,79 @@ done
 # Stop the server
 while [[ $CountdownTime -gt 0 ]]; do
   if [[ $CountdownTime -eq 1 ]]; then
-    screen -Rd servername -X stuff "say Stopping server in 60 seconds...$(printf '\r')"
-    echo "Stopping server in 60 seconds..."
-    sleep 30
-    screen -Rd servername -X stuff "say Stopping server in 30 seconds...$(printf '\r')"
-    echo "Stopping server in 30 seconds..."
-    sleep 20
-    screen -Rd servername -X stuff "say Stopping server in 10 seconds...$(printf '\r')"
-    echo "Stopping server in 10 seconds..."
-    sleep 10
-    CountdownTime=$((CountdownTime - 1))
+    if [ viewmanager == screen ]; then
+      screen -Rd servername -X stuff "say Stopping server in 60 seconds...$(printf '\r')"
+      echo "Stopping server in 60 seconds..."
+      sleep 30
+      screen -Rd servername -X stuff "say Stopping server in 30 seconds...$(printf '\r')"
+      echo "Stopping server in 30 seconds..."
+      sleep 20
+      screen -Rd servername -X stuff "say Stopping server in 10 seconds...$(printf '\r')"
+      echo "Stopping server in 10 seconds..."
+      sleep 10
+      CountdownTime=$((CountdownTime - 1))
+    elif [ viewmanager == tmux ]; then
+      tmux attach -d -t MinecraftBedrockServer:0 \; \
+      send-keys "echo Stopping server in 60 seconds..." C-m \; \
+      send-keys 'sleep 30' C-m \; \
+      send-keys "echo Stopping server in 30 seconds..." C-m \; \
+      send-keys 'sleep 20' C-m \; \
+      send-keys "echo Stopping server in 10 seconds..." C-m \; \
+      send-keys 'sleep 10' C-m
+      CountdownTime=$((CountdownTime - 1))
+    fi
   else
-    screen -Rd servername -X stuff "say Stopping server in $CountdownTime minutes...$(printf '\r')"
-    echo "Stopping server in $CountdownTime minutes...$(printf '\r')"
-    sleep 60
-    CountdownTime=$((CountdownTime - 1))
+    if [ viewmanager == screen ]; then
+      screen -Rd servername -X stuff "say Stopping server in $CountdownTime minutes...$(printf '\r')"
+      echo "Stopping server in $CountdownTime minutes...$(printf '\r')"
+      sleep 60
+      CountdownTime=$((CountdownTime - 1))
+    elif [ viewmanager == tmux ]; then
+      tmux attach -d -t MinecraftBedrockServer:0 \; \
+      send-keys "echo Stopping server in $CountdownTime minutes..." C-m \; \
+      send-keys 'sleep 60' C-m \; \
+      CountdownTime=$((CountdownTime - 1))
+    fi
   fi
   echo "Waiting for $CountdownTime more minutes ..."
 done
 echo "Stopping Minecraft server ..."
-screen -Rd servername -X stuff "say Stopping server (stop.sh called)...$(printf '\r')"
-screen -Rd servername -X stuff "stop$(printf '\r')"
+if [ viewmanager == screen ]; then
+  screen -Rd servername -X stuff "say Stopping server (stop.sh called)...$(printf '\r')"
+  screen -Rd servername -X stuff "stop$(printf '\r')"
+elif [ viewmanager == tmux ]; then
+  tmux attach -d -t MinecraftBedrockServer:0 \; \
+  send-keys "echo Stopping server (stop.sh called)..." C-m \; \
+  send-keys 'stop' C-m \; \
+fi
 
 # Wait up to 20 seconds for server to close
 StopChecks=0
 while [[ $StopChecks -lt 20 ]]; do
-  if ! screen -list | grep -q '\.servername\s'; then
-    break
-  fi
-  sleep 1
-  StopChecks=$((StopChecks + 1))
+  if [ viewmanager == screen ]; then
+    if ! screen -list | grep -q '\.servername\s'; then
+      break
+    fi
+    sleep 1
+    StopChecks=$((StopChecks + 1))
+  elif [ viewmanager == tmux ]; then
+    if ! tmux list-sessions -F "#{session_name} #{window_name} (created #{session_created})" | awk -F " " '{printf "%s: %s (%s)\n", $1, $2, strftime("%Y-%m-%d %H:%M:%S", $4)}' | sed 's/ (created [0-9]*)//' | tr -s ' ' | grep -q "^MinecraftBedrockServer: servername"; then
+      break
+    fi
+    sleep 1
+    StopChecks=$((StopChecks + 1))
 done
 
 # Force quit if server is still open
-if screen -list | grep -q '\.servername\s'; then
+if [ viewmanager == screen ]; then
+  if screen -list | grep -q '\.servername\s'; then
+    echo "Minecraft server still hasn't stopped after 20 seconds, closing screen manually"
+    screen -S servername -X quit
+  fi
+elif [ viewmanager == tmux ]; then
+  if tmux list-sessions -F "#{session_name} #{window_name} (created #{session_created})" | awk -F " " '{printf "%s: %s (%s)\n", $1, $2, strftime("%Y-%m-%d %H:%M:%S", $4)}' | sed 's/ (created [0-9]*)//' | tr -s ' ' | grep -q "^MinecraftBedrockServer: servername"; then
   echo "Minecraft server still hasn't stopped after 20 seconds, closing screen manually"
-  screen -S servername -X quit
+  tmux kill-session -t MinecraftBedrockServer
 fi
 
 echo "Minecraft server servername stopped."
