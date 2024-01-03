@@ -213,8 +213,8 @@ fi
 if [ viewmanager == screen ]; then
   screen -L -Logfile logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log -dmS servername /bin/bash -c "${BASH_CMD}"
 elif [ viewmanager == tmux ]; then
+  export LOG_FILE="logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log"
   (
-    export LOG_FILE="logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log"
     while [ ! -e "$LOG_FILE" ]; do sleep 1; done
     tmux detach
   ) &
@@ -222,7 +222,6 @@ elif [ viewmanager == tmux ]; then
   tmux new-session -d -s MinecraftBedrockServer -n servername
   tmux attach -t MinecraftBedrockServer \; \
     send-keys 'tmux set -g status-left ""' C-m \; \
-    send-keys 'export LOG_FILE=logs/servername.$(date +%Y.%m.%d.%H.%M.%S).log' C-m \; \
     send-keys 'clear' C-m \; \
     send-keys '/bin/bash -c "${BASH_CMD}" > >(tee -a $LOG_FILE) 2>&1' C-m  
 fi
