@@ -96,7 +96,7 @@ else
     # Download server index.html to check latest version
 
     curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.36" -o downloads/version.html https://www.minecraft.net/en-us/download/server/bedrock
-    LatestURL=$(grep -o 'https://minecraft.azureedge.net/bin-linux/[^"]*' downloads/version.html)
+    LatestURL=$(grep -o 'https://www.minecraft.net/bedrockdedicatedserver/bin-linux/[^"]*' downloads/version.html)
 
     LatestFile=$(echo "$LatestURL" | sed 's#.*/##')
 
@@ -116,7 +116,7 @@ else
     elif [ ! -z "$PinFile" ]; then
         echo "Installing $PinFile"
         DownloadFile=$PinFile
-        DownloadURL="https://minecraft.azureedge.net/bin-linux/$PinFile"
+        DownloadURL="https://www.minecraft.net/bedrockdedicatedserver/bin-linux/$PinFile"
 
         # Download version of Minecraft Bedrock dedicated server if it's not already local
         if [ ! -f "downloads/$DownloadFile" ]; then
