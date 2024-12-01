@@ -103,6 +103,10 @@ See the following links:<br>
 
 <h2>Update History</h2>
 <ul>
+  <li>December 1st 2024</li>
+  <ul>
+    <li>Fixed download URL</li>
+  </ul>
   <li>October 1st 2023</li>
   <ul>
     <li>Fix gpg key import for ARM64 builds</li>
