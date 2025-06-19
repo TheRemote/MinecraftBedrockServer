@@ -222,7 +222,7 @@ Check_Dependencies() {
 Update_Server() {
   # Retrieve latest version of Minecraft Bedrock dedicated server
   echo "Checking for the latest version of Minecraft Bedrock server..."
-  curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.33 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.33" -o downloads/version.html https://minecraft.net/en-us/download/server/bedrock/
+  curl -H "Accept-Encoding: identity" -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$RandNum.212 Safari/537.36" -o downloads/version.html https://net-secondary.web.minecraft-services.net/api/v1.0/download/links
   DownloadURL=$(grep -o 'https://www.minecraft.net/bedrockdedicatedserver/bin-linux/[^"]*' downloads/version.html)
   DownloadFile=$(echo "$DownloadURL" | sed 's#.*/##')
   echo "$DownloadURL"
