@@ -103,6 +103,10 @@ See the following links:<br>
 
 <h2>Update History</h2>
 <ul>
+  <li>December 5th 2025</li>
+  <ul>
+    <li>Fixed download URL</li>
+  </ul>
   <li>December 1st 2024</li>
   <ul>
     <li>Fixed download URL</li>
