@@ -34,9 +34,7 @@ To run the installation type:<br>
 
 <h2>Tested Distributions</h2>
 <ul>
- <li>Ubuntu / Ubuntu Server 22.04</li>
- <li>Ubuntu / Ubuntu Server 20.04</li>
- <li>Ubuntu / Ubuntu Server 18.04</li>
+ <li>Ubuntu / Ubuntu Server 18-25</li>
  <li>Debian Stretch / Buster</li>
 </ul>
   
@@ -103,6 +101,10 @@ See the following links:<br>
 
 <h2>Update History</h2>
 <ul>
+  <li>July 24th 2025</li>
+  <ul>
+    <li>Fixed download URL again</li>
+  </ul>
   <li>December 1st 2024</li>
   <ul>
     <li>Fixed download URL</li>
